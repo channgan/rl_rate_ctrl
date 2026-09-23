@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+runs/
+validation/
+build/
+runtime*.json
+*.ulg
+*.tlog
+*.onnx
+*.zip
+.env
+.env.*
