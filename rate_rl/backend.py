@@ -83,66 +83,67 @@ class GazeboPX4Backend:
                 bind_failed = log is not None and log.is_file() and "RL bridge bind failed" in log.read_text(errors="replace")
                 incomplete_init = str(exc) == "Incomplete simulator response"
                 native_init_failed = str(exc).startswith("PX4 native outer initialization failed; logs:")
-                if not (bind_failed or incomplete_init or native_init_failed) or attempt == 2:
+                # PX4/gz transport may segfault while constructing a new episode.
+                # Retry only inside reset, before any policy observation is issued;
+                # a crash during step still aborts instead of inventing a sample.
+                startup_segfault = str(exc).startswith("Simulator process exited (-11);")
+                if not (bind_failed or incomplete_init or native_init_failed or startup_segfault) or attempt == 2:
                     raise
                 print(f"Bridge initialization failed ({exc}); retry {attempt + 1}/2 with a new port; logs: {self.episode_dir}", flush=True)
 
     def _reset_once(self, seed: int | None = None):
         self.close()
-        import fcntl
-        self.instance_lock = open(f"/tmp/px4_rl_instance{self.instance}.lock", "w")
         try:
-            fcntl.flock(self.instance_lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError as exc:
-            self.instance_lock.close()
-            self.instance_lock = None
-            raise SimulatorError(f"Another training environment owns PX4 instance {self.instance}") from exc
-        token = uuid.uuid4().hex[:12]
-        self.episode_dir = self.log_dir / token
-        self.episode_dir.mkdir()
-        startup = self.episode_dir / "startup.sh"
-        startup.write_text("#!/bin/sh\n. etc/init.d-posix/rcS\necho ready > rl_startup.ready\n")
-        px4 = Path(self.config["px4"])
-        build = px4 / "build/px4_sitl_default"
-        binary = build / "bin/px4"
-        if not binary.is_file():
-            self.close()
-            raise SimulatorError(f"PX4 binary missing: {binary}; run setup first")
-        with socket.socket() as probe:
-            probe.bind(("127.0.0.1", 0))
-            port = probe.getsockname()[1]
-        env = os.environ.copy()
-        env.update(GZ_PARTITION=f"rate_rl_{token}", GZ_IP="127.0.0.1", HEADLESS="1",
-                   RATE_RL_NOISE_SEED=str(seed or 0),
-                   PX4_RL_PORT=str(port), PX4_GZ_STANDALONE="1", PX4_GZ_WORLD="rate_training",
-                   PX4_GZ_MODEL_NAME="x500_rl_0", PX4_SYS_AUTOSTART="4001", PX4_SIM_MODEL="gz_x500",
-                   PX4_PARAM_IMU_GYRO_RATEMAX="1000", PX4_PARAM_IMU_INTEG_RATE="1000",
-                   PX4_PARAM_SIM_BAT_DRAIN="0", PX4_PARAM_UXRCE_DDS_CFG="0")
-        env["GZ_SIM_RESOURCE_PATH"] = ":".join([self.config["models"], str(px4 / "Tools/simulation/gz/models")])
-        if self.native_outer:
-            env.update(PX4_RL_NATIVE_OUTER="1", PX4_PARAM_MPC_THR_HOVER=str(self.px4_hover_command),
-                       PX4_PARAM_MPC_USE_HTE="0", PX4_PARAM_MC_ROLLRATE_MAX="57.29578",
-                       PX4_PARAM_MC_PITCHRATE_MAX="57.29578", PX4_PARAM_MC_YAWRATE_MAX="57.29578",
-                       PX4_PARAM_COM_RC_IN_MODE="4", PX4_PARAM_NAV_DLL_ACT="0",
-                       PX4_PARAM_IMU_GYRO_CUTOFF="80", PX4_PARAM_IMU_DGYRO_CUTOFF="40",
-                       PX4_PARAM_SIM_BAT_DRAIN="86400", PX4_PARAM_THR_MDL_FAC="0")
-            if self.native_baseline:
-                env['PX4_RL_NATIVE_BASELINE'] = '1'
-            if self.native_torque:
+            import fcntl
+            self.instance_lock = open(f"/tmp/px4_rl_instance{self.instance}.lock", "w")
+            try:
+                fcntl.flock(self.instance_lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError as exc:
+                raise SimulatorError(f"Another training environment owns PX4 instance {self.instance}") from exc
+            token = uuid.uuid4().hex[:12]
+            self.episode_dir = self.log_dir / token
+            self.episode_dir.mkdir()
+            startup = self.episode_dir / "startup.sh"
+            startup.write_text("#!/bin/sh\n. etc/init.d-posix/rcS\necho ready > rl_startup.ready\n")
+            px4 = Path(self.config["px4"])
+            build = px4 / "build/px4_sitl_default"
+            binary = build / "bin/px4"
+            if not binary.is_file():
+                raise SimulatorError(f"PX4 binary missing: {binary}; run setup first")
+            with socket.socket() as probe:
+                probe.bind(("127.0.0.1", 0))
+                port = probe.getsockname()[1]
+            env = os.environ.copy()
+            env.update(GZ_PARTITION=f"rate_rl_{token}", GZ_IP="127.0.0.1", HEADLESS="1",
+                       RATE_RL_NOISE_SEED=str(seed or 0),
+                       PX4_RL_PORT=str(port), PX4_GZ_STANDALONE="1", PX4_GZ_WORLD="rate_training",
+                       PX4_GZ_MODEL_NAME="x500_rl_0", PX4_SYS_AUTOSTART="4001", PX4_SIM_MODEL="gz_x500",
+                       PX4_PARAM_IMU_GYRO_RATEMAX="1000", PX4_PARAM_IMU_INTEG_RATE="1000",
+                       PX4_PARAM_SIM_BAT_DRAIN="0", PX4_PARAM_UXRCE_DDS_CFG="0")
+            env["GZ_SIM_RESOURCE_PATH"] = ":".join([self.config["models"], str(px4 / "Tools/simulation/gz/models")])
+            if self.native_outer:
+                env.update(PX4_RL_NATIVE_OUTER="1", PX4_PARAM_MPC_THR_HOVER=str(self.px4_hover_command),
+                           PX4_PARAM_MPC_USE_HTE="0", PX4_PARAM_MC_ROLLRATE_MAX="57.29578",
+                           PX4_PARAM_MC_PITCHRATE_MAX="57.29578", PX4_PARAM_MC_YAWRATE_MAX="57.29578",
+                           PX4_PARAM_COM_RC_IN_MODE="4", PX4_PARAM_NAV_DLL_ACT="0",
+                           PX4_PARAM_IMU_GYRO_CUTOFF="80", PX4_PARAM_IMU_DGYRO_CUTOFF="40",
+                           PX4_PARAM_SIM_BAT_DRAIN="86400", PX4_PARAM_THR_MDL_FAC="0")
                 if self.native_baseline:
-                    raise ValueError('Torque policy and native rate baseline are mutually exclusive')
-                env['PX4_RL_NATIVE_TORQUE'] = '1'
-            # Airframe set-default commands can restore zero-valued settings.
-            # Apply native training settings after rcS, before accepting INIT.
-            keys = ['MPC_THR_HOVER','MPC_USE_HTE','MC_ROLLRATE_MAX','MC_PITCHRATE_MAX',
-                    'MC_YAWRATE_MAX','COM_RC_IN_MODE','NAV_DLL_ACT','SIM_BAT_DRAIN','THR_MDL_FAC',
-                    'IMU_GYRO_CUTOFF','IMU_DGYRO_CUTOFF']
-            startup.write_text('#!/bin/sh\n. etc/init.d-posix/rcS\n' +
-                               ''.join(f'param set {key} {env["PX4_PARAM_"+key]}\n' for key in keys) +
-                               'echo ready > rl_startup.ready\n')
-        env["GZ_SIM_SYSTEM_PLUGIN_PATH"] = ":".join([self.config["plugin_dir"], str(build / "src/modules/simulation/gz_plugins")])
-        # Each instance owns its lock and PX4 ports; partition isolates Gazebo.
-        try:
+                    env['PX4_RL_NATIVE_BASELINE'] = '1'
+                if self.native_torque:
+                    if self.native_baseline:
+                        raise ValueError('Torque policy and native rate baseline are mutually exclusive')
+                    env['PX4_RL_NATIVE_TORQUE'] = '1'
+                # Airframe set-default commands can restore zero-valued settings.
+                # Apply native training settings after rcS, before accepting INIT.
+                keys = ['MPC_THR_HOVER','MPC_USE_HTE','MC_ROLLRATE_MAX','MC_PITCHRATE_MAX',
+                        'MC_YAWRATE_MAX','COM_RC_IN_MODE','NAV_DLL_ACT','SIM_BAT_DRAIN','THR_MDL_FAC',
+                        'IMU_GYRO_CUTOFF','IMU_DGYRO_CUTOFF']
+                startup.write_text('#!/bin/sh\n. etc/init.d-posix/rcS\n' +
+                                   ''.join(f'param set {key} {env["PX4_PARAM_"+key]}\n' for key in keys) +
+                                   'echo ready > rl_startup.ready\n')
+            env["GZ_SIM_SYSTEM_PLUGIN_PATH"] = ":".join([self.config["plugin_dir"], str(build / "src/modules/simulation/gz_plugins")])
+            # Each instance owns its lock and PX4 ports; partition isolates Gazebo.
             world_path = self.config["world"]
             if self.native_outer:
                 world = ET.parse(world_path)
@@ -181,8 +182,13 @@ class GazeboPX4Backend:
                 raise SimulatorError("Initial rotor dynamics have not settled")
             self.last_sim_us = initial["sim_us"]
             return initial
-        except BaseException:
-            self.close()
+        except BaseException as error:
+            try:
+                self.close()
+            except BaseException as cleanup_error:
+                # Initialization remains the primary error, while a cleanup
+                # failure is retained as its cause instead of hiding the fault.
+                raise error from cleanup_error
             raise
 
     def _check_processes(self):
@@ -314,31 +320,48 @@ class GazeboPX4Backend:
         return self._request('GOAL ' + ' '.join(f'{v:.9g}' for v in values))
 
     def close(self):
-        if self.stream is not None:
-            self.stream.close()
-            self.stream = None
-        if self.sock is not None:
-            self.sock.close()
-            self.sock = None
-        # Only kill process groups created by this backend, never global px4/gz names.
-        for process in reversed(self.processes):
+        errors = []
+
+        def close_resource(resource):
+            if resource is not None:
+                try:
+                    resource.close()
+                except BaseException as error:
+                    errors.append(error)
+
+        def signal_process(process, signum):
             try:
-                os.killpg(process.pid, signal.SIGTERM)
+                os.killpg(process.pid, signum)
             except ProcessLookupError:
                 pass
+            except BaseException as error:
+                errors.append(error)
+
+        stream, self.stream = self.stream, None
+        sock, self.sock = self.sock, None
+        close_resource(stream)
+        close_resource(sock)
+        # Only kill process groups created by this backend, never global px4/gz names.
+        for process in reversed(self.processes):
+            signal_process(process, signal.SIGTERM)
         for process in self.processes:
             try:
                 process.wait(timeout=5)
             except subprocess.TimeoutExpired:
+                signal_process(process, signal.SIGKILL)
                 try:
-                    os.killpg(process.pid, signal.SIGKILL)
-                except ProcessLookupError:
-                    pass
-                process.wait(timeout=5)
+                    process.wait(timeout=5)
+                except BaseException as error:
+                    errors.append(error)
+            except BaseException as error:
+                errors.append(error)
         self.processes.clear()
         for file in self.files:
-            file.close()
+            close_resource(file)
         self.files.clear()
-        if self.instance_lock is not None:
-            self.instance_lock.close()
-            self.instance_lock = None
+        instance_lock, self.instance_lock = self.instance_lock, None
+        close_resource(instance_lock)
+        if errors:
+            # Report failures only after every owned process/resource was given
+            # a cleanup attempt, including the instance lock needed by workers.
+            raise errors[0]

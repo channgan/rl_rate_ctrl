@@ -10,6 +10,7 @@ from stable_baselines3.common.callbacks import BaseCallback
 from stable_baselines3.common.monitor import Monitor
 import torch
 
+from .adaptive_ppo import AdaptiveKLPPO
 from .backend import GazeboPX4Backend
 from .env import RateControlEnv, TaskConfig
 from .curriculum import RigToFlightCurriculum
@@ -133,6 +134,14 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--runtime", default=str(Path(__file__).resolve().parents[1] / "runtime.local.json"))
     p.add_argument("--steps", type=int, default=100_000)
+    p.add_argument("--n-envs", type=int, choices=[1, 2, 4], default=1)
+    p.add_argument("--n-steps", type=int, help="Samples per environment per PPO rollout, not episode length")
+    p.add_argument("--batch-size", type=int)
+    p.add_argument("--n-epochs", type=int)
+    p.add_argument("--base-instance", type=int, default=41)
+    p.add_argument('--episode-steps', type=int, help='Maximum steps per episode; native torque default 2048')
+    p.add_argument('--allow-episode-length-change', action='store_true',
+                   help='Explicitly migrate only the saved episode duration and remaining-time settlement')
     p.add_argument('--allow-tracking-tuning', action='store_true')
     p.add_argument('--allow-axis-success-change', action='store_true')
     p.add_argument('--allow-failure2700-change', action='store_true', help='Explicitly migrate native torque early failure coefficient from 2500 to 2700')
@@ -191,6 +200,22 @@ def main():
     p.add_argument("--ppo-stage", choices=["ball_rig", "free_flight"],
                    help="Explicit initial PPO settings, independent of physical starting stage")
     args = p.parse_args()
+    if args.episode_steps is not None and args.episode_steps < 1:
+        p.error('episode-steps must be positive')
+    if args.allow_episode_length_change and (not args.resume or not args.native_torque):
+        p.error('Episode length migration requires --resume and --native-torque')
+    rollout_steps = args.n_steps if args.n_steps is not None else (2048 if args.smoke and args.n_envs == 1 else 4096 // args.n_envs)
+    epochs = args.n_epochs if args.n_epochs is not None else (2 if args.smoke else 10)
+    if args.n_envs > 1 and args.batch_size is None:
+        args.batch_size = 1024
+    if rollout_steps < 2 or epochs < 1 or not 0 <= args.base_instance <= 101 - args.n_envs:
+        p.error("Invalid rollout length, epoch count or PX4 instance range")
+    if args.batch_size is not None and (args.batch_size < 2 or
+            rollout_steps * args.n_envs % args.batch_size):
+        p.error("batch-size must divide the total rollout sample count")
+    if args.n_envs > 1 and (not args.native_torque or not args.training_phase or
+                           args.stage != 'free_flight' or args.explore_until_horizon):
+        p.error("Parallel training requires native torque, manual phase and free flight; no survival promotion gate")
     if args.native_torque and not (args.simple_critic and args.px4_native_outer
                                   and args.waypoint_tracking and args.squared_error_reward
                                   and args.stage == 'free_flight'):
@@ -230,8 +255,12 @@ def main():
     args.run.mkdir(parents=True, exist_ok=True)
     torch.set_num_threads(2)
     defaults = TaskConfig(native_torque=args.native_torque)
+    from .episode_horizon import DEFAULT_NATIVE_EPISODE_STEPS
+    episode_steps = args.episode_steps if args.episode_steps is not None else (
+        DEFAULT_NATIVE_EPISODE_STEPS if args.native_torque else round(defaults.episode_seconds / args.control_dt))
     config = TaskConfig(
-        tracking_bonus_threshold_deg_s=5. if args.training_phase == 'early' else 2.,
+        episode_seconds=episode_steps * args.control_dt,
+        tracking_bonus_threshold_deg_s=5.,
         squared_error_reward=args.squared_error_reward,
         slew_weight=args.slew_weight,
         dt=args.control_dt, fixed_episode_rate_target=args.fixed_episode_rate_target,
@@ -270,7 +299,7 @@ def main():
         return env if args.simple_critic else PrivilegedCriticObservation(env)
 
     def training_factory(state=None, rng_state=None, session_index=0):
-        backend = GazeboPX4Backend(args.runtime, args.run / "episodes")
+        backend = GazeboPX4Backend(args.runtime, args.run / "episodes", instance=args.base_instance)
         if args.px4_native_outer:
             backend.set_mode('free_flight')
         curriculum = RigToFlightCurriculum(RateControlEnv(backend, config), **promotion_options)
@@ -284,7 +313,7 @@ def main():
         return env, curriculum
 
     def evaluation_factory():
-        backend = GazeboPX4Backend(args.runtime, args.run / "evaluation_episodes")
+        backend = GazeboPX4Backend(args.runtime, args.run / "evaluation_episodes", instance=args.base_instance)
         backend.set_mode('free_flight' if args.px4_native_outer else 'ball_rig')
         return observation_wrapper(RateControlEnv(backend, config))
 
@@ -293,7 +322,7 @@ def main():
     gamma = math.exp(-config.dt / 30.0)
     gae_lambda = math.exp(-config.dt / 0.5)
     metadata = dict(algorithm="PPO", task=asdict(config), simulator=backend.config, seed=args.seed,
-                    gamma=gamma, gae_lambda=gae_lambda, n_steps=2048 if args.smoke else 4096,
+                    gamma=gamma, gae_lambda=gae_lambda, n_steps=rollout_steps,
                     batch_size_schedule=dict(initial=2048, after_survival_and_tracking=256,
                                              promotion_window=args.promotion_window,
                                              promotion_required=args.promotion_required,
@@ -317,11 +346,18 @@ def main():
                     reward_timing="true rate after a_t versus preceding rate target; PWM rate=(a_t-a_previous)/dt; references refresh after reward",
                     thrust_reference_role="actor/outer-loop reference only; no actual-thrust reward; tracking bonus uses the stage rate-error threshold without a thrust gate",
                     action="4 normalised ESC commands [0,1]; ideal simulator speed=command, no allocator; indices 0,1,2,3")
+    ppo_class = AdaptiveKLPPO if args.native_torque else PPO
     if args.resume:
         # Validate before attaching the new Dict environment, so old ordinary
         # critics produce an explicit contract error instead of a shape error.
-        model = PPO.load(args.resume, device="cpu")
+        model = ppo_class.load(args.resume, device="cpu")
         check_training_contract(model)
+        if args.allow_episode_length_change:
+            from .episode_horizon import migrate_episode_horizon
+            from .environment_contract import environment_contract
+            migration = migrate_episode_horizon(model, environment_contract(curriculum))
+            metadata['episode_length_migration'] = dict(source=str(args.resume),
+                timestep=model.num_timesteps, **migration)
         if config.squared_error_reward:
             previous_reward = require_reward_interface(model, mse_reward_interface_metadata(config),
                                                       allow_rate_sum_change=args.allow_rate_sum_change,
@@ -340,26 +376,37 @@ def main():
             if args.allow_rate_sum_change:
                 metadata['rate_sum_migration'] = dict(source=str(args.resume), timestep=model.num_timesteps,
                     previous=previous_reward, current=mse_reward_interface_metadata(config), optimizer_preserved=True)
-        model.set_env(env)
+        if args.n_envs == 1:
+            if model.n_envs != 1:
+                raise ValueError('This checkpoint has parallel worker states; resume with --n-envs 2 or 4')
+            model.set_env(env)
         model.tensorboard_log = str(args.run / "tensorboard")
         if not hasattr(model, "curriculum_state"):
             raise ValueError("Checkpoint lacks the version 4 frozen-evaluation gate state")
         curriculum.restore(model.curriculum_state)
         if not hasattr(model, "promotion_environment_contract"):
             raise ValueError("Checkpoint lacks its frozen-evaluation environment contract")
-        expected_n_steps = 2048 if args.smoke else 4096
-        if model.n_steps != expected_n_steps:
-            raise ValueError(f"This run requires n_steps={expected_n_steps}; checkpoint uses {model.n_steps}")
+        old_sampling = dict(n_envs=model.n_envs, n_steps=model.n_steps,
+                            batch_size=model.batch_size, n_epochs=model.n_epochs)
+        if model.n_steps * model.n_envs != rollout_steps * args.n_envs:
+            raise ValueError("Checkpoint and requested total rollout sizes differ")
+        metadata['sampling_migration'] = dict(previous=old_sampling,
+            current=dict(n_envs=args.n_envs, n_steps=rollout_steps,
+                         batch_size=args.batch_size, n_epochs=epochs), optimizer_preserved=True)
         if hasattr(model, "training_env_rng_state"):
             curriculum.unwrapped.np_random.bit_generator.state = deepcopy(model.training_env_rng_state)
     else:
-        model = PPO("MlpPolicy" if args.simple_critic else AsymmetricActorCriticPolicy, env, seed=args.seed, learning_rate=EARLY.learning_rate,
+        adaptive_options = ({"kl_phase": args.training_phase or
+                            ("late" if args.ppo_stage == "free_flight" else "early")}
+                            if args.native_torque else {})
+        model = ppo_class("MlpPolicy" if args.simple_critic else AsymmetricActorCriticPolicy, env, seed=args.seed, learning_rate=EARLY.learning_rate,
                 gamma=gamma, gae_lambda=gae_lambda, ent_coef=EARLY.ent_coef,
-                n_steps=metadata["n_steps"], batch_size=2048,
-                n_epochs=2 if args.smoke else 10, clip_range=EARLY.clip_range,
+                n_steps=metadata["n_steps"], batch_size=args.batch_size or 2048,
+                n_epochs=epochs, clip_range=EARLY.clip_range,
                 policy_kwargs=dict(net_arch=dict(pi=[64, 64], vf=[64, 64] if args.simple_critic else [128, 128]),
                                    activation_fn=torch.nn.ReLU, log_std_init=-2.3),
-                tensorboard_log=str(args.run / "tensorboard"), device="cpu", verbose=1)
+                tensorboard_log=str(args.run / "tensorboard"), device="cpu", verbose=1,
+                **adaptive_options)
         # Initialise only new networks; resume preserves learned actor weights.
         with torch.no_grad():
             model.policy.action_net.bias.fill_(0. if args.native_torque else backend.hover)
@@ -408,18 +455,17 @@ def main():
     if args.stage:
         curriculum.override_stage(args.stage)
     apply_stage_settings(model, args.ppo_stage == "free_flight" if args.ppo_stage else curriculum.ready_for_air)
+    model.n_epochs = epochs
+    if args.batch_size is not None:
+        model.batch_size = args.batch_size
+        model.active_stage_settings['batch_size'] = args.batch_size
     if args.training_phase:
-        from stable_baselines3.common.utils import FloatSchedule
-        learning_rate = 1e-3 if args.training_phase == "early" else 3e-4
-        model.learning_rate = learning_rate
-        model.lr_schedule = FloatSchedule(learning_rate)
-        model.active_stage_settings["learning_rate"] = learning_rate
         model.manual_training_phase = args.training_phase
         metadata["manual_training_phase"] = args.training_phase
         metadata["stage_hyperparameters"] = dict(
-            early=dict(batch_size=2048,learning_rate=1e-3,ent_coef=.02,clip_range=.3,
+            early=dict(batch_size=2048,learning_rate=3e-4,ent_coef=.01,clip_range=.2,
                        rate_scale_deg_s=10.,pwm_slew_scale_per_s=args.pwm_slew_scale if args.pwm_slew_scale is not None else 100.),
-            late=dict(batch_size=256,learning_rate=3e-4,ent_coef=.01,clip_range=.2,
+            late=dict(batch_size=2048,learning_rate=3e-4,ent_coef=.01,clip_range=.2,
                       rate_scale_deg_s=5.,pwm_slew_scale_per_s=args.pwm_slew_scale if args.pwm_slew_scale is not None else 50.))
     metadata["reward_scale_multiplier"] = args.reward_scale_multiplier
     if args.training_phase and args.air_error_scale_deg_s is not None:
@@ -428,6 +474,9 @@ def main():
         for settings in metadata["stage_hyperparameters"].values():
             settings.update(rate_scale_deg_s=5.,
                             pwm_slew_scale_per_s=config.reward_slew_rate_scale_per_s)
+    if args.batch_size is not None:
+        for settings in metadata['stage_hyperparameters'].values():
+            settings['batch_size'] = args.batch_size
     metadata["ppo_stage_override"] = args.ppo_stage
     metadata["effective_reward_scales"] = dict(
         ball_rig_deg_s=config.reward_error_scale_deg_s,
@@ -447,6 +496,8 @@ def main():
         model.px4_gyro_filters = filters
     metadata.update(n_steps=model.n_steps, n_epochs=model.n_epochs,
                     gamma=model.gamma, gae_lambda=model.gae_lambda)
+    if isinstance(model, AdaptiveKLPPO):
+        metadata["optimizer_schedule"] = model.kl_schedule_metadata()
     initial = {name: value.detach().clone() for name, value in model.policy.named_parameters()}
     from .survival_gate import FullEpisodeGate, exploration_step_budget, EXPLORATION_MAX_TOTAL_STEPS
     survival_gate = (FullEpisodeGate(round(config.episode_seconds/config.dt),
@@ -457,7 +508,8 @@ def main():
         metadata['initial_exploration_gate'] = survival_gate.state()
         metadata['exploration_max_total_steps'] = EXPLORATION_MAX_TOTAL_STEPS
     metrics = (CompactMetrics if args.compact_logs else RewardMetrics)(
-        curriculum, getattr(model, "training_schedule_state", None), survival_gate=survival_gate)
+        curriculum if args.n_envs == 1 else None,
+        getattr(model, "training_schedule_state", None), survival_gate=survival_gate)
     metadata['exploration_exit'] = ('ten consecutive complete surviving episodes or 300000 total steps; finish rollout and optimizer update'
                                     if survival_gate else 'step budget')
     if args.allow_phase_change:
@@ -511,7 +563,7 @@ def main():
             reward_timing='post-action true rate versus issued reference; slew and signed-limit counts from accepted torque requests; allocated ESC saturation is diagnostic only',
             reward_convention='Rate SSE capped at 5000 (normalization denominator remains 10000); three-axis requested torque slew; signed torque saturation counts each axis independently when abs(tau)>=0.999; '
                               'no headroom reward; no waypoint bonus; instantaneous tracking bonus requires all three absolute rate errors <2 deg/s, '
-                              'no failure and no torque-axis saturation, without a motor-saturation gate; raw failure=-30000-2500*(30-T), success=50000',
+                              f'no failure and no torque-axis saturation, without a motor-saturation gate; raw failure=-30000-3500*({config.episode_seconds:g}-T), success=50000',
             monitor_saturation_fields=dict(
                 episode_torque_saturation_fraction='saturated requested torque-axis steps / (3 * episode steps)',
                 episode_motor_saturation_fraction='saturated allocated motor-channel steps / (4 * episode steps); diagnostic only'))
@@ -528,18 +580,52 @@ def main():
             'none: forward vehicle_rates_setpoint.thrust_body unchanged to vehicle_thrust_setpoint')
         if args.training_phase:
             metadata['batch_size_schedule'] = dict(
-                mode='manual phase', early=2048, late=256,
+                mode='manual phase', early=args.batch_size or 2048, late=args.batch_size or 2048,
                 automatic_promotion=False)
-    coordinator = PromotionTraining(model, curriculum, metrics, training_factory, evaluation_factory, args.run)
+    if args.n_envs > 1:
+        from .parallel_training import make_parallel_env, attach_parallel_env, ParallelTrainingCoordinator, resize_worker_states
+        from .environment_contract import environment_contract
+        contract = environment_contract(curriculum)
+        if getattr(model, 'promotion_environment_contract', contract) != contract:
+            raise ValueError('Parallel task or simulator differs from the checkpoint contract')
+        model.promotion_environment_contract = deepcopy(contract)
+        worker_states = resize_worker_states(getattr(model, 'parallel_worker_states', None), args.n_envs,
+            seed=args.seed, legacy_rng=getattr(model, 'training_env_rng_state', None))
+        # The parent environment is used only to validate the task contract.
+        # Physics and resets run exclusively inside the independent workers.
+        env.close()
+        vec_env = make_parallel_env(args.runtime, args.run, config, promotion_options,
+            curriculum_state=curriculum.state(), worker_states=worker_states,
+            starting_steps=model.num_timesteps, seed=args.seed,
+            base_instance=args.base_instance, n_envs=args.n_envs, monitor_fields=monitor_fields)
+        try:
+            attach_parallel_env(model, vec_env, n_steps=rollout_steps,
+                                batch_size=model.batch_size, n_epochs=epochs)
+            coordinator = ParallelTrainingCoordinator(model, vec_env, metrics, args.run)
+        except BaseException:
+            vec_env.close()
+            raise
+        metadata.update(n_steps=model.n_steps, n_envs=model.n_envs,
+            total_rollout_samples=model.n_steps * model.n_envs,
+            parallel_workers=vec_env.env_method('parallel_worker_metadata'),
+            trajectory_worker=0)
+        metadata['batch_size_schedule'] = dict(mode='explicit override',
+            early=model.batch_size, late=model.batch_size, automatic_promotion=False)
+    else:
+        coordinator = PromotionTraining(model, curriculum, metrics, training_factory, evaluation_factory, args.run)
+        metadata.update(n_envs=1, total_rollout_samples=model.n_steps)
     metadata["promotion_environment_contract"] = deepcopy(model.promotion_environment_contract)
-    (args.run / "config.json").write_text(json.dumps(metadata, indent=2))
-    if args.allow_phase_change:
-        model.save(args.run / "phase_start")
     starting_timesteps, starting_updates, starting_batch_size = model.num_timesteps, model._n_updates, model.batch_size
     try:
+        if args.n_envs > 1:
+            coordinator.sync_state()
+        (args.run / "config.json").write_text(json.dumps(metadata, indent=2))
+        if args.allow_phase_change or not args.resume:
+            model.save(args.run / "phase_start")
         coordinator.learn(total_timesteps=exploration_step_budget(model.num_timesteps) if survival_gate else 2048 if args.smoke else args.steps,
                           callback=metrics, stop_after_rollout=(lambda: survival_gate.passed) if survival_gate else None)
-        curriculum = coordinator.curriculum
+        if args.n_envs == 1:
+            curriculum = coordinator.curriculum
         model.save(args.run / "actor_critic")
         delta = max((value.detach() - initial[name]).abs().max().item()
                     for name, value in model.policy.named_parameters()
@@ -553,10 +639,16 @@ def main():
                       initial_batch_size=starting_batch_size, final_batch_size=model.batch_size,
                       first_success_step=metrics.first_success_step,
                       batch_size_switch_step=metrics.batch_size_switch_step,
-                      curriculum=curriculum.state(),
+                      curriculum=model.curriculum_state,
+                      parallel_workers=[{key: state[key] for key in
+                          ('worker_id', 'instance', 'seed', 'samples_seen', 'global_steps')}
+                          for state in getattr(model, 'parallel_worker_states', [])],
+                      n_envs=model.n_envs, n_steps=model.n_steps,
                       promotion_training=coordinator.state,
                       active_stage_settings=model.active_stage_settings,
                       policy_performance_validated=False)
+        if isinstance(model, AdaptiveKLPPO):
+            report["optimizer_schedule"] = model.kl_schedule_metadata()
         if survival_gate:
             report['exploration_gate'] = survival_gate.state()
             report['exploration_gate']['post_update_step'] = model.num_timesteps

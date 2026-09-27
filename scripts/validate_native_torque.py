@@ -19,9 +19,13 @@ def main():
     parser.add_argument('--runtime', default=str(Path.home() / 'rl_rate/runtime.free_flight.json'))
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--steps', type=int, default=3000)
+    parser.add_argument('--instance', type=int, default=45,
+                        help='Dedicated diagnostic PX4 instance; training uses 41-44')
     args = parser.parse_args()
+    if not 0 <= args.instance <= 100:
+        parser.error('instance must be between 0 and 100')
     args.out.mkdir(parents=True, exist_ok=False)
-    backend = GazeboPX4Backend(args.runtime, args.out/'episodes', instance=42)
+    backend = GazeboPX4Backend(args.runtime, args.out/'episodes', instance=args.instance)
     config = TaskConfig(dt=.01, waypoint_tracking=True, px4_native_outer=True,
                         native_torque=True, squared_error_reward=True, terminate_on_tilt=False,
                         air_target_limit_rad_s=(1.,1.,1.))

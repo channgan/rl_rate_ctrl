@@ -23,7 +23,11 @@ def main():
     parser.add_argument('--checkpoint', type=Path)
     parser.add_argument('--runtime', default=str(Path.home() / 'rl_rate/runtime.free_flight.json'))
     parser.add_argument('--suffix', default='')
+    parser.add_argument('--instance', type=int, default=45,
+                        help='Dedicated PX4 instance; defaults outside training instances 41-44')
     args = parser.parse_args()
+    if not 0 <= args.instance <= 100:
+        parser.error('instance must be between 0 and 100')
     run = args.run.resolve()
     source = args.checkpoint or max((run / 'checkpoints').glob('ppo_*_steps.zip'),
                  key=lambda p: int(p.stem.split('_')[1]))
@@ -38,11 +42,11 @@ def main():
     if config.native_torque:
         from rate_rl.torque_contract import require_training_contract
         require_training_contract(model)
-    backend = GazeboPX4Backend(args.runtime, out / 'episodes', instance=42)
+    backend = GazeboPX4Backend(args.runtime, out / 'episodes', instance=args.instance)
     env = RateControlEnv(backend, config)
     report = dict(checkpoint=str(source), sha256=digest, steps=model.num_timesteps,
                   deterministic=True, runtime=args.runtime, gyro_noise=backend.config.get('gyro_noise'),
-                  waypoint_gate=waypoint_gate_metadata(), instance=42, episodes=[])
+                  waypoint_gate=waypoint_gate_metadata(), instance=args.instance, episodes=[])
     print('CHECKPOINT', source, flush=True)
     try:
         for seed in [101, 202, 303]:

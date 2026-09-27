@@ -13,8 +13,8 @@ class PPOStageSettings:
     clip_range: float
 
 
-EARLY = PPOStageSettings(2048, 1e-3, .02, .3)
-AIR = PPOStageSettings(256, 3e-4, .01, .2)
+EARLY = PPOStageSettings(2048, 3e-4, .01, .2)
+AIR = PPOStageSettings(2048, 3e-4, .01, .2)
 
 
 def validate_phase_migration(old, new, pending_evaluation, allow_tracking_tuning=False):
@@ -37,10 +37,15 @@ def validate_phase_migration(old, new, pending_evaluation, allow_tracking_tuning
 def apply_stage_settings(model, free_flight):
     settings = AIR if free_flight else EARLY
     model.batch_size = settings.batch_size
-    model.learning_rate = settings.learning_rate
-    # PPO.train reads these schedules at the next optimisation call.
-    model.lr_schedule = FloatSchedule(settings.learning_rate)
+    if hasattr(model, "set_kl_phase"):
+        # A phase change narrows the LR bounds; resuming the same phase must
+        # preserve its adapted LR and consecutive-low-KL counter.
+        model.set_kl_phase("late" if free_flight else "early")
+    else:
+        model.learning_rate = settings.learning_rate
+        model.lr_schedule = FloatSchedule(settings.learning_rate)
     model.ent_coef = settings.ent_coef
     model.clip_range = FloatSchedule(settings.clip_range)
     model.active_stage_settings = asdict(settings)
+    model.active_stage_settings["learning_rate"] = float(model.learning_rate)
     return settings

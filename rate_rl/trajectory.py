@@ -8,12 +8,35 @@ import numpy as np
 
 
 class TrajectoryClock:
-    def __init__(self, directory, interval=40_000, *, label='Training episode', stochastic_actions=True):
+    def __init__(self, directory, interval=40_000, *, label='Training episode', stochastic_actions=True,
+                 step_stride=1, initial_step=0, worker_id=0, enabled=True):
+        for name, value, minimum in (('interval', interval, 1), ('step_stride', step_stride, 1),
+                                     ('initial_step', initial_step, 0), ('worker_id', worker_id, 0)):
+            if type(value) is not int or value < minimum:
+                raise ValueError(f'{name} must be an integer >= {minimum}')
         self.directory = Path(directory)
         self.interval = interval
-        self.steps = 0
+        self.steps = initial_step
+        self.step_stride = step_stride
+        self.worker_id = worker_id
+        self.enabled = enabled
         self.label = label
         self.stochastic_actions = stochastic_actions
+
+    def advance(self):
+        """Advance one local transition and return crossed global milestones.
+
+        Parallel workers each see the vector environment's global step count,
+        while their own episode duration still advances by one control dt.
+        Compute crossings from the previous step so resumed offsets need not
+        land exactly on a milestone or be divisible by the worker count.
+        """
+        previous = self.steps
+        self.steps += self.step_stride
+        if not self.enabled:
+            return ()
+        first = (previous // self.interval + 1) * self.interval
+        return range(first, self.steps + 1, self.interval)
 
 
 class EpisodeTrajectory(gym.Wrapper):
@@ -35,7 +58,9 @@ class EpisodeTrajectory(gym.Wrapper):
 
     def step(self, action):
         observation, reward, terminated, truncated, info = self.env.step(action)
-        self.clock.steps += 1
+        milestones = self.clock.advance()
+        if not self.clock.enabled:
+            return observation, reward, terminated, truncated, info
         self.stage = info['training_stage']
         gate = info.get('waypoint_gate_transition')
         if gate is not None:
@@ -68,15 +93,14 @@ class EpisodeTrajectory(gym.Wrapper):
             self.state_rows.append([self.clock.steps,info['sim_us'],*position,*target,
                 np.rad2deg(yaw),np.rad2deg(info['attitude_target_rpy_rad'][2]),
                 np.linalg.norm(target-position),gate['settled_seconds'] if gate else 0.])
-        if self.clock.steps % self.clock.interval == 0:
-            self.milestones.append(self.clock.steps)
+        self.milestones.extend(milestones)
         if terminated or truncated:
             outcome = info.get('failure') or ('success' if info.get('is_success') else 'truncated')
             self._finish(outcome, bool(terminated and not truncated))
         return observation, reward, terminated, truncated, info
 
     def _finish(self, outcome, complete):
-        if self.milestones:
+        if self.clock.enabled and self.milestones:
             self._save(outcome, complete)
         self.rows = []
         self.state_rows = []
@@ -127,7 +151,9 @@ class EpisodeTrajectory(gym.Wrapper):
                 f'Waypoint switches: {len(self.gate_events)}; longest settled interval: '
                 f'{self.gate_max_seconds:.2f}s', transform=axes[0].transAxes,
                 va='top', fontsize=8, bbox=dict(facecolor='white', alpha=.8, edgecolor='none'))
-        fig.suptitle(f'{self.clock.label} | {self.stage} | {outcome} | '
+        worker_label = (f' | worker {self.clock.worker_id}'
+                        if self.clock.step_stride != 1 or self.clock.worker_id != 0 else '')
+        fig.suptitle(f'{self.clock.label}{worker_label} | {self.stage} | {outcome} | '
                      f'{"complete" if complete else "INCOMPLETE"}\n'
                      f'Steps {int(data[0,0])}-{int(data[-1,0])}; milestones {self.milestones}')
         for milestone in self.milestones:
@@ -154,6 +180,7 @@ class EpisodeTrajectory(gym.Wrapper):
                 first_step=int(data[0,0]), last_step=int(data[-1,0]), complete=complete,
                 outcome=outcome, stage=self.stage, stochastic_training_actions=self.clock.stochastic_actions,
                 plot_label=self.clock.label,
+                worker_id=self.clock.worker_id, global_step_stride=self.clock.step_stride,
                 duration_s=float(times[-1]),
                 trajectory_format_version=2 if self.native_torque else 1,
                 torque_source=('current accepted requested normalized FRD policy torque; not measured or allocator-achieved torque'

@@ -52,7 +52,7 @@ class TaskConfig:
 
     def __post_init__(self):
         if self.slew_weight is None:
-            object.__setattr__(self, 'slew_weight', .01 / 7. if self.native_torque else .1)
+            object.__setattr__(self, 'slew_weight', .02 / 7. if self.native_torque else .1)
         if self.tracking_bonus_weight is None:
             # Raw 120 per second = ten times SSE at three errors of 2 deg/s.
             object.__setattr__(self, 'tracking_bonus_weight', .0084 if self.native_torque else .1)

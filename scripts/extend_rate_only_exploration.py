@@ -58,6 +58,17 @@ def main():
         command = [sys.executable, '-u', str(PROJECT / 'scripts/train_rate_only.py'),
                    '--run', str(run), '--phase', args.phase, '--steps', str(remaining),
                    '--resume', str(checkpoint)]
+        # Keep the completed exploration's collection/episode layout across the
+        # phase boundary; future CLI defaults must not silently change its task.
+        config = json.loads((source / 'config.json').read_text())
+        command += ['--n-envs', str(config.get('n_envs', 1)),
+                    '--n-steps', str(config['n_steps']),
+                    '--batch-size', str(config['active_stage_settings']['batch_size']),
+                    '--n-epochs', str(config['n_epochs']),
+                    '--episode-steps', str(round(config['task']['episode_seconds']/config['task']['dt']))]
+        source_command = job.get('command', [])
+        if '--runtime' in source_command:
+            command += ['--runtime', source_command[source_command.index('--runtime') + 1]]
         with (source / 'exploration_extension_training.log').open('a') as log:
             child = subprocess.Popen(command, cwd=PROJECT, stdout=log, stderr=subprocess.STDOUT)
         save(status='continuing', starting_steps=start, additional_steps=remaining,

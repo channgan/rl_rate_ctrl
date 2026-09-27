@@ -7,7 +7,7 @@ from copy import deepcopy
 
 
 def early_failure_rate(config):
-    return 2500.
+    return 3500. if getattr(config, "native_torque", False) else 2500.
 
 
 def rate_error_cap(config):
@@ -88,7 +88,7 @@ def require_reward_interface(model, expected, allow_rate_sum_change=False, allow
             candidate['continuous_weights'][key] = expected['continuous_weights'][key]
         if (candidate == expected and expected['mse_cap_deg_s_squared'] == 5000
                 and expected['tracking_bonus_threshold_deg_s'] in (2., 5.)
-                and expected['continuous_weights']['slew'] == .01 / 7.
+                and expected['continuous_weights']['slew'] in (.01 / 7., .02 / 7.)
                 and expected['continuous_weights']['tracking_bonus'] == .0084):
             return deepcopy(saved)
     if allow_failure2700_change and isinstance(saved, dict):
