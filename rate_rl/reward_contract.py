@@ -5,13 +5,15 @@ unchanged identifier cannot establish that a checkpoint learned this reward.
 """
 from copy import deepcopy
 
+from .defaults import CURRENT
+
 
 def early_failure_rate(config):
-    return 3500. if getattr(config, "native_torque", False) else 2500.
+    return CURRENT.failure_rate_per_s if getattr(config, "native_torque", False) else 2500.
 
 
 def rate_error_cap(config):
-    return 5000. if getattr(config, 'native_torque', False) else 10000.
+    return CURRENT.rate_error_cap if getattr(config, 'native_torque', False) else 10000.
 
 
 def mse_reward_interface_metadata(config):
@@ -22,16 +24,16 @@ def mse_reward_interface_metadata(config):
         version="sse10000_headroom2_waypoint1000_noise5_v11",
         waypoint_switch_raw_bonus=1000.,
         rate_aggregation="sum of three squared degree/s errors, then cap",
-        common_reward_gain=7e-5,
+        common_reward_gain=CURRENT.reward_gain,
         raw_settlement=dict(
-            success=50000., failure_base=-30000., early_failure_extra_max=-early_failure_rate(config)*config.episode_seconds,
+            success=CURRENT.success_bonus, failure_base=-CURRENT.failure_base, early_failure_extra_max=-early_failure_rate(config)*config.episode_seconds,
             failure_formula=f"-30000-{early_failure_rate(config):g}*episode_seconds*(1-survival_fraction)"),
         headroom_gate=dict(
             strict_error_deg_s=5., consecutive_seconds=0., requires_no_failure=True),
         horizon_success=dict(
             whole_episode_rmse_strictly_below_deg_s=5.,
             aggregation="sqrt(mean over all steps and three axes of squared degree/s errors)",
-            failure_reason="tracking_rmse", success_raw=50000.),
+            failure_reason="tracking_rmse", success_raw=CURRENT.success_bonus),
         mse_cap_deg_s_squared=rate_error_cap(config),
         tracking_bonus_threshold_deg_s=5.,
         continuous_weights=dict(

@@ -35,8 +35,8 @@ def main():
     try:
         while True:
             job = json.loads((source / 'job.json').read_text())
-            if job['status'] == 'failed':
-                raise RuntimeError('Source training failed; refusing automatic resume')
+            if job['status'] in ('failed', 'stopped', 'paused_by_user'):
+                raise RuntimeError(f"Source training is {job['status']}; refusing automatic resume")
             if job['status'] == 'completed':
                 break
             pid = job.get('training_pid')

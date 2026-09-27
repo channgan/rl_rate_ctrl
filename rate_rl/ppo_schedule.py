@@ -4,6 +4,8 @@ from copy import deepcopy
 
 from stable_baselines3.common.utils import FloatSchedule
 
+from .defaults import CURRENT
+
 
 @dataclass(frozen=True)
 class PPOStageSettings:
@@ -13,8 +15,8 @@ class PPOStageSettings:
     clip_range: float
 
 
-EARLY = PPOStageSettings(2048, 3e-4, .01, .2)
-AIR = PPOStageSettings(2048, 3e-4, .01, .2)
+EARLY = PPOStageSettings(CURRENT.batch_size, CURRENT.learning_rate, CURRENT.ent_coef, CURRENT.clip_range)
+AIR = PPOStageSettings(CURRENT.batch_size, CURRENT.learning_rate, CURRENT.ent_coef, CURRENT.clip_range)
 
 
 def validate_phase_migration(old, new, pending_evaluation, allow_tracking_tuning=False):

@@ -5,9 +5,12 @@ import math
 import pathlib
 import shutil
 import subprocess
+import sys
 import xml.etree.ElementTree as ET
 
 PROJECT = pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(PROJECT))
+from rate_rl.defaults import CURRENT
 
 
 def patch_native_torque_metadata(px4):
@@ -127,7 +130,7 @@ def prepare_mode(px4, runtime, mode):
             if noise is None:
                 noise = ET.SubElement(axis, "noise", type="gaussian")
             noise.set("type", "gaussian")
-            for key, value in {"mean": 0, "stddev": 0.0017453292,
+            for key, value in {"mean": 0, "stddev": CURRENT.gyro_white_stddev_rad_s,
                                "bias_mean": 0, "bias_stddev": 0,
                                "dynamic_bias_stddev": 0}.items():
                 element = noise.find(key)
@@ -182,7 +185,7 @@ def prepare_mode(px4, runtime, mode):
         ET.SubElement(wn, "plugin", filename=f"gz-sim-{filename}-system", name=f"gz::sim::systems::{name}")
     noise_plugin = ET.SubElement(wn, "plugin", filename="libimu_random_walk_system.so", name="ImuRandomWalkSystem")
     ET.SubElement(noise_plugin, "input_topic").text = "/world/rate_training/model/x500_rl_0/link/base_link/sensor/imu_sensor/imu"
-    ET.SubElement(noise_plugin, "bias_random_walk").text = "0.0002"
+    ET.SubElement(noise_plugin, "bias_random_walk").text = str(CURRENT.gyro_bias_walk_rad_s_per_sqrt_s)
     include = ET.SubElement(wn, "include")
     ET.SubElement(include, "uri").text = "model://x500_rl"
     ET.SubElement(include, "name").text = "x500_rl_0"
@@ -195,8 +198,8 @@ def prepare_mode(px4, runtime, mode):
                   gravity_m_s2=9.8, snapshot_version=2,
                   rotor_slowdown=slowdown, control_dt_s=0.001, physics_dt_s=0.001,
                   hover_speed_fraction=hover, hover_thrust_fraction=hover**2)
-    config["gyro_noise"] = dict(location="Gazebo IMU before PX4", white_stddev_rad_s=0.0017453292,
-                                bias_walk_rad_s_per_sqrt_s=0.0002, initial_bias_rad_s=0,
+    config["gyro_noise"] = dict(location="Gazebo IMU before PX4", white_stddev_rad_s=CURRENT.gyro_white_stddev_rad_s,
+                                bias_walk_rad_s_per_sqrt_s=CURRENT.gyro_bias_walk_rad_s_per_sqrt_s, initial_bias_rad_s=0,
                                 note="Engineering defaults, not measured board calibration; walk runs during simulator warmup too")
     (runtime / f"runtime.{mode}.json").write_text(json.dumps(config, indent=2) + "\n")
     return config

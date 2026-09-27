@@ -1,351 +1,54 @@
-import argparse
-from dataclasses import asdict
 import json
 import math
-from pathlib import Path
 from copy import deepcopy
 
 from stable_baselines3 import PPO
-from stable_baselines3.common.callbacks import BaseCallback
-from stable_baselines3.common.monitor import Monitor
 import torch
 
 from .adaptive_ppo import AdaptiveKLPPO
-from .backend import GazeboPX4Backend
-from .env import RateControlEnv, TaskConfig
-from .curriculum import RigToFlightCurriculum
+from .defaults import CURRENT
 from .ppo_schedule import EARLY, AIR, apply_stage_settings
 from .action_contract import (ACTION_CONTRACT, CRITIC_CONTRACT, REWARD_CONTRACT,
                               interface_metadata, critic_interface_metadata,
                               reward_interface_metadata, require_training_contract)
 from .asymmetric_policy import AsymmetricActorCriticPolicy
-from .privileged import PrivilegedCriticObservation
 from .promotion_training import PromotionTraining
-from .trajectory import EpisodeTrajectory, TrajectoryClock
+from .trajectory import TrajectoryClock
 from .reward_contract import mse_reward_interface_metadata, require_reward_interface
+from .training.cli import parse_args
+from .training.configuration import build_task_config, build_promotion_options, build_monitor_fields
+from .training.environments import build_environment_factories
+from .training.metadata import initial_metadata, finalize_reward_metadata
+# Backward-compatible callback import paths for old consumers and serialized data.
+from .training.metrics import RewardMetrics, CompactMetrics, CONTINUOUS_COMPONENT_NAMES
 
 
-CONTINUOUS_COMPONENT_NAMES = ("rate", "slew_rate", "peak_pwm", "tracking_bonus")
 
-
-class RewardMetrics(BaseCallback):
-    def __init__(self, curriculum=None, previous=None, survival_gate=None):
-        super().__init__()
-        self.saturated_motor_steps = 0
-        self.saturated_torque_axis_steps = 0
-        self.successes = 0
-        self.failures = 0
-        self.first_success_step = None
-        self.batch_size_switch_step = None
-        self.curriculum = curriculum
-        self.survival_gate = survival_gate
-        if previous:
-            self.first_success_step = previous.get("first_success_step")
-            self.batch_size_switch_step = previous.get("batch_size_switch_step")
-
-    def _on_step(self):
-        for index, info in enumerate(self.locals["infos"]):
-            if self.survival_gate is not None:
-                self.survival_gate.observe(info, bool(self.locals['dones'][index]), self.num_timesteps)
-            # Native policy limits are three signed torque axes. Allocated
-            # motor saturation remains a separate four-channel diagnostic.
-            motor_saturation_count = info.get("motor_saturation_count", info["saturation_count"])
-            torque_saturation_count = info.get("torque_saturation_count", 0)
-            self.saturated_motor_steps += motor_saturation_count
-            self.saturated_torque_axis_steps += torque_saturation_count
-            self.successes += int(info["is_success"])
-            self.failures += int(info["failure"] is not None)
-            if info["is_success"] and self.first_success_step is None:
-                self.first_success_step = self.num_timesteps
-            # Training episodes only feed the prescreen. Stage changes belong
-            # to PromotionTraining, after optimization and a frozen exam.
-            for name in ("tracking_cost", "rate_bounded_cost", "slew_rate_cost",
-                         "upper_headroom", "peak_pwm_cost", "peak_pwm_penalty", "tracking_eligible", "tracking_bonus",
-                         "saturation_penalty", "failure_penalty", "success_bonus"):
-                self.logger.record_mean("reward/" + name, info[name])
-            self.logger.record_mean("control/allocated_motor_saturation_count", motor_saturation_count)
-            if "torque_saturation_count" in info:
-                self.logger.record_mean("reward/torque_saturation_axis_count", torque_saturation_count)
-            else:
-                self.logger.record_mean("reward/motor_saturation_count", motor_saturation_count)
-            self.logger.record_mean("tracking/error_abs_mean_deg_s",
-                                    float(sum(abs(x) for x in info["error_deg_s"]) / 3))
-            self.logger.record("reward/error_scale_deg_s", info["reward_error_scale_deg_s"])
-            pwm_rates = info["pwm_rate_per_s"]
-            pwm_prefix = "control/" if "torque_rate_per_s" in info else "reward/"
-            self.logger.record_mean(pwm_prefix + "pwm_rate_abs_mean_per_s", float(sum(abs(x) for x in pwm_rates) / 4))
-            self.logger.record_mean(pwm_prefix + "pwm_rate_max_abs_per_s", float(max(abs(x) for x in pwm_rates)))
-            if "torque_rate_per_s" in info:
-                torque_rates = info["torque_rate_per_s"]
-                self.logger.record_mean("reward/torque_rate_abs_mean_per_s", float(sum(abs(x) for x in torque_rates) / 3))
-                self.logger.record_mean("reward/torque_rate_max_abs_per_s", float(max(abs(x) for x in torque_rates)))
-            components = info["continuous_reward_components"]
-            if len(components) != len(CONTINUOUS_COMPONENT_NAMES):
-                raise ValueError("Expected all four continuous reward components")
-            for name, value in zip(CONTINUOUS_COMPONENT_NAMES, components):
-                self.logger.record_mean("reward/weighted_" + name, float(value))
-            if "episode_reward_components" in info:
-                for name, value in zip(CONTINUOUS_COMPONENT_NAMES, info["episode_reward_components"]):
-                    self.logger.record_mean("episode_reward/" + name, float(value))
-                for name in ("saturation_penalty", "failure_penalty", "success_bonus"):
-                    self.logger.record_mean("episode_reward/" + name, float(info["episode_" + name]))
-                self.logger.record_mean("tracking/episode_rate_rmse_deg_s", info["episode_rate_rmse_deg_s"])
-                if "episode_saturation_fraction" in info:
-                    domain = "torque_axis" if "torque_saturation_count" in info else "motor"
-                    self.logger.record_mean("episode_reward/" + domain + "_saturation_fraction",
-                                            info["episode_saturation_fraction"])
-                if "episode_motor_saturation_fraction" in info:
-                    self.logger.record_mean("control/episode_allocated_motor_saturation_fraction",
-                                            info["episode_motor_saturation_fraction"])
-                self.logger.record_mean("curriculum/transfer_qualified", int(info["transfer_qualified"]))
-        if self.curriculum is not None:
-            self.curriculum.request_evaluation(self.num_timesteps)
-            self.model.curriculum_state = self.curriculum.state()
-            self.logger.record("curriculum/window_size", self.curriculum.window_size)
-            self.logger.record("curriculum/qualified_count", self.curriculum.qualified_count)
-            self.logger.record("curriculum/full", int(self.curriculum.full))
-            self.logger.record("curriculum/history", json.dumps(list(self.curriculum.history)))
-            self.logger.record("curriculum/free_flight", int(self.curriculum.ready_for_air))
-            self.logger.record("curriculum/evaluation_attempts", self.curriculum.attempt_count)
-            self.logger.record("curriculum/evaluation_due",
-                               int(self.curriculum.evaluation_due(self.num_timesteps)))
-        self.model.training_schedule_state = dict(first_success_step=self.first_success_step,
-                                                  batch_size_switch_step=self.batch_size_switch_step)
-        return True
-
-    def _on_rollout_end(self):
-        self.logger.record("train/batch_size", self.model.batch_size)
-        self.logger.record("train/ent_coef", self.model.ent_coef)
-
-
-class CompactMetrics(RewardMetrics):
-    """Keep core diagnostics without repeated coordinate/unit variants."""
-    def _on_step(self):
-        result = super()._on_step()
-        for key in list(self.logger.name_to_value):
-            if key.startswith(("tracking/", "reward/", "curriculum/", "episode_reward/", "control/")):
-                self.logger.name_to_value.pop(key, None)
-                self.logger.name_to_count.pop(key, None)
-                self.logger.name_to_excluded.pop(key, None)
-        return result
-
-
-def main():
-    p = argparse.ArgumentParser()
-    p.add_argument("--runtime", default=str(Path(__file__).resolve().parents[1] / "runtime.local.json"))
-    p.add_argument("--steps", type=int, default=100_000)
-    p.add_argument("--n-envs", type=int, choices=[1, 2, 4], default=1)
-    p.add_argument("--n-steps", type=int, help="Samples per environment per PPO rollout, not episode length")
-    p.add_argument("--batch-size", type=int)
-    p.add_argument("--n-epochs", type=int)
-    p.add_argument("--base-instance", type=int, default=41)
-    p.add_argument('--episode-steps', type=int, help='Maximum steps per episode; native torque default 2048')
-    p.add_argument('--allow-episode-length-change', action='store_true',
-                   help='Explicitly migrate only the saved episode duration and remaining-time settlement')
-    p.add_argument('--allow-tracking-tuning', action='store_true')
-    p.add_argument('--allow-axis-success-change', action='store_true')
-    p.add_argument('--allow-failure2700-change', action='store_true', help='Explicitly migrate native torque early failure coefficient from 2500 to 2700')
-    p.add_argument("--seed", type=int, default=0)
-    p.add_argument("--run", type=Path, default=Path("runs/ppo"))
-    p.add_argument("--smoke", action="store_true", help="Short real-simulator rollout and actual gradient updates")
-    p.add_argument("--promotion-window", type=int, default=10,
-                   help="Complete evaluation episodes for one frozen checkpoint")
-    p.add_argument("--promotion-required", type=int, default=8,
-                   help="Qualified evaluation episodes required for promotion")
-    p.add_argument("--prescreen-window", type=int, default=5,
-                   help="Completed training episodes in the evaluation prescreen")
-    p.add_argument("--prescreen-required", type=int, default=3,
-                   help="Qualified training episodes needed to request evaluation")
-    p.add_argument("--promotion-cooldown-rollouts", type=int, default=16,
-                   help="Minimum full 4096-step rollouts after an unsuccessful evaluation")
-    p.add_argument("--stage", choices=["ball_rig", "free_flight"],
-                   help="Explicit starting stage; otherwise use checkpoint stage or runtime default")
-    p.add_argument("--resume", type=Path, help="Continue an existing PPO checkpoint, preserving curriculum state")
-    p.add_argument("--simple-critic", action="store_true", help="Ordinary PPO: same actor12 input and 64x64 architecture for critic")
-    p.add_argument("--control-dt", type=float, default=.001)
-    p.add_argument("--training-phase", choices=["early", "late"],
-                   help="Select PPO settings; MSE phases share task and reward scales")
-    p.add_argument('--explore-until-horizon', action='store_true',
-                   help='Ignore --steps budget during early free flight; end after first full surviving episode and complete PPO update')
-    p.add_argument("--allow-rate-sum-change", action="store_true",
-                   help="Explicitly migrate v8 to sum-square cost and doubled headroom reward")
-    p.add_argument("--allow-phase-change", action="store_true",
-                   help="Permit only reward-scale contract changes during an explicit manual phase switch")
-    p.add_argument("--allow-waypoint-gate-change", action="store_true",
-                   help="Explicitly acknowledge a changed waypoint switching rule on resume")
-    p.add_argument("--slew-weight", type=float, default=None)
-    p.add_argument("--squared-error-reward", action="store_true",
-                   help="Clipped raw degree MSE plus positive mean PWM headroom; common reward gain 7e-5")
-    p.add_argument("--air-error-scale-deg-s", type=float, default=None,
-                   help="Override free-flight error scale and tracking bonus threshold in deg/s")
-    p.add_argument("--pwm-slew-scale", "--torque-slew-scale", dest="pwm_slew_scale", type=float, default=None,
-                   help="Slew scale in s^-1: requested torque for --native-torque, otherwise PWM; independent of phase")
-    p.add_argument("--allow-slew-weight-change", action="store_true",
-                   help="Explicitly migrate only the slew reward weight when resuming")
-    p.add_argument("--fixed-altitude", type=float, default=None)
-    p.add_argument("--waypoint-tracking", action="store_true")
-    p.add_argument("--px4-native-outer", action="store_true",
-                   help="Use PX4 native position/velocity/attitude modules; Python sends waypoints only")
-    p.add_argument('--native-torque', action='store_true',
-                   help='Rate-only: actor9 with previous torque -> normalized torque3; PX4 owns thrust and allocation')
-    p.add_argument("--air-rate-limits", type=float, nargs=3, default=[2., 2., 1.5])
-    p.add_argument("--no-tilt-termination", action="store_true", help="Disable tilt failure; retain ground, rate and time limits")
-    p.add_argument("--target-rate-limits", type=float, nargs=3, default=[1., 1., 1.],
-                   metavar=("ROLL", "PITCH", "YAW"), help="Symmetric per-axis random target bounds in rad/s")
-    p.add_argument("--fixed-episode-rate-target", action="store_true",
-                   help="Sample independent early-range rates once per episode; altitude loop updates thrust only")
-    p.add_argument("--compact-logs", action="store_true", help="Only core metrics, episode outcomes and reward contributions")
-    p.add_argument("--reward-scale-multiplier", type=float, default=1.0,
-                   help="Multiply rate-error scales, tracking eligibility threshold and PWM slew scale")
-    p.add_argument("--ppo-stage", choices=["ball_rig", "free_flight"],
-                   help="Explicit initial PPO settings, independent of physical starting stage")
-    args = p.parse_args()
-    if args.episode_steps is not None and args.episode_steps < 1:
-        p.error('episode-steps must be positive')
-    if args.allow_episode_length_change and (not args.resume or not args.native_torque):
-        p.error('Episode length migration requires --resume and --native-torque')
-    rollout_steps = args.n_steps if args.n_steps is not None else (2048 if args.smoke and args.n_envs == 1 else 4096 // args.n_envs)
-    epochs = args.n_epochs if args.n_epochs is not None else (2 if args.smoke else 10)
-    if args.n_envs > 1 and args.batch_size is None:
-        args.batch_size = 1024
-    if rollout_steps < 2 or epochs < 1 or not 0 <= args.base_instance <= 101 - args.n_envs:
-        p.error("Invalid rollout length, epoch count or PX4 instance range")
-    if args.batch_size is not None and (args.batch_size < 2 or
-            rollout_steps * args.n_envs % args.batch_size):
-        p.error("batch-size must divide the total rollout sample count")
-    if args.n_envs > 1 and (not args.native_torque or not args.training_phase or
-                           args.stage != 'free_flight' or args.explore_until_horizon):
-        p.error("Parallel training requires native torque, manual phase and free flight; no survival promotion gate")
-    if args.native_torque and not (args.simple_critic and args.px4_native_outer
-                                  and args.waypoint_tracking and args.squared_error_reward
-                                  and args.stage == 'free_flight'):
-        p.error('--native-torque requires --simple-critic --px4-native-outer --waypoint-tracking '
-                '--squared-error-reward --stage free_flight')
+def main(argv=None):
+    args = parse_args(argv)
+    rollout_steps, epochs = args.n_steps, args.n_epochs
     if args.native_torque:
         from . import torque_contract
     selected_action_contract = torque_contract.ACTION_CONTRACT if args.native_torque else ACTION_CONTRACT
     selected_reward_contract = torque_contract.REWARD_CONTRACT if args.native_torque else REWARD_CONTRACT
     selected_interface = torque_contract.interface_metadata if args.native_torque else interface_metadata
     check_training_contract = torque_contract.require_training_contract if args.native_torque else require_training_contract
-    if args.explore_until_horizon and (args.training_phase != 'early' or args.stage != 'free_flight' or args.smoke):
-        p.error('--explore-until-horizon requires early free-flight training, without --smoke')
-    if args.training_phase:
-        # MSE exploration and refinement share the same task and rewards.
-        args.reward_scale_multiplier = (1. if args.squared_error_reward else
-                                        2. if args.training_phase == "early" else 1.)
-        args.ppo_stage = "free_flight" if args.training_phase == "late" else "ball_rig"
-    if args.steps <= 0 or args.promotion_cooldown_rollouts < 1:
-        p.error("steps and promotion-cooldown-rollouts must be positive")
-    if args.slew_weight is not None and (not math.isfinite(args.slew_weight) or args.slew_weight < 0):
-        p.error("slew-weight must be finite and nonnegative")
-    if args.air_error_scale_deg_s is not None and (not math.isfinite(args.air_error_scale_deg_s) or args.air_error_scale_deg_s <= 0):
-        p.error("air-error-scale-deg-s must be finite and positive")
-    if args.pwm_slew_scale is not None and (not math.isfinite(args.pwm_slew_scale) or args.pwm_slew_scale <= 0):
-        p.error("slew scale must be finite and positive")
-    if not math.isfinite(args.reward_scale_multiplier) or args.reward_scale_multiplier <= 0:
-        p.error("reward-scale-multiplier must be finite and positive")
-    if any(not math.isfinite(x) or x <= 0 for x in args.target_rate_limits):
-        p.error("target-rate-limits must be finite and positive")
-    if any(not math.isfinite(x) or x <= 0 for x in args.air_rate_limits):
-        p.error("air-rate-limits must be finite and positive")
-    if args.fixed_altitude is not None and (not math.isfinite(args.fixed_altitude) or args.fixed_altitude <= .3):
-        p.error("fixed-altitude must be finite and above the ground threshold")
-    if args.waypoint_tracking and (args.fixed_episode_rate_target or args.fixed_altitude is not None):
-        p.error("waypoint tracking generates both altitude and rate references")
     args.run.mkdir(parents=True, exist_ok=True)
     torch.set_num_threads(2)
-    defaults = TaskConfig(native_torque=args.native_torque)
-    from .episode_horizon import DEFAULT_NATIVE_EPISODE_STEPS
-    episode_steps = args.episode_steps if args.episode_steps is not None else (
-        DEFAULT_NATIVE_EPISODE_STEPS if args.native_torque else round(defaults.episode_seconds / args.control_dt))
-    config = TaskConfig(
-        episode_seconds=episode_steps * args.control_dt,
-        tracking_bonus_threshold_deg_s=5.,
-        squared_error_reward=args.squared_error_reward,
-        slew_weight=args.slew_weight,
-        dt=args.control_dt, fixed_episode_rate_target=args.fixed_episode_rate_target,
-        terminate_on_tilt=not args.no_tilt_termination,
-        target_limit_rad_s=tuple(args.target_rate_limits),
-        air_target_limit_rad_s=tuple(args.air_rate_limits), fixed_altitude_target_m=args.fixed_altitude,
-        waypoint_tracking=args.waypoint_tracking,
-        px4_native_outer=args.px4_native_outer,
-        native_torque=args.native_torque,
-        reward_error_scale_deg_s=defaults.reward_error_scale_deg_s * args.reward_scale_multiplier,
-        air_reward_error_scale_deg_s=(args.air_error_scale_deg_s if args.air_error_scale_deg_s is not None else defaults.air_reward_error_scale_deg_s * args.reward_scale_multiplier),
-        reward_slew_rate_scale_per_s=(args.pwm_slew_scale if args.pwm_slew_scale is not None else defaults.reward_slew_rate_scale_per_s * args.reward_scale_multiplier))
+    config = build_task_config(args)
     trajectory_clock = TrajectoryClock(args.run / "trajectories")
-    promotion_options = dict(window_episodes=args.prescreen_window,
-        required_qualified=args.prescreen_required, evaluation_episodes=args.promotion_window,
-        evaluation_required=args.promotion_required, cooldown_steps=4096 * args.promotion_cooldown_rollouts)
-    monitor_fields = ("is_success", "training_stage", "promotion_window_size",
-                                 "reward_error_scale_deg_s",
-                                 "promotion_qualified_count", "promotion_window_full", "promotion_history",
-                                 "episode_rate_rmse_rad_s", "episode_saturation_fraction",
-                                 "episode_observed_rate_rmse_rad_s",
-                                 "episode_rate_rmse_deg_s", "episode_observed_rate_rmse_deg_s",
-                                 "episode_axis_rate_rmse_deg_s",
-                                 "transfer_qualified", "episode_settled_tracking_fraction",
-                                 "episode_axis_rate_rmse_rad_s", "episode_reward_components",
-                                 "episode_saturation_penalty", "episode_failure_penalty", "episode_success_bonus")
-    if args.native_torque:
-        monitor_fields = tuple("episode_torque_saturation_fraction" if field == "episode_saturation_fraction"
-                               else field for field in monitor_fields)
-        monitor_fields += ("episode_motor_saturation_fraction",)
+    promotion_options = build_promotion_options(args)
+    monitor_fields = build_monitor_fields(args)
 
-    if args.compact_logs:
-        monitor_fields = ()
-
-    def observation_wrapper(env):
-        return env if args.simple_critic else PrivilegedCriticObservation(env)
-
-    def training_factory(state=None, rng_state=None, session_index=0):
-        backend = GazeboPX4Backend(args.runtime, args.run / "episodes", instance=args.base_instance)
-        if args.px4_native_outer:
-            backend.set_mode('free_flight')
-        curriculum = RigToFlightCurriculum(RateControlEnv(backend, config), **promotion_options)
-        if state is not None:
-            curriculum.restore(state)
-        if rng_state is not None:
-            curriculum.unwrapped.np_random.bit_generator.state = deepcopy(rng_state)
-        name = "monitor.csv" if session_index == 0 else f"monitor.session_{session_index:04d}.csv"
-        env = Monitor(EpisodeTrajectory(observation_wrapper(curriculum), trajectory_clock), str(args.run / name),
-                      info_keywords=monitor_fields, override_existing=not (args.run / name).exists())
-        return env, curriculum
-
-    def evaluation_factory():
-        backend = GazeboPX4Backend(args.runtime, args.run / "evaluation_episodes", instance=args.base_instance)
-        backend.set_mode('free_flight' if args.px4_native_outer else 'ball_rig')
-        return observation_wrapper(RateControlEnv(backend, config))
+    training_factory, evaluation_factory = build_environment_factories(
+        args, config, promotion_options, monitor_fields, trajectory_clock)
 
     env, curriculum = training_factory()
     backend = curriculum.unwrapped.backend
     gamma = math.exp(-config.dt / 30.0)
     gae_lambda = math.exp(-config.dt / 0.5)
-    metadata = dict(algorithm="PPO", task=asdict(config), simulator=backend.config, seed=args.seed,
-                    gamma=gamma, gae_lambda=gae_lambda, n_steps=rollout_steps,
-                    batch_size_schedule=dict(initial=2048, after_survival_and_tracking=256,
-                                             promotion_window=args.promotion_window,
-                                             promotion_required=args.promotion_required,
-                                             prescreen_window=args.prescreen_window,
-                                             prescreen_required=args.prescreen_required,
-                                             cooldown_training_steps=promotion_options["cooldown_steps"],
-                                             gate_version=4,
-                                             apply_at="after complete PPO update and frozen evaluation; before new air collection"),
-                    outer_loop=asdict(curriculum.unwrapped.outer_loop.config), resume=str(args.resume) if args.resume else None,
-                    stage_hyperparameters=dict(ball_rig=asdict(EARLY), free_flight=asdict(AIR)),
-                    reward_convention="four continuous terms times dt: 70% rate cost, 10% PWM rate cost, 10% peak PWM cost, 10% eligible tracking bonus; saturation -1.0*dt/motor/step, failure -20-40*(1-survival_fraction) once and success +10 unscaled; no summed reward clipping",
-                    reward_contract=REWARD_CONTRACT,
-                    reward_interface=reward_interface_metadata(),
-                    continuous_reward_components=list(CONTINUOUS_COMPONENT_NAMES),
-                    reward_rate_feedback="Gazebo true body rate; reward error converted to deg/s and scaled by 10 in ball_rig / 5 in free_flight; noisy PX4 gyro for actor",
-                    interface=interface_metadata(),
-                    action_contract=ACTION_CONTRACT,
-                    critic_contract=CRITIC_CONTRACT,
-                    critic_interface=critic_interface_metadata(),
-                    critic="35D privileged value network; independent actor12 and critic35 feature paths and weights",
-                    reward_timing="true rate after a_t versus preceding rate target; PWM rate=(a_t-a_previous)/dt; references refresh after reward",
-                    thrust_reference_role="actor/outer-loop reference only; no actual-thrust reward; tracking bonus uses the stage rate-error threshold without a thrust gate",
-                    action="4 normalised ESC commands [0,1]; ideal simulator speed=command, no allocator; indices 0,1,2,3")
+    metadata = initial_metadata(args, config, curriculum, backend, promotion_options,
+                                rollout_steps, gamma, gae_lambda)
     ppo_class = AdaptiveKLPPO if args.native_torque else PPO
     if args.resume:
         # Validate before attaching the new Dict environment, so old ordinary
@@ -401,7 +104,7 @@ def main():
                             if args.native_torque else {})
         model = ppo_class("MlpPolicy" if args.simple_critic else AsymmetricActorCriticPolicy, env, seed=args.seed, learning_rate=EARLY.learning_rate,
                 gamma=gamma, gae_lambda=gae_lambda, ent_coef=EARLY.ent_coef,
-                n_steps=metadata["n_steps"], batch_size=args.batch_size or 2048,
+                n_steps=metadata["n_steps"], batch_size=args.batch_size or CURRENT.batch_size,
                 n_epochs=epochs, clip_range=EARLY.clip_range,
                 policy_kwargs=dict(net_arch=dict(pi=[64, 64], vf=[64, 64] if args.simple_critic else [128, 128]),
                                    activation_fn=torch.nn.ReLU, log_std_init=-2.3),
@@ -463,9 +166,9 @@ def main():
         model.manual_training_phase = args.training_phase
         metadata["manual_training_phase"] = args.training_phase
         metadata["stage_hyperparameters"] = dict(
-            early=dict(batch_size=2048,learning_rate=3e-4,ent_coef=.01,clip_range=.2,
+            early=dict(batch_size=EARLY.batch_size,learning_rate=EARLY.learning_rate,ent_coef=EARLY.ent_coef,clip_range=EARLY.clip_range,
                        rate_scale_deg_s=10.,pwm_slew_scale_per_s=args.pwm_slew_scale if args.pwm_slew_scale is not None else 100.),
-            late=dict(batch_size=2048,learning_rate=3e-4,ent_coef=.01,clip_range=.2,
+            late=dict(batch_size=AIR.batch_size,learning_rate=AIR.learning_rate,ent_coef=AIR.ent_coef,clip_range=AIR.clip_range,
                       rate_scale_deg_s=5.,pwm_slew_scale_per_s=args.pwm_slew_scale if args.pwm_slew_scale is not None else 50.))
     metadata["reward_scale_multiplier"] = args.reward_scale_multiplier
     if args.training_phase and args.air_error_scale_deg_s is not None:
@@ -536,52 +239,7 @@ def main():
             old_slew_weight=old["task"]["slew_weight"], new_slew_weight=config.slew_weight,
             timestep=model.num_timesteps, optimizer_preserved=True)
         model.promotion_environment_contract = new
-    metadata["reward_interface"]["continuous_weights"]["slew_rate"] = config.slew_weight
-    metadata["reward_interface"]["slew_rate"]["scale_per_s"] = config.reward_slew_rate_scale_per_s
-    metadata["reward_convention"] = metadata["reward_convention"].replace("10% PWM rate cost", f"{100*config.slew_weight:g}% PWM rate cost")
-    metadata["reward_interface"]["continuous_bounds"]["weighted_per_step_in_dt_units"]["slew_rate"] = [-config.slew_weight, 0.]
-    model.reward_interface_metadata = deepcopy(metadata["reward_interface"])
-    if config.squared_error_reward:
-        metadata['effective_reward_scales'].update(
-            primary_cost='sum of three squared degree/s errors, clipped at 10000; no error scale',
-            tracking_bonus_threshold='all three absolute tracking errors strictly below 5 deg/s')
-        metadata["reward_convention"] = "raw: -dt*min(sum(error_deg_s**2),10000), -dt*(10000/7)*bounded_slew, +dt*(20000/7)*mean(1-pwm), +dt*(10000/7)*tracking_eligible; saturation/failure and success=0.5*base_failure multiplied by 10000/.7; ALL terms scaled by 7e-5 for PPO"
-        metadata["reward_rate_feedback"] = "post-action true degree/s error against preceding target; no error normalization scale; squared-error sum clipped after summing"
-        metadata["reward_interface"] = mse_reward_interface_metadata(config)
-        metadata["reward_convention"] += "; mean headroom reward applies immediately when all three post-action errors <5 deg/s and no failure; horizon success also requires whole-episode RMSE <5 deg/s"
-        metadata["reward_convention"] = metadata["reward_convention"].replace(
-            "saturation/failure and success=0.5*base_failure multiplied by 10000/.7",
-            "saturation multiplied by 10000/.7; raw failure=-30000-2500*episode_seconds*(1-survival_fraction), raw success=50000")
-        model.reward_interface_metadata = deepcopy(metadata["reward_interface"])
-    if args.native_torque:
-        metadata.update(
-            continuous_reward_components=['rate', 'slew_rate', 'tracking_bonus'],
-            outer_loop=dict(controller='PX4 native position, velocity and attitude controllers',
-                            references='goto_setpoint position and fixed-leg heading'),
-            action='3 normalized FRD torque commands [-1,1]; PX4 owns collective thrust and motor allocation',
-            thrust_reference_role='PX4-only: forwarded unchanged to native allocator; excluded from actor and critic',
-            reward_timing='post-action true rate versus issued reference; slew and signed-limit counts from accepted torque requests; allocated ESC saturation is diagnostic only',
-            reward_convention='Rate SSE capped at 5000 (normalization denominator remains 10000); three-axis requested torque slew; signed torque saturation counts each axis independently when abs(tau)>=0.999; '
-                              'no headroom reward; no waypoint bonus; instantaneous tracking bonus requires all three absolute rate errors <2 deg/s, '
-                              f'no failure and no torque-axis saturation, without a motor-saturation gate; raw failure=-30000-3500*({config.episode_seconds:g}-T), success=50000',
-            monitor_saturation_fields=dict(
-                episode_torque_saturation_fraction='saturated requested torque-axis steps / (3 * episode steps)',
-                episode_motor_saturation_fraction='saturated allocated motor-channel steps / (4 * episode steps); diagnostic only'))
-        metadata['effective_reward_scales']['primary_cost'] = 'sum of three squared degree/s errors, clipped at 5000; no error scale; denominator 10000 unchanged'
-        metadata['effective_reward_scales']['tracking_bonus_threshold'] = 'all three absolute tracking errors strictly below 2 deg/s'
-        metadata['effective_reward_scales']['tracking_bonus_threshold'] = f'all three absolute tracking errors strictly below {config.tracking_bonus_threshold_deg_s:g} deg/s'
-        metadata['reward_convention'] = metadata['reward_convention'].replace('<2 deg/s', f'<{config.tracking_bonus_threshold_deg_s:g} deg/s')
-        metadata['effective_reward_scales']['torque_slew_per_s'] = (
-            metadata['effective_reward_scales'].pop('pwm_slew_per_s'))
-        for settings in metadata.get('stage_hyperparameters', {}).values():
-            settings['torque_slew_scale_per_s'] = settings.pop(
-                'pwm_slew_scale_per_s', config.reward_slew_rate_scale_per_s)
-        metadata['waypoint_reference']['thrust_conversion'] = (
-            'none: forward vehicle_rates_setpoint.thrust_body unchanged to vehicle_thrust_setpoint')
-        if args.training_phase:
-            metadata['batch_size_schedule'] = dict(
-                mode='manual phase', early=args.batch_size or 2048, late=args.batch_size or 2048,
-                automatic_promotion=False)
+    finalize_reward_metadata(model, metadata, args, config)
     if args.n_envs > 1:
         from .parallel_training import make_parallel_env, attach_parallel_env, ParallelTrainingCoordinator, resize_worker_states
         from .environment_contract import environment_contract

@@ -1,4 +1,10 @@
-"""Exercise rate-only transitions without hiding native allocation behind actions."""
+"""Exercise rate-only transitions without hiding native allocation behind actions.
+
+Slew and early-failure expectations use the already-approved .02/7 and
+3500/s production values. They correct stale .01/7 and 2500/s assertions;
+no runtime reward change accompanies this test correction. Explicit historical
+2 deg/s threshold tests remain supported independently of the public 5 deg/s.
+"""
 from dataclasses import replace
 from copy import deepcopy
 from types import SimpleNamespace
@@ -128,7 +134,7 @@ def test_native_transition_uses_old_reference_new_truth_and_actual_allocated_pwm
     assert info['slew_rate_cost'] == pytest.approx(np.mean(torque_rate**2))
     slew = np.mean((torque_rate / 10.)**2 / (1. + (torque_rate / 10.)**2))
     assert info['continuous_reward_components'][0] == pytest.approx(-.01 * 100. * 7e-5)
-    assert info['continuous_reward_components'][1] == pytest.approx(-.01 * (.01 / 7.) * slew)
+    assert info['continuous_reward_components'][1] == pytest.approx(-.01 * (.02 / 7.) * slew)
     assert info['continuous_reward_components'][2] == 0.
     assert reward == pytest.approx(sum(info['continuous_reward_components']))
     assert env.observation_space.contains(obs)
@@ -136,7 +142,7 @@ def test_native_transition_uses_old_reference_new_truth_and_actual_allocated_pwm
     np.testing.assert_array_equal(next_obs[6:], np.zeros(3))
     np.testing.assert_array_equal(next_info['pwm_rate_per_s'], np.zeros(4))
     np.testing.assert_allclose(next_info['torque_rate_per_s'], -torque_rate)
-    assert next_info['continuous_reward_components'][1] == pytest.approx(-.01 * (.01 / 7.) * slew)
+    assert next_info['continuous_reward_components'][1] == pytest.approx(-.01 * (.02 / 7.) * slew)
 
 
 def test_reset_clears_policy_torque_history_but_keeps_native_motor_initialization():
@@ -174,7 +180,7 @@ def test_native_slew_penalizes_torque_change_even_when_allocated_motors_do_not_c
     np.testing.assert_array_equal(info['pwm_rate_per_s'], np.zeros(4))
     np.testing.assert_allclose(info['torque_rate_per_s'], [10., 0., 0.])
     # Apply B per axis, then average over exactly three torque axes.
-    assert info['continuous_reward_components'][1] == pytest.approx(-.01 * (.01 / 7.) * .5 / 3.)
+    assert info['continuous_reward_components'][1] == pytest.approx(-.01 * (.02 / 7.) * .5 / 3.)
     assert info['slew_rate_cost'] == pytest.approx(100. / 3.)
 
 
@@ -186,7 +192,7 @@ def test_native_slew_is_a_time_rate_and_integrates_the_cost_over_dt(dt, action):
     np.testing.assert_allclose(info['torque_rate_per_s'], [10., -20., 30.])
     scaled_squared = np.array([1., -2., 3.])**2
     expected_mean = np.mean(scaled_squared / (1. + scaled_squared))
-    assert info['continuous_reward_components'][1] == pytest.approx(-dt * (.01 / 7.) * expected_mean)
+    assert info['continuous_reward_components'][1] == pytest.approx(-dt * (.02 / 7.) * expected_mean)
 
 
 def test_headroom_income_removed_without_rescaling_tracking_reward():
@@ -399,7 +405,7 @@ def test_native_torque_reward_contract_cannot_load_legacy_headroom_objective():
     assert current['continuous_weights']['mean_headroom'] == 0.
     assert current['continuous_weights']['rate'] == legacy['continuous_weights']['rate']
     assert current['raw_settlement']['success'] == legacy['raw_settlement']['success']
-    assert current['raw_settlement']['early_failure_extra_max'] == -75000.
+    assert current['raw_settlement']['early_failure_extra_max'] == -105000.
     assert current['horizon_success']['aggregation'].startswith('each axis separately')
     assert current['slew_scale_per_s'] == 10.
     assert legacy['slew_scale_per_s'] == 50.
@@ -479,7 +485,7 @@ def test_native_torque_retains_early_failure_settlement():
     backend.true_rates = [13., 0., 0.]
     _, reward, terminated, truncated, info = env.step(np.zeros(3))
     assert terminated and not truncated and info['failure'] == 'rate'
-    assert info['failure_penalty'] == pytest.approx((30000. + 2500. * (30. - .01)) * 7e-5)
+    assert info['failure_penalty'] == pytest.approx((30000. + 3500. * (30. - .01)) * 7e-5)
     assert info['success_bonus'] == 0.
     assert reward == pytest.approx(sum(info['continuous_reward_components']) - info['failure_penalty'])
 
@@ -487,7 +493,7 @@ def test_native_torque_retains_early_failure_settlement():
 def test_tracking_income_is_ten_times_threshold_sse_and_slew_is_reduced():
     c = task()
     assert c.tracking_bonus_weight * c.dt / 7e-5 == pytest.approx(10 * c.dt * (3 * 2**2))
-    assert c.slew_weight == pytest.approx(.01 / 7.)
+    assert c.slew_weight == pytest.approx(.02 / 7.)
     assert c.reward_slew_rate_scale_per_s == 10.
     expected = mse_reward_interface_metadata(c)
     old = deepcopy(expected)

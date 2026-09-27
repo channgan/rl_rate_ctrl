@@ -39,6 +39,8 @@ import numpy as np
 import torch as th
 from torch.nn import functional as F
 
+from .defaults import CURRENT
+
 from stable_baselines3 import PPO
 from stable_baselines3.common.distributions import DiagGaussianDistribution
 from stable_baselines3.common.utils import FloatSchedule, explained_variance, update_learning_rate
@@ -71,7 +73,8 @@ class AdaptiveKLPPO(PPO):
     phase; pass ``kl_phase="late"`` explicitly for new late-phase models.
     """
 
-    KL_PHASE_BOUNDS = {"early": (3.0e-5, 3.0e-4), "late": (3.0e-5, 3.0e-4)}
+    KL_PHASE_BOUNDS = {phase: (CURRENT.learning_rate_min, CURRENT.learning_rate)
+                       for phase in ("early", "late")}
     KL_LOW = 0.005
     KL_HIGH = 0.02
     KL_HARD_STOP = 0.03

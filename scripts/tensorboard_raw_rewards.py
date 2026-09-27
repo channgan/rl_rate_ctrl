@@ -58,7 +58,7 @@ def main():
                 job = json.loads((run / 'job.json').read_text())
             except (FileNotFoundError, json.JSONDecodeError):
                 job = {}
-            if job.get('status') in ('completed', 'failed'):
+            if job.get('status') in ('completed', 'failed', 'stopped', 'paused_by_user'):
                 break
             time.sleep(10)
 

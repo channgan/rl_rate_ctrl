@@ -7,7 +7,8 @@ from gymnasium import spaces
 from .outer_loop import AltitudeAttitudeReference, OuterLoopConfig
 from .action_contract import esc_to_simulator_speed
 from .backend import SimulatorError
-from .reward_contract import early_failure_rate, rate_error_cap
+from .defaults import CURRENT
+from .rewards import evaluate_outcome, evaluate_step_reward
 
 
 @dataclass(frozen=True)
@@ -52,14 +53,14 @@ class TaskConfig:
 
     def __post_init__(self):
         if self.slew_weight is None:
-            object.__setattr__(self, 'slew_weight', .02 / 7. if self.native_torque else .1)
+            object.__setattr__(self, 'slew_weight', CURRENT.slew_weight if self.native_torque else .1)
         if self.tracking_bonus_weight is None:
             # Raw 120 per second = ten times SSE at three errors of 2 deg/s.
-            object.__setattr__(self, 'tracking_bonus_weight', .0084 if self.native_torque else .1)
+            object.__setattr__(self, 'tracking_bonus_weight', CURRENT.tracking_bonus_weight if self.native_torque else .1)
         if self.reward_slew_rate_scale_per_s is None:
             # Native torque and historical PWM commands use different scales.
             object.__setattr__(self, 'reward_slew_rate_scale_per_s',
-                               10.0 if self.native_torque else 50.0)
+                               CURRENT.torque_slew_scale if self.native_torque else 50.0)
 
 
 class RateControlEnv(gym.Env):
@@ -300,95 +301,18 @@ class RateControlEnv(gym.Env):
         # explicitly in deg/s before applying the user-facing reward scale.
         error_deg_s = np.rad2deg(error)
         error_scale_deg_s = self.reward_error_scale_deg_s
-        axis_cost = (error_deg_s / error_scale_deg_s) ** 2
-        tracking = float(np.mean(axis_cost))
-        commanded_throttle = float(np.mean(pwm_action.astype(float)))
-        pwm_rate = (pwm_action.astype(float) - self.last_action.astype(float)) / c.dt
-        if native_torque:
-            torque_rate = (accepted - self.last_torque.astype(float)) / c.dt
-            penalized_rate = torque_rate
-            slew_rate_source = 'accepted_normalized_torque'
-        else:
-            penalized_rate = pwm_rate
-            slew_rate_source = 'applied_pwm'
-        slew_rate = float(np.mean(penalized_rate ** 2))
-        # Bounded costs share a common [0,1) range. Weights define component
-        # budgets, not the realised share of a trajectory's total reward.
-        rate_normalised = float(np.mean(axis_cost / (1 + axis_cost)))
-        if c.squared_error_reward:
-            # Sum all three squared errors, then apply the unchanged shared cap.
-            tracking = min(float(np.sum(error_deg_s ** 2)), rate_error_cap(c))
-            rate_normalised = tracking / 10000.
-        slew_scaled = (penalized_rate / c.reward_slew_rate_scale_per_s) ** 2
-        slew_normalised = float(np.mean(slew_scaled / (1 + slew_scaled)))
-        components = c.dt * np.array([-c.tracking_weight * rate_normalised,
-            -c.slew_weight * slew_normalised, 0.0, 0.0])
-        reward = float(components.sum())
-        # Keep actual four-motor saturation for diagnostics. In native torque
-        # mode only the actor's signed torque limits affect its cost and bonus;
-        # zero torque is a valid request and is never a saturation boundary.
-        saturated_motors = ((pwm_action <= c.saturation_epsilon)
-                            | (pwm_action >= 1 - c.saturation_epsilon))
-        motor_saturation_count = int(np.count_nonzero(saturated_motors))
-        if native_torque:
-            saturated_torque_axes = np.abs(accepted) >= 1 - c.saturation_epsilon
-            saturation_count = int(np.count_nonzero(saturated_torque_axes))
-            saturation_source = 'accepted_normalized_torque'
-        else:
-            saturation_count = motor_saturation_count
-            saturation_source = 'allocated_motor'
-        # Each axis/motor is charged independently on every executed step,
-        # including the terminal step, with the existing coefficient and dt.
-        saturation_penalty = c.saturation_cost_per_motor_per_s * c.dt * saturation_count
-        reward -= saturation_penalty
-        q = np.asarray(state["q_ned_frd"], dtype=float)
-        q /= np.linalg.norm(q)
-        cos_tilt = 1 - 2 * (q[1]**2 + q[2]**2)
-        tilt = np.arccos(np.clip(cos_tilt, -1, 1))
-        altitude = -float(state["position_ned"][2])
-        failure = None
-        on_rig = getattr(self.backend, "config", {}).get("mode") == "ball_rig"
-        if not on_rig and altitude < 0.3: failure = "ground"
-        elif not on_rig and c.terminate_on_tilt and tilt > np.deg2rad(c.max_tilt_deg): failure = "tilt"
-        elif np.max(np.abs(state["rates_true"])) > c.max_rate_rad_s: failure = "rate"
-        elif c.px4_native_outer and not state.get('px4_position_control'):
-            failure = 'px4_control_lost'
-        horizon_reached = self.steps + 1 >= round(c.episode_seconds / c.dt)
-        horizon_rmse_deg_s = float(np.rad2deg(np.sqrt(
-            (self.episode_error_squared + float(np.mean(error ** 2))) / (self.steps + 1))))
-        horizon_axis_rmse = np.rad2deg(np.sqrt(
-            (self.episode_axis_error_squared + error ** 2) / (self.steps + 1)))
-        tracking_failed = (bool(np.any((horizon_axis_rmse >= 5.) | np.isclose(
-            horizon_axis_rmse, 5., rtol=0., atol=1e-12))) if native_torque
-            else horizon_rmse_deg_s >= 5.)
-        if failure is None and horizon_reached and tracking_failed:
-            failure = "tracking_rmse"
-        # Penalise the peak command to favour upward PWM headroom. This is
-        # always a cost and is not a collective-thrust tracking objective.
-        peak_pwm = float(np.max(pwm_action))
-        upper_headroom = 1 - peak_pwm
-        peak_pwm_penalty = c.dt * c.peak_pwm_weight * peak_pwm
-        if c.squared_error_reward:
-            upper_headroom = 1. - float(np.mean(pwm_action))
-            tracking_now = failure is None and np.all(np.abs(error_deg_s) < 5.)
-            peak_pwm_penalty = (-2. * c.dt * c.peak_pwm_weight * upper_headroom
-                                if tracking_now else 0.)
-        if native_torque:
-            # Collective thrust belongs to PX4. Rewarding lower collective
-            # motor output would compete with the native altitude controller.
-            peak_pwm_penalty = 0.
-        reward -= peak_pwm_penalty
-        components[2] = -peak_pwm_penalty
-        # Sustained tracking earns this each qualifying step. There is no
-        # unconditional survival reward or additional dwell-time requirement.
-        tracking_eligible = bool(
-            failure is None and saturation_count == 0
-            and (np.max(np.abs(error_deg_s)) < (c.tracking_bonus_threshold_deg_s if native_torque else 5.) if c.squared_error_reward
-                 else np.max(np.abs(error_deg_s)) <= error_scale_deg_s))
-        tracking_bonus = c.dt * c.tracking_bonus_weight if tracking_eligible else 0.0
-        reward += tracking_bonus
-        components[3] = tracking_bonus
-        self.episode_reward_components += components
+        outcome = evaluate_outcome(c, state,
+            on_rig=getattr(self.backend, "config", {}).get("mode") == "ball_rig",
+            completed_steps=self.steps, error_rad_s=error,
+            previous_error_squared=self.episode_error_squared,
+            previous_axis_error_squared=self.episode_axis_error_squared)
+        step_reward = evaluate_step_reward(c, error_deg_s=error_deg_s,
+            error_scale_deg_s=error_scale_deg_s, pwm_action=pwm_action,
+            previous_pwm=self.last_action,
+            accepted_torque=accepted if native_torque else None,
+            previous_torque=self.last_torque, failure=outcome.failure)
+        reward = step_reward.value
+        self.episode_reward_components += step_reward.components
         self.episode_axis_error_squared += error ** 2
         command_hold = self.outer_loop.config.attitude_hold_seconds if self.uses_outer_loop else c.command_hold_seconds
         command_step = self.steps % round(command_hold / c.dt)
@@ -398,55 +322,32 @@ class RateControlEnv(gym.Env):
         self.steps += 1
         self.episode_error_squared += float(np.mean(error**2))
         self.episode_observed_error_squared += float(np.mean(observed_error**2))
-        self.episode_saturated_action_steps += saturation_count
-        self.episode_saturated_motor_steps += motor_saturation_count
-        success = failure is None and self.steps >= round(c.episode_seconds / c.dt)
-        terminated = failure is not None or success
-        truncated = False  # Surviving the finite task horizon is an explicit success.
-        success_bonus = .5 * c.failure_cost if success else 0.0
-        survival_fraction = np.clip(self.steps * c.dt / c.episode_seconds, 0., 1.)
-        failure_penalty = (c.failure_cost + c.early_failure_cost * (1. - survival_fraction)
-                           if failure is not None else 0.0)
-        if c.squared_error_reward:
-            # Approved raw settlements, with the same global gain as every step reward.
-            success_bonus = 50000. * 7e-5 if success else 0.
-            failure_penalty = ((30000. + early_failure_rate(c) * c.episode_seconds * (1. - survival_fraction)) * 7e-5
-                               if failure is not None else 0.)
-        reward += success_bonus
-        reward -= failure_penalty
-        self.episode_saturation_penalty += saturation_penalty
-        self.episode_failure_penalty += failure_penalty
-        self.episode_success_bonus += success_bonus
+        self.episode_saturated_action_steps += step_reward.saturation_count
+        self.episode_saturated_motor_steps += step_reward.motor_saturation_count
+        success = outcome.success
+        terminated = outcome.terminated
+        truncated = False  # The finite task horizon is terminal, not truncated.
+        reward += outcome.success_bonus
+        reward -= outcome.failure_penalty
+        self.episode_saturation_penalty += step_reward.saturation_penalty
+        self.episode_failure_penalty += outcome.failure_penalty
+        self.episode_success_bonus += outcome.success_bonus
         info = dict(sim_us=state["sim_us"], sample_us=state["sample_us"],
                     target_rad_s=self.target.copy(), rates_rad_s=np.array(state["rates"]),
                     rates_true_rad_s=np.array(state["rates_true"]), observed_error_rad_s=observed_error,
                     error_rad_s=error, error_deg_s=error_deg_s,
                     observed_error_deg_s=np.rad2deg(observed_error),
-                    altitude_m=altitude, tilt_rad=float(tilt),
+                    altitude_m=outcome.altitude, tilt_rad=outcome.tilt,
                     position_ned=np.array(state["position_ned"]),
-                    tracking_cost=tracking, rate_bounded_cost=rate_normalised,
-                    reward_error_scale_deg_s=error_scale_deg_s,
-                    slew_rate_cost=slew_rate,
-                    slew_rate_source=slew_rate_source,
-                    pwm_rate_per_s=pwm_rate.copy(),
-                    continuous_reward_components=components.copy(),
-                    thrust_demand=self.thrust,
-                    commanded_throttle=commanded_throttle, current_pwm_command=pwm_action.copy(),
+                    thrust_demand=self.thrust, current_pwm_command=pwm_action.copy(),
                     applied_speed_fraction=speed_action.copy(),
-                    upper_headroom=upper_headroom, peak_pwm_cost=peak_pwm,
-                    peak_pwm_penalty=peak_pwm_penalty, tracking_eligible=tracking_eligible,
-                    tracking_bonus=tracking_bonus,
-                    rotor_speed_fraction=np.array(state["rotor_speed_fraction"]), failure=failure,
-                    is_success=success, success_bonus=success_bonus,
-                    saturated_motors=saturated_motors.copy(),
-                    motor_saturation_count=motor_saturation_count,
-                    saturation_count=saturation_count, saturation_source=saturation_source,
-                    saturation_penalty=saturation_penalty, failure_penalty=failure_penalty)
+                    rotor_speed_fraction=np.array(state["rotor_speed_fraction"]),
+                    failure=outcome.failure, is_success=success,
+                    success_bonus=outcome.success_bonus,
+                    failure_penalty=outcome.failure_penalty,
+                    **step_reward.diagnostics)
         if native_torque:
             info['torque_command'] = action.copy()
-            info['torque_rate_per_s'] = torque_rate.copy()
-            info['saturated_torque_axes'] = saturated_torque_axes.copy()
-            info['torque_saturation_count'] = saturation_count
         for key in ("source_sample_us", "truth_us", "action_seq", "snapshot_valid"):
             if key in state:
                 info[key] = state[key]

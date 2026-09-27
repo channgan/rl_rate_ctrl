@@ -1,0 +1,3744 @@
+{
+  "_provenance": {
+    "source_commit": "e734448204cc41b2eeece7a3b3a61f735f8072ab",
+    "source_file": "rate_rl/env.py",
+    "description": "Full deterministic transitions recorded before reward extraction; separately replayed against the committed baseline with exact equality. No PX4/Gazebo or policy training involved."
+  },
+  "native_success": {
+    "transitions": [
+      {
+        "observation": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "info": {
+          "sim_us": 1000000,
+          "simulator_seed": 1264954010,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "thrust_demand": 1.0,
+          "reward_error_scale_deg_s": 5.0,
+          "training_stage": "free_flight"
+        }
+      },
+      {
+        "observation": [
+          -0.013613568618893623,
+          0.009773843921720982,
+          -0.00593411922454834,
+          0.03361356630921364,
+          -0.049773842096328735,
+          0.06593412160873413,
+          0.10000000149011612,
+          -0.20000000298023224,
+          0.30000001192092896
+        ],
+        "reward": 4.274761886312848e-05,
+        "terminated": false,
+        "truncated": false,
+        "info": {
+          "sim_us": 1010000,
+          "sample_us": 1010000,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rates_rad_s": [
+            -0.06806784082777885,
+            0.04886921905584123,
+            -0.029670597283903602
+          ],
+          "rates_true_rad_s": [
+            -0.06981317007977318,
+            0.05235987755982989,
+            -0.03490658503988659
+          ],
+          "observed_error_rad_s": [
+            0.06806784082777885,
+            -0.04886921905584123,
+            0.029670597283903602
+          ],
+          "error_rad_s": [
+            0.06981317007977318,
+            -0.05235987755982989,
+            0.03490658503988659
+          ],
+          "error_deg_s": [
+            4.0,
+            -3.0000000000000004,
+            2.0
+          ],
+          "observed_error_deg_s": [
+            3.9,
+            -2.8000000000000003,
+            1.7
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 29.000000000000004,
+          "rate_bounded_cost": 0.0029000000000000002,
+          "reward_error_scale_deg_s": 5.0,
+          "slew_rate_cost": 466.66669547557876,
+          "slew_rate_source": "accepted_normalized_torque",
+          "pwm_rate_per_s": [
+            -69.9999988079071,
+            30.000001192092896,
+            -29.999998211860657,
+            -19.999998807907104
+          ],
+          "continuous_reward_components": [
+            -2.0300000000000002e-05,
+            -2.0952381136871516e-05,
+            -0.0,
+            8.4e-05
+          ],
+          "thrust_demand": 1.0,
+          "commanded_throttle": 0.4750000014901161,
+          "current_pwm_command": [
+            0.0,
+            1.0,
+            0.4000000059604645,
+            0.5
+          ],
+          "applied_speed_fraction": [
+            0.15000000596046448,
+            1.0,
+            0.49000000953674316,
+            0.5750000476837158
+          ],
+          "upper_headroom": 0.5250000059604645,
+          "peak_pwm_cost": 1.0,
+          "peak_pwm_penalty": 0.0,
+          "tracking_eligible": true,
+          "tracking_bonus": 8.4e-05,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "motor_saturation_count": 2,
+          "saturation_count": 0,
+          "saturation_source": "accepted_normalized_torque",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 0.0,
+          "torque_command": [
+            0.10000000149011612,
+            -0.20000000298023224,
+            0.30000001192092896
+          ],
+          "torque_rate_per_s": [
+            10.000000149011612,
+            -20.000000298023224,
+            30.000001192092896
+          ],
+          "saturated_torque_axes": [
+            false,
+            false,
+            false
+          ],
+          "torque_saturation_count": 0,
+          "training_stage": "free_flight",
+          "altitude_target_m": 3.8799027917549465,
+          "initial_thrust_ratio": 1.0,
+          "outer_unclipped_thrust": 1.0,
+          "attitude_target_rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "waypoints_reached": 0,
+          "waypoint_tracking_seconds": 0.0,
+          "outer_diagnostics_timing": "reference used for this transition, before next command",
+          "waypoint_switch_bonus": 0.0,
+          "waypoint_gate_transition": {
+            "distance_m": 4.901446423833612,
+            "eligible": true,
+            "settled_seconds": 0.01,
+            "switched": false,
+            "waypoint_before": 0,
+            "actual_deg_s": [
+              -4.0,
+              3.0000000000000004,
+              -2.0
+            ],
+            "desired_deg_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "waypoint_after": 0
+          },
+          "next_waypoints_reached": 0,
+          "next_position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "episode_waypoint_bonus": 0.0
+        }
+      },
+      {
+        "observation": [
+          0.0063864318653941154,
+          -0.03022615611553192,
+          0.05406587943434715,
+          0.03361356630921364,
+          -0.049773842096328735,
+          0.06593412160873413,
+          0.10000000149011612,
+          -0.20000000298023224,
+          0.30000001192092896
+        ],
+        "reward": 6.369999999999999e-05,
+        "terminated": false,
+        "truncated": false,
+        "info": {
+          "sim_us": 1020000,
+          "sample_us": 1020000,
+          "target_rad_s": [
+            0.1,
+            -0.2,
+            0.3
+          ],
+          "rates_rad_s": [
+            0.031932159172221156,
+            -0.15113078094415877,
+            0.2703294027160964
+          ],
+          "rates_true_rad_s": [
+            0.030186829920226824,
+            -0.1476401224401701,
+            0.2650934149601134
+          ],
+          "observed_error_rad_s": [
+            0.06806784082777885,
+            -0.04886921905584124,
+            0.029670597283903588
+          ],
+          "error_rad_s": [
+            0.06981317007977318,
+            -0.052359877559829904,
+            0.034906585039886584
+          ],
+          "error_deg_s": [
+            4.0,
+            -3.000000000000001,
+            1.9999999999999996
+          ],
+          "observed_error_deg_s": [
+            3.9,
+            -2.8000000000000007,
+            1.6999999999999993
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 29.000000000000007,
+          "rate_bounded_cost": 0.0029000000000000007,
+          "reward_error_scale_deg_s": 5.0,
+          "slew_rate_cost": 0.0,
+          "slew_rate_source": "accepted_normalized_torque",
+          "pwm_rate_per_s": [
+            80.0000011920929,
+            -19.999998807907104,
+            40.00000059604645,
+            30.000001192092896
+          ],
+          "continuous_reward_components": [
+            -2.0300000000000006e-05,
+            -0.0,
+            -0.0,
+            8.4e-05
+          ],
+          "thrust_demand": 1.0,
+          "commanded_throttle": 0.800000011920929,
+          "current_pwm_command": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929
+          ],
+          "applied_speed_fraction": [
+            0.8300000429153442,
+            0.8300000429153442,
+            0.8300000429153442,
+            0.8300000429153442
+          ],
+          "upper_headroom": 0.19999998807907104,
+          "peak_pwm_cost": 0.800000011920929,
+          "peak_pwm_penalty": 0.0,
+          "tracking_eligible": true,
+          "tracking_bonus": 8.4e-05,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "motor_saturation_count": 0,
+          "saturation_count": 0,
+          "saturation_source": "accepted_normalized_torque",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 0.0,
+          "torque_command": [
+            0.10000000149011612,
+            -0.20000000298023224,
+            0.30000001192092896
+          ],
+          "torque_rate_per_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "saturated_torque_axes": [
+            false,
+            false,
+            false
+          ],
+          "torque_saturation_count": 0,
+          "training_stage": "free_flight",
+          "altitude_target_m": 3.8799027917549465,
+          "initial_thrust_ratio": 1.0,
+          "outer_unclipped_thrust": 1.0,
+          "attitude_target_rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "waypoints_reached": 0,
+          "waypoint_tracking_seconds": 0.01,
+          "outer_diagnostics_timing": "reference used for this transition, before next command",
+          "waypoint_switch_bonus": 0.0,
+          "waypoint_gate_transition": {
+            "distance_m": 4.901446423833612,
+            "eligible": true,
+            "settled_seconds": 0.02,
+            "switched": false,
+            "waypoint_before": 0,
+            "actual_deg_s": [
+              1.7295779513082326,
+              -8.459155902616464,
+              15.188733853924697
+            ],
+            "desired_deg_s": [
+              5.729577951308233,
+              -11.459155902616466,
+              17.188733853924695
+            ],
+            "waypoint_after": 0
+          },
+          "next_waypoints_reached": 0,
+          "next_position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "episode_waypoint_bonus": 0.0
+        }
+      },
+      {
+        "observation": [
+          0.026386432349681854,
+          -0.07022615522146225,
+          0.11406587809324265,
+          0.03361356630921364,
+          -0.049773842096328735,
+          0.06593412160873413,
+          1.0,
+          -1.0,
+          0.9990000128746033
+        ],
+        "reward": -0.03004841775376714,
+        "terminated": false,
+        "truncated": false,
+        "info": {
+          "sim_us": 1030000,
+          "sample_us": 1030000,
+          "target_rad_s": [
+            0.2,
+            -0.4,
+            0.6
+          ],
+          "rates_rad_s": [
+            0.13193215917222118,
+            -0.3511307809441588,
+            0.5703294027160963
+          ],
+          "rates_true_rad_s": [
+            0.13018682992022684,
+            -0.3476401224401701,
+            0.5650934149601133
+          ],
+          "observed_error_rad_s": [
+            0.06806784082777884,
+            -0.04886921905584124,
+            0.029670597283903644
+          ],
+          "error_rad_s": [
+            0.06981317007977317,
+            -0.052359877559829904,
+            0.03490658503988664
+          ],
+          "error_deg_s": [
+            3.999999999999999,
+            -3.000000000000001,
+            2.0000000000000027
+          ],
+          "observed_error_deg_s": [
+            3.899999999999999,
+            -2.8000000000000007,
+            1.7000000000000024
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 29.00000000000001,
+          "rate_bounded_cost": 0.002900000000000001,
+          "reward_error_scale_deg_s": 5.0,
+          "slew_rate_cost": 6462.003312942186,
+          "slew_rate_source": "accepted_normalized_torque",
+          "pwm_rate_per_s": [
+            -60.00000089406967,
+            9.999996423721313,
+            -70.00000104308128,
+            -40.00000059604645
+          ],
+          "continuous_reward_components": [
+            -2.0300000000000006e-05,
+            -2.811775376713937e-05,
+            -0.0,
+            0.0
+          ],
+          "thrust_demand": 1.0,
+          "commanded_throttle": 0.39999999664723873,
+          "current_pwm_command": [
+            0.20000000298023224,
+            0.8999999761581421,
+            0.10000000149011612,
+            0.4000000059604645
+          ],
+          "applied_speed_fraction": [
+            0.3199999928474426,
+            0.9149999618530273,
+            0.23500001430511475,
+            0.49000000953674316
+          ],
+          "upper_headroom": 0.5999999940395355,
+          "peak_pwm_cost": 0.8999999761581421,
+          "peak_pwm_penalty": 0.0,
+          "tracking_eligible": false,
+          "tracking_bonus": 0.0,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "motor_saturation_count": 0,
+          "saturation_count": 3,
+          "saturation_source": "accepted_normalized_torque",
+          "saturation_penalty": 0.03,
+          "failure_penalty": 0.0,
+          "torque_command": [
+            1.0,
+            -1.0,
+            0.9990000128746033
+          ],
+          "torque_rate_per_s": [
+            89.99999985098839,
+            -79.99999970197678,
+            69.90000009536743
+          ],
+          "saturated_torque_axes": [
+            true,
+            true,
+            true
+          ],
+          "torque_saturation_count": 3,
+          "training_stage": "free_flight",
+          "altitude_target_m": 3.8799027917549465,
+          "initial_thrust_ratio": 1.0,
+          "outer_unclipped_thrust": 1.0,
+          "attitude_target_rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "waypoints_reached": 0,
+          "waypoint_tracking_seconds": 0.02,
+          "outer_diagnostics_timing": "reference used for this transition, before next command",
+          "waypoint_switch_bonus": 0.0,
+          "waypoint_gate_transition": {
+            "distance_m": 4.901446423833612,
+            "eligible": true,
+            "settled_seconds": 0.03,
+            "switched": false,
+            "waypoint_before": 0,
+            "actual_deg_s": [
+              7.459155902616466,
+              -19.91831180523293,
+              32.37746770784939
+            ],
+            "desired_deg_s": [
+              11.459155902616466,
+              -22.918311805232932,
+              34.37746770784939
+            ],
+            "waypoint_after": 0
+          },
+          "next_waypoints_reached": 0,
+          "next_position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "episode_waypoint_bonus": 0.0
+        }
+      },
+      {
+        "observation": [
+          0.04638643190264702,
+          -0.11022615432739258,
+          0.17406588792800903,
+          0.013613568618893623,
+          -0.009773843921720982,
+          0.00593411922454834,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "reward": 3.500035411643857,
+        "terminated": true,
+        "truncated": false,
+        "info": {
+          "sim_us": 1040000,
+          "sample_us": 1040000,
+          "target_rad_s": [
+            0.30000000000000004,
+            -0.6000000000000001,
+            0.8999999999999999
+          ],
+          "rates_rad_s": [
+            0.2319321591722212,
+            -0.5511307809441589,
+            0.8703294027160963
+          ],
+          "rates_true_rad_s": [
+            0.23018682992022688,
+            -0.5476401224401702,
+            0.8650934149601133
+          ],
+          "observed_error_rad_s": [
+            0.06806784082777884,
+            -0.048869219055841184,
+            0.029670597283903644
+          ],
+          "error_rad_s": [
+            0.06981317007977317,
+            -0.05235987755982985,
+            0.03490658503988664
+          ],
+          "error_deg_s": [
+            3.999999999999999,
+            -2.999999999999998,
+            2.0000000000000027
+          ],
+          "observed_error_deg_s": [
+            3.899999999999999,
+            -2.7999999999999976,
+            1.7000000000000024
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 28.99999999999999,
+          "rate_bounded_cost": 0.002899999999999999,
+          "reward_error_scale_deg_s": 5.0,
+          "slew_rate_cost": 9993.336752411526,
+          "slew_rate_source": "accepted_normalized_torque",
+          "pwm_rate_per_s": [
+            29.999999701976776,
+            -39.99999761581421,
+            39.99999985098839,
+            9.999999403953552
+          ],
+          "continuous_reward_components": [
+            -2.0299999999999992e-05,
+            -2.8288356142632405e-05,
+            -0.0,
+            8.4e-05
+          ],
+          "thrust_demand": 1.0,
+          "commanded_throttle": 0.5,
+          "current_pwm_command": [
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "applied_speed_fraction": [
+            0.5750000476837158,
+            0.5750000476837158,
+            0.5750000476837158,
+            0.5750000476837158
+          ],
+          "upper_headroom": 0.5,
+          "peak_pwm_cost": 0.5,
+          "peak_pwm_penalty": 0.0,
+          "tracking_eligible": true,
+          "tracking_bonus": 8.4e-05,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": true,
+          "success_bonus": 3.4999999999999996,
+          "saturated_motors": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "motor_saturation_count": 0,
+          "saturation_count": 0,
+          "saturation_source": "accepted_normalized_torque",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 0.0,
+          "torque_command": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "torque_rate_per_s": [
+            -100.0,
+            100.0,
+            -99.90000128746033
+          ],
+          "saturated_torque_axes": [
+            false,
+            false,
+            false
+          ],
+          "torque_saturation_count": 0,
+          "training_stage": "free_flight",
+          "episode_axis_rate_rmse_rad_s": [
+            0.06981317007977317,
+            0.05235987755982989,
+            0.03490658503988661
+          ],
+          "episode_axis_rate_rmse_deg_s": [
+            3.999999999999999,
+            3.0000000000000004,
+            2.0000000000000013
+          ],
+          "episode_settled_tracking_fraction": 0.0,
+          "episode_reward_components": [
+            -8.120000000000001e-05,
+            -7.735849104664329e-05,
+            0.0,
+            0.000252
+          ],
+          "transfer_qualified": false,
+          "episode_rate_rmse_rad_s": 0.0542644916859836,
+          "episode_rate_rmse_deg_s": 3.109126351029605,
+          "episode_observed_rate_rmse_rad_s": 0.051321781825612214,
+          "episode_observed_rate_rmse_deg_s": 2.940521495698793,
+          "episode_saturation_penalty": 0.03,
+          "episode_failure_penalty": 0.0,
+          "episode_success_bonus": 3.4999999999999996,
+          "episode_saturation_fraction": 0.25,
+          "episode_motor_saturation_fraction": 0.125,
+          "episode_torque_saturation_fraction": 0.25,
+          "altitude_target_m": 3.8799027917549465,
+          "initial_thrust_ratio": 1.0,
+          "outer_unclipped_thrust": 1.0,
+          "attitude_target_rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "waypoints_reached": 0,
+          "waypoint_tracking_seconds": 0.03,
+          "outer_diagnostics_timing": "reference used for this transition, before next command",
+          "waypoint_switch_bonus": 0.0,
+          "episode_waypoint_bonus": 0.0
+        }
+      }
+    ],
+    "reward_interface": {
+      "version": "sse10000_native_torque_slew_limits_no_headroom_no_waypoint_bonus_v15",
+      "waypoint_switch_raw_bonus": 0.0,
+      "rate_aggregation": "sum of three squared degree/s errors, then cap",
+      "common_reward_gain": 7e-05,
+      "raw_settlement": {
+        "success": 50000.0,
+        "failure_base": -30000.0,
+        "early_failure_extra_max": -140.0,
+        "failure_formula": "-30000-3500*episode_seconds*(1-survival_fraction)"
+      },
+      "headroom_gate": null,
+      "horizon_success": {
+        "whole_episode_rmse_strictly_below_deg_s": 5.0,
+        "aggregation": "each axis separately: sqrt(mean over all episode steps of squared degree/s error); all three strictly below threshold",
+        "failure_reason": "tracking_rmse",
+        "success_raw": 50000.0
+      },
+      "mse_cap_deg_s_squared": 5000.0,
+      "tracking_bonus_threshold_deg_s": 5.0,
+      "continuous_weights": {
+        "rate": 0.7,
+        "slew": 0.002857142857142857,
+        "mean_headroom": 0.0,
+        "tracking_bonus": 0.0084
+      },
+      "slew_scale_per_s": 10.0,
+      "legacy_component_slot_peak_pwm": "disabled: collective thrust is controlled by PX4",
+      "motor_command_source": "latest actual PX4 actuator_motors.control normalized ESC commands in applied_pwm",
+      "slew_input": "(current accepted requested normalized torque - previous accepted requested normalized torque) / dt",
+      "slew_aggregation": "mean over three axes of B(torque_rate / slew_scale_per_s), B(x)=x^2/(1+x^2)",
+      "slew_history_initialization": "zero torque before the first accepted policy action of each episode",
+      "saturation_input": "current accepted normalized torque, each of three signed axes independently",
+      "saturation_absolute_threshold": 0.999,
+      "saturation_comparison": "abs(torque) >= threshold; zero torque is not saturated",
+      "saturation_cost_per_axis_per_s": 1.0,
+      "motor_saturation_role": "diagnostic only; does not affect native torque reward or tracking bonus",
+      "tracking_bonus_gate": "each true rate error strictly <5 deg/s; no failure; no saturated torque axis",
+      "collective_thrust_control": "native PX4; no actor thrust observation or thrust action"
+    }
+  },
+  "native_rmse": {
+    "transitions": [
+      {
+        "observation": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "info": {
+          "sim_us": 1000000,
+          "simulator_seed": 1264954010,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "thrust_demand": 1.0,
+          "reward_error_scale_deg_s": 5.0,
+          "training_stage": "free_flight"
+        }
+      },
+      {
+        "observation": [
+          -0.0205948855727911,
+          -0.0006981316837482154,
+          0.0010471974965184927,
+          0.04059488698840141,
+          -0.03930186852812767,
+          0.058952800929546356,
+          0.10000000149011612,
+          -0.20000000298023224,
+          0.30000001192092896
+        ],
+        "reward": -4.615238113687152e-05,
+        "terminated": false,
+        "truncated": false,
+        "info": {
+          "sim_us": 1010000,
+          "sample_us": 1010000,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rates_rad_s": [
+            -0.10297442586766545,
+            -0.003490658503988659,
+            0.005235987755982988
+          ],
+          "rates_true_rad_s": [
+            -0.10471975511965978,
+            0.0,
+            0.0
+          ],
+          "observed_error_rad_s": [
+            0.10297442586766545,
+            0.003490658503988659,
+            -0.005235987755982988
+          ],
+          "error_rad_s": [
+            0.10471975511965978,
+            0.0,
+            0.0
+          ],
+          "error_deg_s": [
+            6.000000000000001,
+            0.0,
+            0.0
+          ],
+          "observed_error_deg_s": [
+            5.9,
+            0.2,
+            -0.3
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 36.000000000000014,
+          "rate_bounded_cost": 0.0036000000000000016,
+          "reward_error_scale_deg_s": 5.0,
+          "slew_rate_cost": 466.66669547557876,
+          "slew_rate_source": "accepted_normalized_torque",
+          "pwm_rate_per_s": [
+            -69.9999988079071,
+            30.000001192092896,
+            -29.999998211860657,
+            -19.999998807907104
+          ],
+          "continuous_reward_components": [
+            -2.520000000000001e-05,
+            -2.0952381136871516e-05,
+            -0.0,
+            0.0
+          ],
+          "thrust_demand": 1.0,
+          "commanded_throttle": 0.4750000014901161,
+          "current_pwm_command": [
+            0.0,
+            1.0,
+            0.4000000059604645,
+            0.5
+          ],
+          "applied_speed_fraction": [
+            0.15000000596046448,
+            1.0,
+            0.49000000953674316,
+            0.5750000476837158
+          ],
+          "upper_headroom": 0.5250000059604645,
+          "peak_pwm_cost": 1.0,
+          "peak_pwm_penalty": 0.0,
+          "tracking_eligible": false,
+          "tracking_bonus": 0.0,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "motor_saturation_count": 2,
+          "saturation_count": 0,
+          "saturation_source": "accepted_normalized_torque",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 0.0,
+          "torque_command": [
+            0.10000000149011612,
+            -0.20000000298023224,
+            0.30000001192092896
+          ],
+          "torque_rate_per_s": [
+            10.000000149011612,
+            -20.000000298023224,
+            30.000001192092896
+          ],
+          "saturated_torque_axes": [
+            false,
+            false,
+            false
+          ],
+          "torque_saturation_count": 0,
+          "training_stage": "free_flight",
+          "altitude_target_m": 3.8799027917549465,
+          "initial_thrust_ratio": 1.0,
+          "outer_unclipped_thrust": 1.0,
+          "attitude_target_rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "waypoints_reached": 0,
+          "waypoint_tracking_seconds": 0.0,
+          "outer_diagnostics_timing": "reference used for this transition, before next command",
+          "waypoint_switch_bonus": 0.0,
+          "waypoint_gate_transition": {
+            "distance_m": 4.901446423833612,
+            "eligible": true,
+            "settled_seconds": 0.01,
+            "switched": false,
+            "waypoint_before": 0,
+            "actual_deg_s": [
+              -6.000000000000001,
+              0.0,
+              0.0
+            ],
+            "desired_deg_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "waypoint_after": 0
+          },
+          "next_waypoints_reached": 0,
+          "next_position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "episode_waypoint_bonus": 0.0
+        }
+      },
+      {
+        "observation": [
+          -0.0005948851467110217,
+          -0.040698133409023285,
+          0.06104719638824463,
+          0.04059488698840141,
+          -0.03930186852812767,
+          0.058952800929546356,
+          0.10000000149011612,
+          -0.20000000298023224,
+          0.30000001192092896
+        ],
+        "reward": -2.520000000000001e-05,
+        "terminated": false,
+        "truncated": false,
+        "info": {
+          "sim_us": 1020000,
+          "sample_us": 1020000,
+          "target_rad_s": [
+            0.1,
+            -0.2,
+            0.3
+          ],
+          "rates_rad_s": [
+            -0.002974425867665445,
+            -0.20349065850398868,
+            0.305235987755983
+          ],
+          "rates_true_rad_s": [
+            -0.004719755119659774,
+            -0.2,
+            0.3
+          ],
+          "observed_error_rad_s": [
+            0.10297442586766545,
+            0.003490658503988664,
+            -0.005235987755982996
+          ],
+          "error_rad_s": [
+            0.10471975511965978,
+            0.0,
+            0.0
+          ],
+          "error_deg_s": [
+            6.000000000000001,
+            0.0,
+            0.0
+          ],
+          "observed_error_deg_s": [
+            5.9,
+            0.2000000000000003,
+            -0.30000000000000043
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 36.000000000000014,
+          "rate_bounded_cost": 0.0036000000000000016,
+          "reward_error_scale_deg_s": 5.0,
+          "slew_rate_cost": 0.0,
+          "slew_rate_source": "accepted_normalized_torque",
+          "pwm_rate_per_s": [
+            80.0000011920929,
+            -19.999998807907104,
+            40.00000059604645,
+            30.000001192092896
+          ],
+          "continuous_reward_components": [
+            -2.520000000000001e-05,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_demand": 1.0,
+          "commanded_throttle": 0.800000011920929,
+          "current_pwm_command": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929
+          ],
+          "applied_speed_fraction": [
+            0.8300000429153442,
+            0.8300000429153442,
+            0.8300000429153442,
+            0.8300000429153442
+          ],
+          "upper_headroom": 0.19999998807907104,
+          "peak_pwm_cost": 0.800000011920929,
+          "peak_pwm_penalty": 0.0,
+          "tracking_eligible": false,
+          "tracking_bonus": 0.0,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "motor_saturation_count": 0,
+          "saturation_count": 0,
+          "saturation_source": "accepted_normalized_torque",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 0.0,
+          "torque_command": [
+            0.10000000149011612,
+            -0.20000000298023224,
+            0.30000001192092896
+          ],
+          "torque_rate_per_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "saturated_torque_axes": [
+            false,
+            false,
+            false
+          ],
+          "torque_saturation_count": 0,
+          "training_stage": "free_flight",
+          "altitude_target_m": 3.8799027917549465,
+          "initial_thrust_ratio": 1.0,
+          "outer_unclipped_thrust": 1.0,
+          "attitude_target_rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "waypoints_reached": 0,
+          "waypoint_tracking_seconds": 0.01,
+          "outer_diagnostics_timing": "reference used for this transition, before next command",
+          "waypoint_switch_bonus": 0.0,
+          "waypoint_gate_transition": {
+            "distance_m": 4.901446423833612,
+            "eligible": true,
+            "settled_seconds": 0.02,
+            "switched": false,
+            "waypoint_before": 0,
+            "actual_deg_s": [
+              -0.2704220486917679,
+              -11.459155902616466,
+              17.188733853924695
+            ],
+            "desired_deg_s": [
+              5.729577951308233,
+              -11.459155902616466,
+              17.188733853924695
+            ],
+            "waypoint_after": 0
+          },
+          "next_waypoints_reached": 0,
+          "next_position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "episode_waypoint_bonus": 0.0
+        }
+      },
+      {
+        "observation": [
+          0.019405115395784378,
+          -0.08069813251495361,
+          0.12104719877243042,
+          0.04059488698840141,
+          -0.03930186852812767,
+          0.058952800929546356,
+          1.0,
+          -1.0,
+          0.9990000128746033
+        ],
+        "reward": -0.03005331775376714,
+        "terminated": false,
+        "truncated": false,
+        "info": {
+          "sim_us": 1030000,
+          "sample_us": 1030000,
+          "target_rad_s": [
+            0.2,
+            -0.4,
+            0.6
+          ],
+          "rates_rad_s": [
+            0.09702557413233456,
+            -0.4034906585039887,
+            0.605235987755983
+          ],
+          "rates_true_rad_s": [
+            0.09528024488034023,
+            -0.4,
+            0.6
+          ],
+          "observed_error_rad_s": [
+            0.10297442586766545,
+            0.003490658503988664,
+            -0.005235987755982996
+          ],
+          "error_rad_s": [
+            0.10471975511965978,
+            0.0,
+            0.0
+          ],
+          "error_deg_s": [
+            6.000000000000001,
+            0.0,
+            0.0
+          ],
+          "observed_error_deg_s": [
+            5.9,
+            0.2000000000000003,
+            -0.30000000000000043
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 36.000000000000014,
+          "rate_bounded_cost": 0.0036000000000000016,
+          "reward_error_scale_deg_s": 5.0,
+          "slew_rate_cost": 6462.003312942186,
+          "slew_rate_source": "accepted_normalized_torque",
+          "pwm_rate_per_s": [
+            -60.00000089406967,
+            9.999996423721313,
+            -70.00000104308128,
+            -40.00000059604645
+          ],
+          "continuous_reward_components": [
+            -2.520000000000001e-05,
+            -2.811775376713937e-05,
+            -0.0,
+            0.0
+          ],
+          "thrust_demand": 1.0,
+          "commanded_throttle": 0.39999999664723873,
+          "current_pwm_command": [
+            0.20000000298023224,
+            0.8999999761581421,
+            0.10000000149011612,
+            0.4000000059604645
+          ],
+          "applied_speed_fraction": [
+            0.3199999928474426,
+            0.9149999618530273,
+            0.23500001430511475,
+            0.49000000953674316
+          ],
+          "upper_headroom": 0.5999999940395355,
+          "peak_pwm_cost": 0.8999999761581421,
+          "peak_pwm_penalty": 0.0,
+          "tracking_eligible": false,
+          "tracking_bonus": 0.0,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "motor_saturation_count": 0,
+          "saturation_count": 3,
+          "saturation_source": "accepted_normalized_torque",
+          "saturation_penalty": 0.03,
+          "failure_penalty": 0.0,
+          "torque_command": [
+            1.0,
+            -1.0,
+            0.9990000128746033
+          ],
+          "torque_rate_per_s": [
+            89.99999985098839,
+            -79.99999970197678,
+            69.90000009536743
+          ],
+          "saturated_torque_axes": [
+            true,
+            true,
+            true
+          ],
+          "torque_saturation_count": 3,
+          "training_stage": "free_flight",
+          "altitude_target_m": 3.8799027917549465,
+          "initial_thrust_ratio": 1.0,
+          "outer_unclipped_thrust": 1.0,
+          "attitude_target_rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "waypoints_reached": 0,
+          "waypoint_tracking_seconds": 0.02,
+          "outer_diagnostics_timing": "reference used for this transition, before next command",
+          "waypoint_switch_bonus": 0.0,
+          "waypoint_gate_transition": {
+            "distance_m": 4.901446423833612,
+            "eligible": true,
+            "settled_seconds": 0.03,
+            "switched": false,
+            "waypoint_before": 0,
+            "actual_deg_s": [
+              5.459155902616465,
+              -22.918311805232932,
+              34.37746770784939
+            ],
+            "desired_deg_s": [
+              11.459155902616466,
+              -22.918311805232932,
+              34.37746770784939
+            ],
+            "waypoint_after": 0
+          },
+          "next_waypoints_reached": 0,
+          "next_position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "episode_waypoint_bonus": 0.0
+        }
+      },
+      {
+        "observation": [
+          0.03940511494874954,
+          -0.12069813162088394,
+          0.1810472011566162,
+          0.0205948855727911,
+          0.0006981316837482154,
+          -0.0010471974965184927,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "reward": -2.100053488356142,
+        "terminated": true,
+        "truncated": false,
+        "info": {
+          "sim_us": 1040000,
+          "sample_us": 1040000,
+          "target_rad_s": [
+            0.30000000000000004,
+            -0.6000000000000001,
+            0.8999999999999999
+          ],
+          "rates_rad_s": [
+            0.1970255741323346,
+            -0.6034906585039888,
+            0.9052359877559829
+          ],
+          "rates_true_rad_s": [
+            0.19528024488034026,
+            -0.6000000000000001,
+            0.8999999999999999
+          ],
+          "observed_error_rad_s": [
+            0.10297442586766545,
+            0.003490658503988664,
+            -0.005235987755982996
+          ],
+          "error_rad_s": [
+            0.10471975511965978,
+            0.0,
+            0.0
+          ],
+          "error_deg_s": [
+            6.000000000000001,
+            0.0,
+            0.0
+          ],
+          "observed_error_deg_s": [
+            5.9,
+            0.2000000000000003,
+            -0.30000000000000043
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 36.000000000000014,
+          "rate_bounded_cost": 0.0036000000000000016,
+          "reward_error_scale_deg_s": 5.0,
+          "slew_rate_cost": 9993.336752411526,
+          "slew_rate_source": "accepted_normalized_torque",
+          "pwm_rate_per_s": [
+            29.999999701976776,
+            -39.99999761581421,
+            39.99999985098839,
+            9.999999403953552
+          ],
+          "continuous_reward_components": [
+            -2.520000000000001e-05,
+            -2.8288356142632405e-05,
+            -0.0,
+            0.0
+          ],
+          "thrust_demand": 1.0,
+          "commanded_throttle": 0.5,
+          "current_pwm_command": [
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "applied_speed_fraction": [
+            0.5750000476837158,
+            0.5750000476837158,
+            0.5750000476837158,
+            0.5750000476837158
+          ],
+          "upper_headroom": 0.5,
+          "peak_pwm_cost": 0.5,
+          "peak_pwm_penalty": 0.0,
+          "tracking_eligible": false,
+          "tracking_bonus": 0.0,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": "tracking_rmse",
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "motor_saturation_count": 0,
+          "saturation_count": 0,
+          "saturation_source": "accepted_normalized_torque",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 2.0999999999999996,
+          "torque_command": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "torque_rate_per_s": [
+            -100.0,
+            100.0,
+            -99.90000128746033
+          ],
+          "saturated_torque_axes": [
+            false,
+            false,
+            false
+          ],
+          "torque_saturation_count": 0,
+          "training_stage": "free_flight",
+          "episode_axis_rate_rmse_rad_s": [
+            0.10471975511965978,
+            0.0,
+            0.0
+          ],
+          "episode_axis_rate_rmse_deg_s": [
+            6.000000000000001,
+            0.0,
+            0.0
+          ],
+          "episode_settled_tracking_fraction": 0.0,
+          "episode_reward_components": [
+            -0.00010080000000000004,
+            -7.735849104664329e-05,
+            0.0,
+            0.0
+          ],
+          "transfer_qualified": false,
+          "episode_rate_rmse_rad_s": 0.06045997880780726,
+          "episode_rate_rmse_deg_s": 3.464101615137755,
+          "episode_observed_rate_rmse_rad_s": 0.059563223125649156,
+          "episode_observed_rate_rmse_deg_s": 3.41272129929572,
+          "episode_saturation_penalty": 0.03,
+          "episode_failure_penalty": 2.0999999999999996,
+          "episode_success_bonus": 0.0,
+          "episode_saturation_fraction": 0.25,
+          "episode_motor_saturation_fraction": 0.125,
+          "episode_torque_saturation_fraction": 0.25,
+          "altitude_target_m": 3.8799027917549465,
+          "initial_thrust_ratio": 1.0,
+          "outer_unclipped_thrust": 1.0,
+          "attitude_target_rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "waypoints_reached": 0,
+          "waypoint_tracking_seconds": 0.03,
+          "outer_diagnostics_timing": "reference used for this transition, before next command",
+          "waypoint_switch_bonus": 0.0,
+          "episode_waypoint_bonus": 0.0
+        }
+      }
+    ],
+    "reward_interface": {
+      "version": "sse10000_native_torque_slew_limits_no_headroom_no_waypoint_bonus_v15",
+      "waypoint_switch_raw_bonus": 0.0,
+      "rate_aggregation": "sum of three squared degree/s errors, then cap",
+      "common_reward_gain": 7e-05,
+      "raw_settlement": {
+        "success": 50000.0,
+        "failure_base": -30000.0,
+        "early_failure_extra_max": -140.0,
+        "failure_formula": "-30000-3500*episode_seconds*(1-survival_fraction)"
+      },
+      "headroom_gate": null,
+      "horizon_success": {
+        "whole_episode_rmse_strictly_below_deg_s": 5.0,
+        "aggregation": "each axis separately: sqrt(mean over all episode steps of squared degree/s error); all three strictly below threshold",
+        "failure_reason": "tracking_rmse",
+        "success_raw": 50000.0
+      },
+      "mse_cap_deg_s_squared": 5000.0,
+      "tracking_bonus_threshold_deg_s": 5.0,
+      "continuous_weights": {
+        "rate": 0.7,
+        "slew": 0.002857142857142857,
+        "mean_headroom": 0.0,
+        "tracking_bonus": 0.0084
+      },
+      "slew_scale_per_s": 10.0,
+      "legacy_component_slot_peak_pwm": "disabled: collective thrust is controlled by PX4",
+      "motor_command_source": "latest actual PX4 actuator_motors.control normalized ESC commands in applied_pwm",
+      "slew_input": "(current accepted requested normalized torque - previous accepted requested normalized torque) / dt",
+      "slew_aggregation": "mean over three axes of B(torque_rate / slew_scale_per_s), B(x)=x^2/(1+x^2)",
+      "slew_history_initialization": "zero torque before the first accepted policy action of each episode",
+      "saturation_input": "current accepted normalized torque, each of three signed axes independently",
+      "saturation_absolute_threshold": 0.999,
+      "saturation_comparison": "abs(torque) >= threshold; zero torque is not saturated",
+      "saturation_cost_per_axis_per_s": 1.0,
+      "motor_saturation_role": "diagnostic only; does not affect native torque reward or tracking bonus",
+      "tracking_bonus_gate": "each true rate error strictly <5 deg/s; no failure; no saturated torque axis",
+      "collective_thrust_control": "native PX4; no actor thrust observation or thrust action"
+    }
+  },
+  "native_first_failure": {
+    "transitions": [
+      {
+        "observation": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "info": {
+          "sim_us": 1000000,
+          "simulator_seed": 1264954010,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "thrust_demand": 1.0,
+          "reward_error_scale_deg_s": 5.0,
+          "training_stage": "free_flight"
+        }
+      },
+      {
+        "observation": [
+          -0.0205948855727911,
+          -0.0006981316837482154,
+          0.0010471974965184927,
+          0.0205948855727911,
+          0.0006981316837482154,
+          -0.0010471974965184927,
+          0.10000000149011612,
+          -0.20000000298023224,
+          0.30000001192092896
+        ],
+        "reward": -2.110870952381137,
+        "terminated": true,
+        "truncated": false,
+        "info": {
+          "sim_us": 1010000,
+          "sample_us": 1010000,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rates_rad_s": [
+            -0.10297442586766545,
+            -0.003490658503988659,
+            0.005235987755982988
+          ],
+          "rates_true_rad_s": [
+            13.0,
+            0.0,
+            0.0
+          ],
+          "observed_error_rad_s": [
+            0.10297442586766545,
+            0.003490658503988659,
+            -0.005235987755982988
+          ],
+          "error_rad_s": [
+            -13.0,
+            0.0,
+            0.0
+          ],
+          "error_deg_s": [
+            -744.8451336700703,
+            0.0,
+            0.0
+          ],
+          "observed_error_deg_s": [
+            5.9,
+            0.2,
+            -0.3
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 5000.0,
+          "rate_bounded_cost": 0.5,
+          "reward_error_scale_deg_s": 5.0,
+          "slew_rate_cost": 466.66669547557876,
+          "slew_rate_source": "accepted_normalized_torque",
+          "pwm_rate_per_s": [
+            -69.9999988079071,
+            30.000001192092896,
+            -29.999998211860657,
+            -19.999998807907104
+          ],
+          "continuous_reward_components": [
+            -0.0034999999999999996,
+            -2.0952381136871516e-05,
+            -0.0,
+            0.0
+          ],
+          "thrust_demand": 1.0,
+          "commanded_throttle": 0.4750000014901161,
+          "current_pwm_command": [
+            0.0,
+            1.0,
+            0.4000000059604645,
+            0.5
+          ],
+          "applied_speed_fraction": [
+            0.15000000596046448,
+            1.0,
+            0.49000000953674316,
+            0.5750000476837158
+          ],
+          "upper_headroom": 0.5250000059604645,
+          "peak_pwm_cost": 1.0,
+          "peak_pwm_penalty": 0.0,
+          "tracking_eligible": false,
+          "tracking_bonus": 0.0,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": "rate",
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "motor_saturation_count": 2,
+          "saturation_count": 0,
+          "saturation_source": "accepted_normalized_torque",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 2.10735,
+          "torque_command": [
+            0.10000000149011612,
+            -0.20000000298023224,
+            0.30000001192092896
+          ],
+          "torque_rate_per_s": [
+            10.000000149011612,
+            -20.000000298023224,
+            30.000001192092896
+          ],
+          "saturated_torque_axes": [
+            false,
+            false,
+            false
+          ],
+          "torque_saturation_count": 0,
+          "training_stage": "free_flight",
+          "episode_axis_rate_rmse_rad_s": [
+            13.0,
+            0.0,
+            0.0
+          ],
+          "episode_axis_rate_rmse_deg_s": [
+            744.8451336700703,
+            0.0,
+            0.0
+          ],
+          "episode_settled_tracking_fraction": 0.0,
+          "episode_reward_components": [
+            -0.0034999999999999996,
+            -2.0952381136871516e-05,
+            0.0,
+            0.0
+          ],
+          "transfer_qualified": false,
+          "episode_rate_rmse_rad_s": 7.505553499465135,
+          "episode_rate_rmse_deg_s": 430.0365384289978,
+          "episode_observed_rate_rmse_rad_s": 0.059563223125649156,
+          "episode_observed_rate_rmse_deg_s": 3.41272129929572,
+          "episode_saturation_penalty": 0.0,
+          "episode_failure_penalty": 2.10735,
+          "episode_success_bonus": 0.0,
+          "episode_saturation_fraction": 0.0,
+          "episode_motor_saturation_fraction": 0.5,
+          "episode_torque_saturation_fraction": 0.0,
+          "altitude_target_m": 3.8799027917549465,
+          "initial_thrust_ratio": 1.0,
+          "outer_unclipped_thrust": 1.0,
+          "attitude_target_rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "waypoints_reached": 0,
+          "waypoint_tracking_seconds": 0.0,
+          "outer_diagnostics_timing": "reference used for this transition, before next command",
+          "waypoint_switch_bonus": 0.0,
+          "episode_waypoint_bonus": 0.0
+        }
+      }
+    ],
+    "reward_interface": {
+      "version": "sse10000_native_torque_slew_limits_no_headroom_no_waypoint_bonus_v15",
+      "waypoint_switch_raw_bonus": 0.0,
+      "rate_aggregation": "sum of three squared degree/s errors, then cap",
+      "common_reward_gain": 7e-05,
+      "raw_settlement": {
+        "success": 50000.0,
+        "failure_base": -30000.0,
+        "early_failure_extra_max": -140.0,
+        "failure_formula": "-30000-3500*episode_seconds*(1-survival_fraction)"
+      },
+      "headroom_gate": null,
+      "horizon_success": {
+        "whole_episode_rmse_strictly_below_deg_s": 5.0,
+        "aggregation": "each axis separately: sqrt(mean over all episode steps of squared degree/s error); all three strictly below threshold",
+        "failure_reason": "tracking_rmse",
+        "success_raw": 50000.0
+      },
+      "mse_cap_deg_s_squared": 5000.0,
+      "tracking_bonus_threshold_deg_s": 5.0,
+      "continuous_weights": {
+        "rate": 0.7,
+        "slew": 0.002857142857142857,
+        "mean_headroom": 0.0,
+        "tracking_bonus": 0.0084
+      },
+      "slew_scale_per_s": 10.0,
+      "legacy_component_slot_peak_pwm": "disabled: collective thrust is controlled by PX4",
+      "motor_command_source": "latest actual PX4 actuator_motors.control normalized ESC commands in applied_pwm",
+      "slew_input": "(current accepted requested normalized torque - previous accepted requested normalized torque) / dt",
+      "slew_aggregation": "mean over three axes of B(torque_rate / slew_scale_per_s), B(x)=x^2/(1+x^2)",
+      "slew_history_initialization": "zero torque before the first accepted policy action of each episode",
+      "saturation_input": "current accepted normalized torque, each of three signed axes independently",
+      "saturation_absolute_threshold": 0.999,
+      "saturation_comparison": "abs(torque) >= threshold; zero torque is not saturated",
+      "saturation_cost_per_axis_per_s": 1.0,
+      "motor_saturation_role": "diagnostic only; does not affect native torque reward or tracking bonus",
+      "tracking_bonus_gate": "each true rate error strictly <5 deg/s; no failure; no saturated torque axis",
+      "collective_thrust_control": "native PX4; no actor thrust observation or thrust action"
+    }
+  },
+  "native_last_ground": {
+    "transitions": [
+      {
+        "observation": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "info": {
+          "sim_us": 1000000,
+          "simulator_seed": 1264954010,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "thrust_demand": 1.0,
+          "reward_error_scale_deg_s": 5.0,
+          "training_stage": "free_flight"
+        }
+      },
+      {
+        "observation": [
+          -0.0205948855727911,
+          -0.0006981316837482154,
+          0.0010471974965184927,
+          0.04059488698840141,
+          -0.03930186852812767,
+          0.058952800929546356,
+          0.10000000149011612,
+          -0.20000000298023224,
+          0.30000001192092896
+        ],
+        "reward": -4.615238113687152e-05,
+        "terminated": false,
+        "truncated": false,
+        "info": {
+          "sim_us": 1010000,
+          "sample_us": 1010000,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rates_rad_s": [
+            -0.10297442586766545,
+            -0.003490658503988659,
+            0.005235987755982988
+          ],
+          "rates_true_rad_s": [
+            -0.10471975511965978,
+            0.0,
+            0.0
+          ],
+          "observed_error_rad_s": [
+            0.10297442586766545,
+            0.003490658503988659,
+            -0.005235987755982988
+          ],
+          "error_rad_s": [
+            0.10471975511965978,
+            0.0,
+            0.0
+          ],
+          "error_deg_s": [
+            6.000000000000001,
+            0.0,
+            0.0
+          ],
+          "observed_error_deg_s": [
+            5.9,
+            0.2,
+            -0.3
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 36.000000000000014,
+          "rate_bounded_cost": 0.0036000000000000016,
+          "reward_error_scale_deg_s": 5.0,
+          "slew_rate_cost": 466.66669547557876,
+          "slew_rate_source": "accepted_normalized_torque",
+          "pwm_rate_per_s": [
+            -69.9999988079071,
+            30.000001192092896,
+            -29.999998211860657,
+            -19.999998807907104
+          ],
+          "continuous_reward_components": [
+            -2.520000000000001e-05,
+            -2.0952381136871516e-05,
+            -0.0,
+            0.0
+          ],
+          "thrust_demand": 1.0,
+          "commanded_throttle": 0.4750000014901161,
+          "current_pwm_command": [
+            0.0,
+            1.0,
+            0.4000000059604645,
+            0.5
+          ],
+          "applied_speed_fraction": [
+            0.15000000596046448,
+            1.0,
+            0.49000000953674316,
+            0.5750000476837158
+          ],
+          "upper_headroom": 0.5250000059604645,
+          "peak_pwm_cost": 1.0,
+          "peak_pwm_penalty": 0.0,
+          "tracking_eligible": false,
+          "tracking_bonus": 0.0,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "motor_saturation_count": 2,
+          "saturation_count": 0,
+          "saturation_source": "accepted_normalized_torque",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 0.0,
+          "torque_command": [
+            0.10000000149011612,
+            -0.20000000298023224,
+            0.30000001192092896
+          ],
+          "torque_rate_per_s": [
+            10.000000149011612,
+            -20.000000298023224,
+            30.000001192092896
+          ],
+          "saturated_torque_axes": [
+            false,
+            false,
+            false
+          ],
+          "torque_saturation_count": 0,
+          "training_stage": "free_flight",
+          "altitude_target_m": 3.8799027917549465,
+          "initial_thrust_ratio": 1.0,
+          "outer_unclipped_thrust": 1.0,
+          "attitude_target_rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "waypoints_reached": 0,
+          "waypoint_tracking_seconds": 0.0,
+          "outer_diagnostics_timing": "reference used for this transition, before next command",
+          "waypoint_switch_bonus": 0.0,
+          "waypoint_gate_transition": {
+            "distance_m": 4.901446423833612,
+            "eligible": true,
+            "settled_seconds": 0.01,
+            "switched": false,
+            "waypoint_before": 0,
+            "actual_deg_s": [
+              -6.000000000000001,
+              0.0,
+              0.0
+            ],
+            "desired_deg_s": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "waypoint_after": 0
+          },
+          "next_waypoints_reached": 0,
+          "next_position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "episode_waypoint_bonus": 0.0
+        }
+      },
+      {
+        "observation": [
+          -0.0005948851467110217,
+          -0.040698133409023285,
+          0.06104719638824463,
+          0.04059488698840141,
+          -0.03930186852812767,
+          0.058952800929546356,
+          0.10000000149011612,
+          -0.20000000298023224,
+          0.30000001192092896
+        ],
+        "reward": -2.520000000000001e-05,
+        "terminated": false,
+        "truncated": false,
+        "info": {
+          "sim_us": 1020000,
+          "sample_us": 1020000,
+          "target_rad_s": [
+            0.1,
+            -0.2,
+            0.3
+          ],
+          "rates_rad_s": [
+            -0.002974425867665445,
+            -0.20349065850398868,
+            0.305235987755983
+          ],
+          "rates_true_rad_s": [
+            -0.004719755119659774,
+            -0.2,
+            0.3
+          ],
+          "observed_error_rad_s": [
+            0.10297442586766545,
+            0.003490658503988664,
+            -0.005235987755982996
+          ],
+          "error_rad_s": [
+            0.10471975511965978,
+            0.0,
+            0.0
+          ],
+          "error_deg_s": [
+            6.000000000000001,
+            0.0,
+            0.0
+          ],
+          "observed_error_deg_s": [
+            5.9,
+            0.2000000000000003,
+            -0.30000000000000043
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 36.000000000000014,
+          "rate_bounded_cost": 0.0036000000000000016,
+          "reward_error_scale_deg_s": 5.0,
+          "slew_rate_cost": 0.0,
+          "slew_rate_source": "accepted_normalized_torque",
+          "pwm_rate_per_s": [
+            80.0000011920929,
+            -19.999998807907104,
+            40.00000059604645,
+            30.000001192092896
+          ],
+          "continuous_reward_components": [
+            -2.520000000000001e-05,
+            -0.0,
+            -0.0,
+            0.0
+          ],
+          "thrust_demand": 1.0,
+          "commanded_throttle": 0.800000011920929,
+          "current_pwm_command": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929
+          ],
+          "applied_speed_fraction": [
+            0.8300000429153442,
+            0.8300000429153442,
+            0.8300000429153442,
+            0.8300000429153442
+          ],
+          "upper_headroom": 0.19999998807907104,
+          "peak_pwm_cost": 0.800000011920929,
+          "peak_pwm_penalty": 0.0,
+          "tracking_eligible": false,
+          "tracking_bonus": 0.0,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "motor_saturation_count": 0,
+          "saturation_count": 0,
+          "saturation_source": "accepted_normalized_torque",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 0.0,
+          "torque_command": [
+            0.10000000149011612,
+            -0.20000000298023224,
+            0.30000001192092896
+          ],
+          "torque_rate_per_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "saturated_torque_axes": [
+            false,
+            false,
+            false
+          ],
+          "torque_saturation_count": 0,
+          "training_stage": "free_flight",
+          "altitude_target_m": 3.8799027917549465,
+          "initial_thrust_ratio": 1.0,
+          "outer_unclipped_thrust": 1.0,
+          "attitude_target_rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "waypoints_reached": 0,
+          "waypoint_tracking_seconds": 0.01,
+          "outer_diagnostics_timing": "reference used for this transition, before next command",
+          "waypoint_switch_bonus": 0.0,
+          "waypoint_gate_transition": {
+            "distance_m": 4.901446423833612,
+            "eligible": true,
+            "settled_seconds": 0.02,
+            "switched": false,
+            "waypoint_before": 0,
+            "actual_deg_s": [
+              -0.2704220486917679,
+              -11.459155902616466,
+              17.188733853924695
+            ],
+            "desired_deg_s": [
+              5.729577951308233,
+              -11.459155902616466,
+              17.188733853924695
+            ],
+            "waypoint_after": 0
+          },
+          "next_waypoints_reached": 0,
+          "next_position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "episode_waypoint_bonus": 0.0
+        }
+      },
+      {
+        "observation": [
+          0.019405115395784378,
+          -0.08069813251495361,
+          0.12104719877243042,
+          0.04059488698840141,
+          -0.03930186852812767,
+          0.058952800929546356,
+          1.0,
+          -1.0,
+          0.9990000128746033
+        ],
+        "reward": -0.03005331775376714,
+        "terminated": false,
+        "truncated": false,
+        "info": {
+          "sim_us": 1030000,
+          "sample_us": 1030000,
+          "target_rad_s": [
+            0.2,
+            -0.4,
+            0.6
+          ],
+          "rates_rad_s": [
+            0.09702557413233456,
+            -0.4034906585039887,
+            0.605235987755983
+          ],
+          "rates_true_rad_s": [
+            0.09528024488034023,
+            -0.4,
+            0.6
+          ],
+          "observed_error_rad_s": [
+            0.10297442586766545,
+            0.003490658503988664,
+            -0.005235987755982996
+          ],
+          "error_rad_s": [
+            0.10471975511965978,
+            0.0,
+            0.0
+          ],
+          "error_deg_s": [
+            6.000000000000001,
+            0.0,
+            0.0
+          ],
+          "observed_error_deg_s": [
+            5.9,
+            0.2000000000000003,
+            -0.30000000000000043
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 36.000000000000014,
+          "rate_bounded_cost": 0.0036000000000000016,
+          "reward_error_scale_deg_s": 5.0,
+          "slew_rate_cost": 6462.003312942186,
+          "slew_rate_source": "accepted_normalized_torque",
+          "pwm_rate_per_s": [
+            -60.00000089406967,
+            9.999996423721313,
+            -70.00000104308128,
+            -40.00000059604645
+          ],
+          "continuous_reward_components": [
+            -2.520000000000001e-05,
+            -2.811775376713937e-05,
+            -0.0,
+            0.0
+          ],
+          "thrust_demand": 1.0,
+          "commanded_throttle": 0.39999999664723873,
+          "current_pwm_command": [
+            0.20000000298023224,
+            0.8999999761581421,
+            0.10000000149011612,
+            0.4000000059604645
+          ],
+          "applied_speed_fraction": [
+            0.3199999928474426,
+            0.9149999618530273,
+            0.23500001430511475,
+            0.49000000953674316
+          ],
+          "upper_headroom": 0.5999999940395355,
+          "peak_pwm_cost": 0.8999999761581421,
+          "peak_pwm_penalty": 0.0,
+          "tracking_eligible": false,
+          "tracking_bonus": 0.0,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "motor_saturation_count": 0,
+          "saturation_count": 3,
+          "saturation_source": "accepted_normalized_torque",
+          "saturation_penalty": 0.03,
+          "failure_penalty": 0.0,
+          "torque_command": [
+            1.0,
+            -1.0,
+            0.9990000128746033
+          ],
+          "torque_rate_per_s": [
+            89.99999985098839,
+            -79.99999970197678,
+            69.90000009536743
+          ],
+          "saturated_torque_axes": [
+            true,
+            true,
+            true
+          ],
+          "torque_saturation_count": 3,
+          "training_stage": "free_flight",
+          "altitude_target_m": 3.8799027917549465,
+          "initial_thrust_ratio": 1.0,
+          "outer_unclipped_thrust": 1.0,
+          "attitude_target_rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "waypoints_reached": 0,
+          "waypoint_tracking_seconds": 0.02,
+          "outer_diagnostics_timing": "reference used for this transition, before next command",
+          "waypoint_switch_bonus": 0.0,
+          "waypoint_gate_transition": {
+            "distance_m": 4.901446423833612,
+            "eligible": true,
+            "settled_seconds": 0.03,
+            "switched": false,
+            "waypoint_before": 0,
+            "actual_deg_s": [
+              5.459155902616465,
+              -22.918311805232932,
+              34.37746770784939
+            ],
+            "desired_deg_s": [
+              11.459155902616466,
+              -22.918311805232932,
+              34.37746770784939
+            ],
+            "waypoint_after": 0
+          },
+          "next_waypoints_reached": 0,
+          "next_position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "episode_waypoint_bonus": 0.0
+        }
+      },
+      {
+        "observation": [
+          0.03940511494874954,
+          -0.12069813162088394,
+          0.1810472011566162,
+          0.0205948855727911,
+          0.0006981316837482154,
+          -0.0010471974965184927,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "reward": -2.100053488356142,
+        "terminated": true,
+        "truncated": false,
+        "info": {
+          "sim_us": 1040000,
+          "sample_us": 1040000,
+          "target_rad_s": [
+            0.30000000000000004,
+            -0.6000000000000001,
+            0.8999999999999999
+          ],
+          "rates_rad_s": [
+            0.1970255741323346,
+            -0.6034906585039888,
+            0.9052359877559829
+          ],
+          "rates_true_rad_s": [
+            0.19528024488034026,
+            -0.6000000000000001,
+            0.8999999999999999
+          ],
+          "observed_error_rad_s": [
+            0.10297442586766545,
+            0.003490658503988664,
+            -0.005235987755982996
+          ],
+          "error_rad_s": [
+            0.10471975511965978,
+            0.0,
+            0.0
+          ],
+          "error_deg_s": [
+            6.000000000000001,
+            0.0,
+            0.0
+          ],
+          "observed_error_deg_s": [
+            5.9,
+            0.2000000000000003,
+            -0.30000000000000043
+          ],
+          "altitude_m": 0.2,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -0.2
+          ],
+          "tracking_cost": 36.000000000000014,
+          "rate_bounded_cost": 0.0036000000000000016,
+          "reward_error_scale_deg_s": 5.0,
+          "slew_rate_cost": 9993.336752411526,
+          "slew_rate_source": "accepted_normalized_torque",
+          "pwm_rate_per_s": [
+            29.999999701976776,
+            -39.99999761581421,
+            39.99999985098839,
+            9.999999403953552
+          ],
+          "continuous_reward_components": [
+            -2.520000000000001e-05,
+            -2.8288356142632405e-05,
+            -0.0,
+            0.0
+          ],
+          "thrust_demand": 1.0,
+          "commanded_throttle": 0.5,
+          "current_pwm_command": [
+            0.5,
+            0.5,
+            0.5,
+            0.5
+          ],
+          "applied_speed_fraction": [
+            0.5750000476837158,
+            0.5750000476837158,
+            0.5750000476837158,
+            0.5750000476837158
+          ],
+          "upper_headroom": 0.5,
+          "peak_pwm_cost": 0.5,
+          "peak_pwm_penalty": 0.0,
+          "tracking_eligible": false,
+          "tracking_bonus": 0.0,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": "ground",
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "motor_saturation_count": 0,
+          "saturation_count": 0,
+          "saturation_source": "accepted_normalized_torque",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 2.0999999999999996,
+          "torque_command": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "torque_rate_per_s": [
+            -100.0,
+            100.0,
+            -99.90000128746033
+          ],
+          "saturated_torque_axes": [
+            false,
+            false,
+            false
+          ],
+          "torque_saturation_count": 0,
+          "training_stage": "free_flight",
+          "episode_axis_rate_rmse_rad_s": [
+            0.10471975511965978,
+            0.0,
+            0.0
+          ],
+          "episode_axis_rate_rmse_deg_s": [
+            6.000000000000001,
+            0.0,
+            0.0
+          ],
+          "episode_settled_tracking_fraction": 0.0,
+          "episode_reward_components": [
+            -0.00010080000000000004,
+            -7.735849104664329e-05,
+            0.0,
+            0.0
+          ],
+          "transfer_qualified": false,
+          "episode_rate_rmse_rad_s": 0.06045997880780726,
+          "episode_rate_rmse_deg_s": 3.464101615137755,
+          "episode_observed_rate_rmse_rad_s": 0.059563223125649156,
+          "episode_observed_rate_rmse_deg_s": 3.41272129929572,
+          "episode_saturation_penalty": 0.03,
+          "episode_failure_penalty": 2.0999999999999996,
+          "episode_success_bonus": 0.0,
+          "episode_saturation_fraction": 0.25,
+          "episode_motor_saturation_fraction": 0.125,
+          "episode_torque_saturation_fraction": 0.25,
+          "altitude_target_m": 3.8799027917549465,
+          "initial_thrust_ratio": 1.0,
+          "outer_unclipped_thrust": 1.0,
+          "attitude_target_rpy_rad": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "position_target_ned": [
+            4.258693448167037,
+            -2.261300121017179,
+            -3.8799027917549465
+          ],
+          "waypoints_reached": 0,
+          "waypoint_tracking_seconds": 0.03,
+          "outer_diagnostics_timing": "reference used for this transition, before next command",
+          "waypoint_switch_bonus": 0.0,
+          "episode_waypoint_bonus": 0.0
+        }
+      }
+    ],
+    "reward_interface": {
+      "version": "sse10000_native_torque_slew_limits_no_headroom_no_waypoint_bonus_v15",
+      "waypoint_switch_raw_bonus": 0.0,
+      "rate_aggregation": "sum of three squared degree/s errors, then cap",
+      "common_reward_gain": 7e-05,
+      "raw_settlement": {
+        "success": 50000.0,
+        "failure_base": -30000.0,
+        "early_failure_extra_max": -140.0,
+        "failure_formula": "-30000-3500*episode_seconds*(1-survival_fraction)"
+      },
+      "headroom_gate": null,
+      "horizon_success": {
+        "whole_episode_rmse_strictly_below_deg_s": 5.0,
+        "aggregation": "each axis separately: sqrt(mean over all episode steps of squared degree/s error); all three strictly below threshold",
+        "failure_reason": "tracking_rmse",
+        "success_raw": 50000.0
+      },
+      "mse_cap_deg_s_squared": 5000.0,
+      "tracking_bonus_threshold_deg_s": 5.0,
+      "continuous_weights": {
+        "rate": 0.7,
+        "slew": 0.002857142857142857,
+        "mean_headroom": 0.0,
+        "tracking_bonus": 0.0084
+      },
+      "slew_scale_per_s": 10.0,
+      "legacy_component_slot_peak_pwm": "disabled: collective thrust is controlled by PX4",
+      "motor_command_source": "latest actual PX4 actuator_motors.control normalized ESC commands in applied_pwm",
+      "slew_input": "(current accepted requested normalized torque - previous accepted requested normalized torque) / dt",
+      "slew_aggregation": "mean over three axes of B(torque_rate / slew_scale_per_s), B(x)=x^2/(1+x^2)",
+      "slew_history_initialization": "zero torque before the first accepted policy action of each episode",
+      "saturation_input": "current accepted normalized torque, each of three signed axes independently",
+      "saturation_absolute_threshold": 0.999,
+      "saturation_comparison": "abs(torque) >= threshold; zero torque is not saturated",
+      "saturation_cost_per_axis_per_s": 1.0,
+      "motor_saturation_role": "diagnostic only; does not affect native torque reward or tracking bonus",
+      "tracking_bonus_gate": "each true rate error strictly <5 deg/s; no failure; no saturated torque axis",
+      "collective_thrust_control": "native PX4; no actor thrust observation or thrust action"
+    }
+  },
+  "legacy_bounded": {
+    "transitions": [
+      {
+        "observation": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.699999988079071,
+          0.699999988079071,
+          0.699999988079071,
+          0.699999988079071,
+          0.9810543656349182,
+          0.0
+        ],
+        "info": {
+          "sim_us": 1000000,
+          "simulator_seed": 1264954010,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "thrust_demand": 0.9810543458313111,
+          "reward_error_scale_deg_s": 10.0,
+          "training_stage": "ball_rig"
+        }
+      },
+      {
+        "observation": [
+          0.006981316953897476,
+          0.010471975430846214,
+          0.003490658476948738,
+          -0.006981316953897476,
+          -0.010471975430846214,
+          -0.003490658476948738,
+          0.699999988079071,
+          0.699999988079071,
+          0.699999988079071,
+          0.699999988079071,
+          0.9810543656349182,
+          0.0
+        ],
+        "reward": -5.506438512399526e-06,
+        "terminated": false,
+        "truncated": false,
+        "info": {
+          "sim_us": 1010000,
+          "sample_us": 1010000,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rates_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "rates_true_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "observed_error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "observed_error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 0.04666666666666668,
+          "rate_bounded_cost": 0.04364377863333265,
+          "reward_error_scale_deg_s": 10.0,
+          "slew_rate_cost": 0.0,
+          "slew_rate_source": "applied_pwm",
+          "pwm_rate_per_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "continuous_reward_components": [
+            -0.00030550645043332853,
+            -0.0,
+            -0.000699999988079071,
+            0.001
+          ],
+          "thrust_demand": 0.9810543458313111,
+          "commanded_throttle": 0.699999988079071,
+          "current_pwm_command": [
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071
+          ],
+          "applied_speed_fraction": [
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071
+          ],
+          "upper_headroom": 0.30000001192092896,
+          "peak_pwm_cost": 0.699999988079071,
+          "peak_pwm_penalty": 0.000699999988079071,
+          "tracking_eligible": true,
+          "tracking_bonus": 0.001,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "motor_saturation_count": 0,
+          "saturation_count": 0,
+          "saturation_source": "allocated_motor",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 0.0,
+          "training_stage": "ball_rig",
+          "waypoint_switch_bonus": 0.0,
+          "episode_waypoint_bonus": 0.0
+        }
+      },
+      {
+        "observation": [
+          0.006981316953897476,
+          0.010471975430846214,
+          0.003490658476948738,
+          -0.006981316953897476,
+          -0.010471975430846214,
+          -0.003490658476948738,
+          0.0,
+          1.0,
+          0.4000000059604645,
+          0.5,
+          0.9810543656349182,
+          0.0
+        ],
+        "reward": -0.02163788268338899,
+        "terminated": false,
+        "truncated": false,
+        "info": {
+          "sim_us": 1020000,
+          "sample_us": 1020000,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rates_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "rates_true_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "observed_error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "observed_error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 0.04666666666666668,
+          "rate_bounded_cost": 0.04364377863333265,
+          "reward_error_scale_deg_s": 10.0,
+          "slew_rate_cost": 1774.9999374151253,
+          "slew_rate_source": "applied_pwm",
+          "pwm_rate_per_s": [
+            -69.9999988079071,
+            30.000001192092896,
+            -29.999998211860657,
+            -19.999998807907104
+          ],
+          "continuous_reward_components": [
+            -0.00030550645043332853,
+            -0.00033237623295565894,
+            -0.001,
+            0.0
+          ],
+          "thrust_demand": 0.9810543458313111,
+          "commanded_throttle": 0.4750000014901161,
+          "current_pwm_command": [
+            0.0,
+            1.0,
+            0.4000000059604645,
+            0.5
+          ],
+          "applied_speed_fraction": [
+            0.0,
+            1.0,
+            0.4000000059604645,
+            0.5
+          ],
+          "upper_headroom": 0.0,
+          "peak_pwm_cost": 1.0,
+          "peak_pwm_penalty": 0.001,
+          "tracking_eligible": false,
+          "tracking_bonus": 0.0,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "motor_saturation_count": 2,
+          "saturation_count": 2,
+          "saturation_source": "allocated_motor",
+          "saturation_penalty": 0.02,
+          "failure_penalty": 0.0,
+          "training_stage": "ball_rig",
+          "waypoint_switch_bonus": 0.0,
+          "episode_waypoint_bonus": 0.0
+        }
+      },
+      {
+        "observation": [
+          0.006981316953897476,
+          0.010471975430846214,
+          0.003490658476948738,
+          -0.006981316953897476,
+          -0.010471975430846214,
+          -0.003490658476948738,
+          0.20000000298023224,
+          0.20000000298023224,
+          0.20000000298023224,
+          0.20000000298023224,
+          0.9810543656349182,
+          0.0
+        ],
+        "reward": 0.0001795762774291251,
+        "terminated": false,
+        "truncated": false,
+        "info": {
+          "sim_us": 1030000,
+          "sample_us": 1030000,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rates_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "rates_true_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "observed_error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "observed_error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 0.04666666666666668,
+          "rate_bounded_cost": 0.04364377863333265,
+          "reward_error_scale_deg_s": 10.0,
+          "slew_rate_cost": 2024.9999895691872,
+          "slew_rate_source": "applied_pwm",
+          "pwm_rate_per_s": [
+            20.000000298023224,
+            -79.99999970197678,
+            -20.000000298023224,
+            -29.999999701976776
+          ],
+          "continuous_reward_components": [
+            -0.00030550645043332853,
+            -0.0003149172691573141,
+            -0.00020000000298023225,
+            0.001
+          ],
+          "thrust_demand": 0.9810543458313111,
+          "commanded_throttle": 0.20000000298023224,
+          "current_pwm_command": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "applied_speed_fraction": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "upper_headroom": 0.7999999970197678,
+          "peak_pwm_cost": 0.20000000298023224,
+          "peak_pwm_penalty": 0.00020000000298023225,
+          "tracking_eligible": true,
+          "tracking_bonus": 0.001,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "motor_saturation_count": 0,
+          "saturation_count": 0,
+          "saturation_source": "allocated_motor",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 0.0,
+          "training_stage": "ball_rig",
+          "waypoint_switch_bonus": 0.0,
+          "episode_waypoint_bonus": 0.0
+        }
+      },
+      {
+        "observation": [
+          0.006981316953897476,
+          0.010471975430846214,
+          0.003490658476948738,
+          -0.006981316953897476,
+          -0.010471975430846214,
+          -0.003490658476948738,
+          0.699999988079071,
+          0.699999988079071,
+          0.699999988079071,
+          0.699999988079071,
+          0.9810543656349182,
+          0.0
+        ],
+        "reward": 9.999494493576389,
+        "terminated": true,
+        "truncated": false,
+        "info": {
+          "sim_us": 1040000,
+          "sample_us": 1040000,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rates_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "rates_true_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "observed_error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "observed_error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 0.04666666666666668,
+          "rate_bounded_cost": 0.04364377863333265,
+          "reward_error_scale_deg_s": 10.0,
+          "slew_rate_cost": 2499.9998509883903,
+          "slew_rate_source": "applied_pwm",
+          "pwm_rate_per_s": [
+            49.99999850988388,
+            49.99999850988388,
+            49.99999850988388,
+            49.99999850988388
+          ],
+          "continuous_reward_components": [
+            -0.00030550645043332853,
+            -0.0004999999850988387,
+            -0.000699999988079071,
+            0.001
+          ],
+          "thrust_demand": 0.9810543458313111,
+          "commanded_throttle": 0.699999988079071,
+          "current_pwm_command": [
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071
+          ],
+          "applied_speed_fraction": [
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071
+          ],
+          "upper_headroom": 0.30000001192092896,
+          "peak_pwm_cost": 0.699999988079071,
+          "peak_pwm_penalty": 0.000699999988079071,
+          "tracking_eligible": true,
+          "tracking_bonus": 0.001,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": true,
+          "success_bonus": 10.0,
+          "saturated_motors": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "motor_saturation_count": 0,
+          "saturation_count": 0,
+          "saturation_source": "allocated_motor",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 0.0,
+          "training_stage": "ball_rig",
+          "episode_axis_rate_rmse_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "episode_axis_rate_rmse_deg_s": [
+            2.0,
+            3.0000000000000004,
+            1.0
+          ],
+          "episode_settled_tracking_fraction": 0.0,
+          "episode_reward_components": [
+            -0.0012220258017333141,
+            -0.0011472934872118119,
+            -0.002599999979138374,
+            0.003
+          ],
+          "transfer_qualified": false,
+          "episode_rate_rmse_rad_s": 0.037703421051738004,
+          "episode_rate_rmse_deg_s": 2.160246899469287,
+          "episode_observed_rate_rmse_rad_s": 0.037703421051738004,
+          "episode_observed_rate_rmse_deg_s": 2.160246899469287,
+          "episode_saturation_penalty": 0.02,
+          "episode_failure_penalty": 0.0,
+          "episode_success_bonus": 10.0,
+          "episode_saturation_fraction": 0.125,
+          "episode_motor_saturation_fraction": 0.125,
+          "waypoint_switch_bonus": 0.0,
+          "episode_waypoint_bonus": 0.0
+        }
+      }
+    ],
+    "reward_interface": null
+  },
+  "legacy_sse": {
+    "transitions": [
+      {
+        "observation": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.699999988079071,
+          0.699999988079071,
+          0.699999988079071,
+          0.699999988079071,
+          0.9810543656349182,
+          0.0
+        ],
+        "info": {
+          "sim_us": 1000000,
+          "simulator_seed": 1264954010,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "thrust_demand": 0.9810543458313111,
+          "reward_error_scale_deg_s": 10.0,
+          "training_stage": "ball_rig"
+        }
+      },
+      {
+        "observation": [
+          0.006981316953897476,
+          0.010471975430846214,
+          0.003490658476948738,
+          -0.006981316953897476,
+          -0.010471975430846214,
+          -0.003490658476948738,
+          0.699999988079071,
+          0.699999988079071,
+          0.699999988079071,
+          0.699999988079071,
+          0.9810543656349182,
+          0.0
+        ],
+        "reward": 0.001590200023841858,
+        "terminated": false,
+        "truncated": false,
+        "info": {
+          "sim_us": 1010000,
+          "sample_us": 1010000,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rates_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "rates_true_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "observed_error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "observed_error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 14.000000000000004,
+          "rate_bounded_cost": 0.0014000000000000004,
+          "reward_error_scale_deg_s": 10.0,
+          "slew_rate_cost": 0.0,
+          "slew_rate_source": "applied_pwm",
+          "pwm_rate_per_s": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "continuous_reward_components": [
+            -9.800000000000003e-06,
+            -0.0,
+            0.0006000000238418579,
+            0.001
+          ],
+          "thrust_demand": 0.9810543458313111,
+          "commanded_throttle": 0.699999988079071,
+          "current_pwm_command": [
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071
+          ],
+          "applied_speed_fraction": [
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071
+          ],
+          "upper_headroom": 0.30000001192092896,
+          "peak_pwm_cost": 0.699999988079071,
+          "peak_pwm_penalty": -0.0006000000238418579,
+          "tracking_eligible": true,
+          "tracking_bonus": 0.001,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "motor_saturation_count": 0,
+          "saturation_count": 0,
+          "saturation_source": "allocated_motor",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 0.0,
+          "training_stage": "ball_rig",
+          "waypoint_switch_bonus": 0.0,
+          "episode_waypoint_bonus": 0.0
+        }
+      },
+      {
+        "observation": [
+          0.006981316953897476,
+          0.010471975430846214,
+          0.003490658476948738,
+          -0.006981316953897476,
+          -0.010471975430846214,
+          -0.003490658476948738,
+          0.0,
+          1.0,
+          0.4000000059604645,
+          0.5,
+          0.9810543656349182,
+          0.0
+        ],
+        "reward": -0.01929217622103473,
+        "terminated": false,
+        "truncated": false,
+        "info": {
+          "sim_us": 1020000,
+          "sample_us": 1020000,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rates_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "rates_true_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "observed_error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "observed_error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 14.000000000000004,
+          "rate_bounded_cost": 0.0014000000000000004,
+          "reward_error_scale_deg_s": 10.0,
+          "slew_rate_cost": 1774.9999374151253,
+          "slew_rate_source": "applied_pwm",
+          "pwm_rate_per_s": [
+            -69.9999988079071,
+            30.000001192092896,
+            -29.999998211860657,
+            -19.999998807907104
+          ],
+          "continuous_reward_components": [
+            -9.800000000000003e-06,
+            -0.00033237623295565894,
+            0.001050000011920929,
+            0.0
+          ],
+          "thrust_demand": 0.9810543458313111,
+          "commanded_throttle": 0.4750000014901161,
+          "current_pwm_command": [
+            0.0,
+            1.0,
+            0.4000000059604645,
+            0.5
+          ],
+          "applied_speed_fraction": [
+            0.0,
+            1.0,
+            0.4000000059604645,
+            0.5
+          ],
+          "upper_headroom": 0.5250000059604645,
+          "peak_pwm_cost": 1.0,
+          "peak_pwm_penalty": -0.001050000011920929,
+          "tracking_eligible": false,
+          "tracking_bonus": 0.0,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "motor_saturation_count": 2,
+          "saturation_count": 2,
+          "saturation_source": "allocated_motor",
+          "saturation_penalty": 0.02,
+          "failure_penalty": 0.0,
+          "training_stage": "ball_rig",
+          "waypoint_switch_bonus": 0.0,
+          "episode_waypoint_bonus": 0.0
+        }
+      },
+      {
+        "observation": [
+          0.006981316953897476,
+          0.010471975430846214,
+          0.003490658476948738,
+          -0.006981316953897476,
+          -0.010471975430846214,
+          -0.003490658476948738,
+          0.20000000298023224,
+          0.20000000298023224,
+          0.20000000298023224,
+          0.20000000298023224,
+          0.9810543656349182,
+          0.0
+        ],
+        "reward": 0.0022752827248822215,
+        "terminated": false,
+        "truncated": false,
+        "info": {
+          "sim_us": 1030000,
+          "sample_us": 1030000,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rates_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "rates_true_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "observed_error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "observed_error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 14.000000000000004,
+          "rate_bounded_cost": 0.0014000000000000004,
+          "reward_error_scale_deg_s": 10.0,
+          "slew_rate_cost": 2024.9999895691872,
+          "slew_rate_source": "applied_pwm",
+          "pwm_rate_per_s": [
+            20.000000298023224,
+            -79.99999970197678,
+            -20.000000298023224,
+            -29.999999701976776
+          ],
+          "continuous_reward_components": [
+            -9.800000000000003e-06,
+            -0.0003149172691573141,
+            0.0015999999940395355,
+            0.001
+          ],
+          "thrust_demand": 0.9810543458313111,
+          "commanded_throttle": 0.20000000298023224,
+          "current_pwm_command": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "applied_speed_fraction": [
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224,
+            0.20000000298023224
+          ],
+          "upper_headroom": 0.7999999970197678,
+          "peak_pwm_cost": 0.20000000298023224,
+          "peak_pwm_penalty": -0.0015999999940395355,
+          "tracking_eligible": true,
+          "tracking_bonus": 0.001,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": false,
+          "success_bonus": 0.0,
+          "saturated_motors": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "motor_saturation_count": 0,
+          "saturation_count": 0,
+          "saturation_source": "allocated_motor",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 0.0,
+          "training_stage": "ball_rig",
+          "waypoint_switch_bonus": 0.0,
+          "episode_waypoint_bonus": 0.0
+        }
+      },
+      {
+        "observation": [
+          0.006981316953897476,
+          0.010471975430846214,
+          0.003490658476948738,
+          -0.006981316953897476,
+          -0.010471975430846214,
+          -0.003490658476948738,
+          0.699999988079071,
+          0.699999988079071,
+          0.699999988079071,
+          0.699999988079071,
+          0.9810543656349182,
+          0.0
+        ],
+        "reward": 3.5010902000387425,
+        "terminated": true,
+        "truncated": false,
+        "info": {
+          "sim_us": 1040000,
+          "sample_us": 1040000,
+          "target_rad_s": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rates_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "rates_true_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "observed_error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_rad_s": [
+            -0.03490658503988659,
+            -0.05235987755982989,
+            -0.017453292519943295
+          ],
+          "error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "observed_error_deg_s": [
+            -2.0,
+            -3.0000000000000004,
+            -1.0
+          ],
+          "altitude_m": 3.0,
+          "tilt_rad": 0.0,
+          "position_ned": [
+            0.0,
+            0.0,
+            -3.0
+          ],
+          "tracking_cost": 14.000000000000004,
+          "rate_bounded_cost": 0.0014000000000000004,
+          "reward_error_scale_deg_s": 10.0,
+          "slew_rate_cost": 2499.9998509883903,
+          "slew_rate_source": "applied_pwm",
+          "pwm_rate_per_s": [
+            49.99999850988388,
+            49.99999850988388,
+            49.99999850988388,
+            49.99999850988388
+          ],
+          "continuous_reward_components": [
+            -9.800000000000003e-06,
+            -0.0004999999850988387,
+            0.0006000000238418579,
+            0.001
+          ],
+          "thrust_demand": 0.9810543458313111,
+          "commanded_throttle": 0.699999988079071,
+          "current_pwm_command": [
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071
+          ],
+          "applied_speed_fraction": [
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071,
+            0.699999988079071
+          ],
+          "upper_headroom": 0.30000001192092896,
+          "peak_pwm_cost": 0.699999988079071,
+          "peak_pwm_penalty": -0.0006000000238418579,
+          "tracking_eligible": true,
+          "tracking_bonus": 0.001,
+          "rotor_speed_fraction": [
+            0.7,
+            0.7,
+            0.7,
+            0.7
+          ],
+          "failure": null,
+          "is_success": true,
+          "success_bonus": 3.4999999999999996,
+          "saturated_motors": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "motor_saturation_count": 0,
+          "saturation_count": 0,
+          "saturation_source": "allocated_motor",
+          "saturation_penalty": 0.0,
+          "failure_penalty": 0.0,
+          "training_stage": "ball_rig",
+          "episode_axis_rate_rmse_rad_s": [
+            0.03490658503988659,
+            0.05235987755982989,
+            0.017453292519943295
+          ],
+          "episode_axis_rate_rmse_deg_s": [
+            2.0,
+            3.0000000000000004,
+            1.0
+          ],
+          "episode_settled_tracking_fraction": 0.0,
+          "episode_reward_components": [
+            -3.920000000000001e-05,
+            -0.0011472934872118119,
+            0.0038500000536441804,
+            0.003
+          ],
+          "transfer_qualified": false,
+          "episode_rate_rmse_rad_s": 0.037703421051738004,
+          "episode_rate_rmse_deg_s": 2.160246899469287,
+          "episode_observed_rate_rmse_rad_s": 0.037703421051738004,
+          "episode_observed_rate_rmse_deg_s": 2.160246899469287,
+          "episode_saturation_penalty": 0.02,
+          "episode_failure_penalty": 0.0,
+          "episode_success_bonus": 3.4999999999999996,
+          "episode_saturation_fraction": 0.125,
+          "episode_motor_saturation_fraction": 0.125,
+          "waypoint_switch_bonus": 0.0,
+          "episode_waypoint_bonus": 0.0
+        }
+      }
+    ],
+    "reward_interface": {
+      "version": "sse10000_headroom2_waypoint1000_noise5_v11",
+      "waypoint_switch_raw_bonus": 1000.0,
+      "rate_aggregation": "sum of three squared degree/s errors, then cap",
+      "common_reward_gain": 7e-05,
+      "raw_settlement": {
+        "success": 50000.0,
+        "failure_base": -30000.0,
+        "early_failure_extra_max": -100.0,
+        "failure_formula": "-30000-2500*episode_seconds*(1-survival_fraction)"
+      },
+      "headroom_gate": {
+        "strict_error_deg_s": 5.0,
+        "consecutive_seconds": 0.0,
+        "requires_no_failure": true
+      },
+      "horizon_success": {
+        "whole_episode_rmse_strictly_below_deg_s": 5.0,
+        "aggregation": "sqrt(mean over all steps and three axes of squared degree/s errors)",
+        "failure_reason": "tracking_rmse",
+        "success_raw": 50000.0
+      },
+      "mse_cap_deg_s_squared": 10000.0,
+      "tracking_bonus_threshold_deg_s": 5.0,
+      "continuous_weights": {
+        "rate": 0.7,
+        "slew": 0.1,
+        "mean_headroom": 0.2,
+        "tracking_bonus": 0.1
+      },
+      "slew_scale_per_s": 50.0,
+      "legacy_component_slot_peak_pwm": "positive mean headroom reward when current three-axis errors are all <5 deg/s"
+    }
+  }
+}

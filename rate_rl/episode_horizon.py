@@ -2,9 +2,10 @@
 from copy import deepcopy
 
 from .env import TaskConfig
+from .defaults import CURRENT
 from .reward_contract import mse_reward_interface_metadata
 
-DEFAULT_NATIVE_EPISODE_STEPS = 2048
+DEFAULT_NATIVE_EPISODE_STEPS = CURRENT.episode_steps
 
 
 def migrate_episode_horizon(model, new_contract):

@@ -34,37 +34,35 @@ PY="$HOME/rl_rate/.venv/bin/python"
 
 第二个命令会启动仿真，使用固定PI控制器验证接口，不是PPO训练。仓库打包验证仅执行Python回归和脚本语法检查，未在全新机器重新构建整个PX4/Gazebo工具链。
 
-## 显式开始训练
+## 预览与启动
+
+先预览实际命令。`--dry-run`只解析参数并输出计划，不创建运行目录、不加载模型、不启动仿真：
 
 ```bash
-"$PY" scripts/train_rate_only.py --run runs/early --phase early --steps 300000
+"$PY" scripts/train_rate_only.py --run runs/experiment --steps 3500000 --dry-run
+"$PY" scripts/train_rate_only.py --run runs/experiment --steps 3500000
 ```
 
-从零探索；已有目录会被拒绝，避免覆盖日志。默认四个独立PX4/Gazebo环境，每环境采样1024步，合计4096，batch1024、最多10个epochs，KL动态学习率。完成后按完整4096步rollout预计停在303104步；回合最长2048步/20.48秒（`--episode-steps`），可跨采样轮次。双环境用`--n-envs 2`，从零单环境用`--n-envs 1`。旧30秒模型改回合长度续训须显式`--allow-episode-length-change`。
+新训练不传`--resume`；旧目录会被拒绝。当前默认单环境，每轮采样4096步，batch2048，最多10个epochs；每回合2048步/20.48秒，可跨采样轮次。学习率按KL在3e-5～3e-4之间调整，熵0.01、clip0.2，前后期优化参数和跟踪奖励门槛相同，不自动转阶段。总步数按完整rollout向上取整。
 
-`--n-envs 4`每环境采样1024步，`--n-envs 2`每环境采样2048步，总采样均为4096；支持从双环境检查点保留模型和优化器转四环境续训，也支持转回双环境。训练默认实例41～44，独立评估和接口诊断默认实例45。
+默认配方集中在`rate_rl/defaults.py`；实际启动配置保存在各run的`config.json`，进程状态在`job.json`。公式与当前约定见[训练参数](TRAINING_PARAMETERS.md)，模块职责见[架构说明](docs/ARCHITECTURE.md)。不要用参数文档推断训练是否正在运行。
 
-当前入口默认启用KL驱动学习率：每轮结束调节下一轮学习率，优化中KL超限则提前停止本轮更新。阶段边界、保存与续训规则见[当前参数](TRAINING_PARAMETERS.md#kl驱动学习率2026-09-24确认)。已有固定学习率PPO检查点可续训升级，策略和优化器状态保留。
-
-手动续训示例：
+续训需要显式指定检查点与新的运行目录，`--steps`表示追加采样步数：
 
 ```bash
-"$PY" scripts/train_rate_only.py --run runs/late --phase late --steps 3000000 --resume runs/early/actor_critic.zip
+"$PY" scripts/train_rate_only.py --run runs/continued --steps 1000000 \
+  --resume runs/experiment/checkpoints/ppo_1757184_steps.zip --dry-run
 ```
 
-也可以在前期训练运行时，在另一个终端执行以下管理器，等待前期成功结束再自动启动后期：
+确认计划后移除`--dry-run`执行。加载时仍校验观测、动作、奖励和仿真资产契约；旧检查点若奖励不匹配，不能仅改元数据绕过校验。旧30秒模型缩短到20.48秒须显式`--allow-episode-length-change`，且仅允许该时长及对应剩余时间惩罚上限变化。续训恢复策略、优化器与保存的训练随机状态，仿真重新起飞，不恢复空中的物理状态。
 
-```bash
-"$PY" scripts/extend_rate_only_exploration.py --source runs/early --run runs/late --total 3303104 --phase late
-```
-
-使用默认运行目录时，预计累计3305472步结束。自定义运行路径请为训练入口传入`--runtime`；自动管理器目前使用默认运行目录，定制路径场景请使用手动续训。
+历史并行实现仍支持`--n-envs 2`或`4`，相应每环境采样2048或1024步，默认不启用；2/4环境检查点之间可转换。训练通常使用实例41（并行41～44），独立评估使用45。历史阶段衔接脚本`extend_rate_only_exploration.py`仅在显式运行时生效，并传递源任务的采样布局与runtime路径；当前统一参数训练无需启动它。
 
 ## 监控与评估
 
 ```bash
-"$PY" scripts/serve_tensorboard_local.py --logdir runs/early/tensorboard_raw --host 127.0.0.1 --port 6006 --load_fast=false
-"$PY" scripts/evaluate_deterministic_recent.py --run runs/late --runtime "$HOME/rl_rate/runtime.free_flight.json"
+"$PY" scripts/serve_tensorboard_local.py --logdir runs/experiment/tensorboard_raw --host 127.0.0.1 --port 6006 --load_fast=false
+"$PY" scripts/evaluate_deterministic_recent.py --run runs/experiment --runtime "$HOME/rl_rate/runtime.free_flight.json"
 ```
 
 TensorBoard地址为<http://127.0.0.1:6006/>，奖励曲线还原为原始奖励。每40000步保存包含该步的完整回合，绘制三轴角速度、三轴力矩和四电机分配输出，并标记实际航点切换。确定性评估关闭策略动作采样噪声，保留传感器噪声与电机动态，结果写入所选run的`performance_analysis/`。
