@@ -13,6 +13,10 @@ def build_task_config(args):
         tracking_bonus_threshold_deg_s=CURRENT.tracking_threshold_deg_s,
         squared_error_reward=args.squared_error_reward,
         slew_weight=args.slew_weight,
+        error_progress_weight=CURRENT.error_progress_weight if args.native_torque else 0.,
+        error_progress_delta_cap=CURRENT.error_progress_delta_cap if args.native_torque else None,
+        reward_gain=CURRENT.reward_gain if args.native_torque else 7e-5,
+        failure_rate_per_s=CURRENT.failure_rate_per_s if args.native_torque else 2500.,
         dt=args.control_dt, fixed_episode_rate_target=args.fixed_episode_rate_target,
         terminate_on_tilt=not args.no_tilt_termination,
         target_limit_rad_s=tuple(args.target_rate_limits),
@@ -46,6 +50,7 @@ def build_monitor_fields(args):
         monitor_fields = tuple("episode_torque_saturation_fraction" if field == "episode_saturation_fraction"
                                else field for field in monitor_fields)
         monitor_fields += ("episode_motor_saturation_fraction",)
+        monitor_fields += ("episode_error_progress_reward",)
 
     if args.compact_logs:
         monitor_fields = ()

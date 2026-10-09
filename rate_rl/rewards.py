@@ -84,9 +84,9 @@ def evaluate_outcome(
     failure_penalty = (c.failure_cost + c.early_failure_cost * (1. - survival_fraction)
                        if failure is not None else 0.)
     if c.squared_error_reward:
-        success_bonus = CURRENT.success_bonus * CURRENT.reward_gain if success else 0.
+        success_bonus = CURRENT.success_bonus * c.reward_gain if success else 0.
         failure_penalty = ((CURRENT.failure_base + early_failure_rate(c) * c.episode_seconds
-                            * (1. - survival_fraction)) * CURRENT.reward_gain
+                            * (1. - survival_fraction)) * c.reward_gain
                            if failure is not None else 0.)
     return EpisodeOutcome(failure, bool(success), altitude, float(tilt),
                           success_bonus, failure_penalty)
@@ -176,6 +176,16 @@ def evaluate_step_reward(
     tracking_bonus = c.dt * c.tracking_bonus_weight if tracking_eligible else 0.
     reward += tracking_bonus
     components[3] = tracking_bonus
+
+    # Stored continuous coefficients use historical 7e-5 units. Convert all
+    # monetary terms together, preserving their raw values and relative weights.
+    if c.native_torque and c.reward_gain != 7e-5:
+        factor = c.reward_gain / 7e-5
+        reward *= factor
+        components *= factor
+        saturation_penalty *= factor
+        peak_pwm_penalty *= factor
+        tracking_bonus *= factor
 
     diagnostics = dict(
         tracking_cost=tracking, rate_bounded_cost=rate_normalised,

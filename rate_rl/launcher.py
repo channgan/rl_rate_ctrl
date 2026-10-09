@@ -150,6 +150,8 @@ def main(argv: Sequence[str] | None = None, *, project: Path | None = None) -> i
     if dry_run:
         print(json.dumps(plan.as_dict(), indent=2))
         return 0
+    from .startup_entry import require_standard_training
+    require_standard_training('rate_rl.launcher')
     from .run_manager import RunSupervisor
     return RunSupervisor(plan).run()
 

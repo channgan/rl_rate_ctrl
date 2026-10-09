@@ -1,0 +1,62 @@
+{
+  "source_object": {
+    "passed": true,
+    "all_three_original_source_object_pairs_byte_exact": true,
+    "compiled_from_reviewed_source": [
+      {
+        "source": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/proposed/RLBridge.cpp",
+        "source_sha256": "8119954c4167f1c28248c8ac7277b33b98189515934e1831d74a1f9ec7e39177",
+        "object": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/RLBridge.cpp.o",
+        "object_sha256": "fbfee54b7d3b65c045d1f6c7ae85c498e9d92598b00cfdbc8b853f39f6b89990",
+        "command_index": 2
+      },
+      {
+        "source": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/proposed/GZMixingInterfaceESC.cpp",
+        "source_sha256": "6bc730f5ed0694f8e5bf3d851f35be68bb828ea74d424013c06fec363a7a1d09",
+        "object": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/GZMixingInterfaceESC.cpp.o",
+        "object_sha256": "c2a4a61ebb9553804dffc32f128f0b79c59dc2569ef36a3e7febf99a9df8e4b8",
+        "command_index": 3
+      },
+      {
+        "source": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/proposed/RateTrainingSystem.cpp",
+        "source_sha256": "ec5c4274d01f80336a967835167401728fe511b9c7b4431b48ecf066693f7958",
+        "object": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/RateTrainingSystem.cpp.o",
+        "object_sha256": "f520953c81069593d57d68227e85097f0e46963bd67103ac1e657b4337bd3251",
+        "command_index": 4
+      }
+    ],
+    "header_sha256": {
+      "AckDiagnostics.hpp": "b5fbf25a82b6ae8cfb4a9fac45b67dab91126c36067e8724f83ff6641f00b099",
+      "BootstrapFrame.hpp": "76503fe4d352acd15161fdebe46ac4a35c95854810b8bbb583cac0b896332de3",
+      "CadenceProbe.hpp": "663b22e303c4a1a0c860ca825509d520fe99266e37f2e59f3185bd334c430bf8",
+      "ClosedLoopStep.hpp": "5f03c2c440c1f77ef229324917dd7d2e60e1ffce7cfd17f11387b84385204179",
+      "CompletionEvent.hpp": "f5582b62d730a8d21390aea24ae09b9bf10e6bfb282359558de65ea6b1abf305",
+      "LegacyCompletionEvent.hpp": "d14e1a74c9f05eacbb2aad070414bb714b9b537b7c446e35303fea55d8fc2e60"
+    },
+    "new_native_calls": 0
+  },
+  "archive": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/linked/libmodules__simulation__gz_bridge.a",
+  "archive_sha256": "e733c05009878f5a177d30031306bf1aeb23fee9069d2fed5b3c434ba842d1c9",
+  "verified_archive_members": {
+    "RLBridge.cpp.o": "fbfee54b7d3b65c045d1f6c7ae85c498e9d92598b00cfdbc8b853f39f6b89990",
+    "GZMixingInterfaceESC.cpp.o": "c2a4a61ebb9553804dffc32f128f0b79c59dc2569ef36a3e7febf99a9df8e4b8"
+  },
+  "link": {
+    "passed": true,
+    "baseline_relink_byte_exact": true,
+    "old_px4_sha256": "5d8d7dc743af95b6f2f4ea79ebbb5c32259752bde66f33e7b2b313cb96c8a552",
+    "new_px4_sha256": "6bf92a950c87f04668e5d313100876a83be1b57236df2ee4c007f53313dd025e",
+    "new_plugin_sha256": "16faecad2cbe2d587f4a0b663a656a715db0ffd7b91eceb9007eb2801d672ed1",
+    "changed_archive_members": [
+      "RLBridge.cpp.o",
+      "GZMixingInterfaceESC.cpp.o"
+    ],
+    "unchanged_control_archive": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_entry_coverage_v46/continuous90_offline_revision1/native/libmodules__mc_rate_control.a",
+    "unchanged_control_archive_sha256": "7fa9242baf80e554f9d47278b2847b85116d3e545845c28ca6b9702bd4ac1ba3",
+    "old_runtime_untouched": true,
+    "package": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/runtime_package",
+    "new_native_calls": 0
+  },
+  "ledger_sha256": "cd11b00d1c303cd425f4d523a10caf5bea8d7be44e5591f7b6d1751959453d0e",
+  "passed": true
+}

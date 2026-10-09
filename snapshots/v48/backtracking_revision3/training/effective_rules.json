@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "version": "v48-effective-rules-backtracking3",
+  "learning_rate": 3e-05,
+  "trainable_RP_parameters": 154,
+  "smoothness": {
+    "mode": "global_nonincreasing_adaptive_every_update",
+    "initial_alpha": 1.0,
+    "target_ratio": 0.099,
+    "hard_ratio": 0.1,
+    "zero_tracking": "disable_global_smoothness",
+    "nonfinite": "stop",
+    "rebuild": "reward_returns_group_baseline_common_normalization"
+  },
+  "memory_coverage": {
+    "mode": "diagnostic_all_batches",
+    "historical_q05_q95_never_eligibility": true,
+    "record_original_gate_would_fail": true,
+    "finite_and_abs_le_one_hard": true,
+    "recurrence_and_128history_and_10ms_lookback_hard": true
+  },
+  "velocity_coverage": "unchanged_hard_q05_q95",
+  "phases": {
+    "first3_seconds": 3,
+    "first3_sampling_mass": 0.5,
+    "later_sampling_mass": 0.5
+  },
+  "batching": {
+    "batches": 4,
+    "captures_per_batch": 7,
+    "updates_per_batch": 10,
+    "minibatch": 2000,
+    "carry_actor_Adam_RNG_between_batches": true,
+    "new_permutations_for_each_new_behavior_dataset": true
+  },
+  "total_updates": 40,
+  "only_candidate": "final_update40",
+  "training_native_limit": 2000000,
+  "development_native_limit": 3000000,
+  "development": {
+    "episodes": 54,
+    "seeds": [
+      480301,
+      480302
+    ],
+    "holdout_sealed": [
+      12701,
+      12702
+    ],
+    "original_metrics_and_gates_unchanged": true
+  },
+  "native_and_PID_unchanged": true,
+  "physical_scoring_unchanged": true,
+  "failure_penalty_raw_per_second": 4000,
+  "backtracking": {
+    "scales": [
+      1.0,
+      0.5,
+      0.25,
+      0.125,
+      0.0625,
+      0.03125,
+      0.015625,
+      0.0078125,
+      0.00390625,
+      0.001953125,
+      0.0009765625,
+      0.00048828125,
+      0.000244140625
+    ],
+    "minimum_scale": 0.000244140625,
+    "bias_original_limit": 0.0001,
+    "bias_float64_acceptance": 9.999990000000001e-05,
+    "minimum_parameter_change": 1e-10,
+    "nonzero_action_required": true,
+    "all_original_guards": true,
+    "exhaustion": "stop_and_restore_batch_start",
+    "success_count": "accepted_nonzero_only"
+  }
+}

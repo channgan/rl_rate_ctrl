@@ -1,4 +1,9 @@
+> Versioned baseline: see [VERSIONING_BASELINE_20261009.md](docs/VERSIONING_BASELINE_20261009.md). Historical status below is preserved; this snapshot does not start training.
+
 # rl_rate_ctrl
+
+> 2026-10-08 当前状态：同步四项验证已通过；原首批五条完整采集因入场垂直速度覆盖不足停止，真实更新 0。已授权并封存七条分组采集修订：保留同 runtime 五条，固定追加正负垂直场景，原覆盖门槛不变。历史计费 673045，后续最多 23 条，最坏总计 1754045/2000000。实时状态以 vertical_entry_revision1/status.json 和原 ledger.json 为准。
+
 
 使用 Stable-Baselines3 PPO 学习多旋翼角速度内环，运行于 PX4 v1.17.0 + Gazebo Harmonic。
 

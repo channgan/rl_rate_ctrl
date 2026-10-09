@@ -68,6 +68,9 @@ def finalize_reward_metadata(model, metadata, args, config):
         saturation_threshold = reward["saturation_absolute_threshold"]
         settlement = reward["raw_settlement"]
         early_failure_rate = -settlement["early_failure_extra_max"] / config.episode_seconds
+        progress_expression = 'previous_error_sse-current_error_sse'
+        if config.error_progress_delta_cap is not None:
+            progress_expression = f'clip({progress_expression},-{config.error_progress_delta_cap:g},{config.error_progress_delta_cap:g})'
         metadata["reward_rate_feedback"] = (
             "post-action true degree/s error against preceding target; no error "
             "normalization scale; squared-error sum clipped after summing")
@@ -79,11 +82,12 @@ def finalize_reward_metadata(model, metadata, args, config):
             thrust_reference_role='PX4-only: forwarded unchanged to native allocator; excluded from actor and critic',
             reward_timing='post-action true rate versus issued reference; slew and signed-limit counts from accepted torque requests; allocated ESC saturation is diagnostic only',
             reward_convention=(
-                f'raw per step: -dt*{config.tracking_weight / (10000. * gain):g}*'
+                f'raw per step: -dt*{config.tracking_weight / (10000. * 7e-5):g}*'
                 f'min(sum(error_deg_s**2),{cap:g}); '
-                f'-dt*{config.slew_weight / gain:g}*mean(B(torque_rate/{config.reward_slew_rate_scale_per_s:g})); '
-                f'+dt*{config.tracking_bonus_weight / gain:g}*tracking_eligible; '
-                f'-dt*{config.saturation_cost_per_motor_per_s / gain:g}*saturated_torque_axis_count; '
+                f'-dt*{config.slew_weight / 7e-5:g}*mean(B(torque_rate/{config.reward_slew_rate_scale_per_s:g})); '
+                f'+dt*{config.tracking_bonus_weight / 7e-5:g}*tracking_eligible; '
+                f'-dt*{config.saturation_cost_per_motor_per_s / 7e-5:g}*saturated_torque_axis_count; '
+                f'+{config.error_progress_weight:g}*({progress_expression}); '
                 f'B(x)=x^2/(1+x^2); signed torque saturation when abs(tau)>={saturation_threshold:g}; '
                 f'tracking requires each absolute true rate error <{threshold:g} deg/s, '
                 'no failure and no torque-axis saturation; motor saturation is diagnostic only; '

@@ -1,0 +1,187 @@
+{
+  "version": "v46-entry-coverage-pilot",
+  "candidate_id": "A",
+  "pid": {
+    "status": "frozen_from_single_three_axis_calibration",
+    "profile": "fast",
+    "parameters": {
+      "MC_ROLLRATE_P": 0.2,
+      "MC_PITCHRATE_P": 0.2,
+      "MC_YAWRATE_P": 2.0,
+      "MC_ROLLRATE_I": 0.2,
+      "MC_PITCHRATE_I": 0.2,
+      "MC_YAWRATE_I": 0.1,
+      "MC_ROLLRATE_D": 0.003,
+      "MC_PITCHRATE_D": 0.003,
+      "MC_YAWRATE_D": 0.0,
+      "MC_ROLLRATE_K": 1.0,
+      "MC_PITCHRATE_K": 1.0,
+      "MC_YAWRATE_K": 1.0,
+      "MC_ROLLRATE_FF": 0.0,
+      "MC_PITCHRATE_FF": 0.0,
+      "MC_YAWRATE_FF": 0.0,
+      "MC_RR_INT_LIM": 0.3,
+      "MC_PR_INT_LIM": 0.3,
+      "MC_YR_INT_LIM": 0.3,
+      "MC_YAW_TQ_CUTOFF": 20.0,
+      "IMU_GYRO_CUTOFF": 80.0,
+      "IMU_DGYRO_CUTOFF": 40.0,
+      "IMU_GYRO_RATEMAX": 1000,
+      "IMU_INTEG_RATE": 1000
+    },
+    "results": {
+      "reference": {
+        "eligible": true,
+        "axis_rmse": [
+          9.203358439361784,
+          7.019471719094452,
+          13.379203326115007
+        ],
+        "peak_abs_rates": [
+          1.095445463,
+          1.072251956,
+          1.003683495
+        ],
+        "tail_rmse": [
+          0.2556372482402154,
+          0.07456540913542313,
+          0.026353639096074594
+        ],
+        "motor_upper_saturation_fraction": 0.0186767578125,
+        "height_range_m": 0.2430361680000006,
+        "score": 29.602033484571244,
+        "trajectory_sha256": "6e1622ace7136973df53b2f1c3dc009d9d6c90561a4079522c9285224a4c8cc5"
+      },
+      "fast": {
+        "eligible": true,
+        "axis_rmse": [
+          7.828767396708687,
+          6.012448086001111,
+          13.342568527345659
+        ],
+        "peak_abs_rates": [
+          1.061544289,
+          1.046489104,
+          1.004650323
+        ],
+        "tail_rmse": [
+          0.06729842409949652,
+          0.028416057056327507,
+          0.03331737949244072
+        ],
+        "motor_upper_saturation_fraction": 0.018798828125,
+        "height_range_m": 0.24816737,
+        "score": 27.183784010055458,
+        "trajectory_sha256": "fc309587b78482979469bce1fa638728c085e2a64f603612426e50666bbed3fa"
+      }
+    },
+    "protocol": {
+      "physical_failure": null,
+      "max_abs_rate_rad_s": 1.2,
+      "post_pulse_axis_rmse_deg_s": 1.0,
+      "motor_upper_saturation_fraction": 0.1,
+      "height_range_m": 1.0,
+      "selection": "Among eligible profiles choose minimum sum of three whole-episode axisRMSE on the single three-axis calibration seed6101. No hover/load/heldout retuning.",
+      "profiles": [
+        "reference",
+        "fast"
+      ],
+      "change": "fast only raises roll/pitch P .15 -> .20; same I/D/FF/limits, yawP2/yawLPF20"
+    },
+    "limits": "Simulation calibration atnominalplant only. Not guaranteedgloballyoptimalPID. Freezeallconditions; no per-scenario retuning. Rapidbodyratepulsefixture coversall3axes, not physicalRCradio/hardwareflight."
+  },
+  "instances": {
+    "pid": 84,
+    "nn_cpp": 85
+  },
+  "cases": [
+    {
+      "name": "hover_hold",
+      "mode": "hover_hold",
+      "runtime": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/memory_sampling_revision1/templates/runtime_hover_hold.json"
+    },
+    {
+      "name": "hover_transition",
+      "mode": "hover_native",
+      "runtime": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/memory_sampling_revision1/templates/runtime_hover_transition.json"
+    },
+    {
+      "name": "waypoints",
+      "mode": "waypoints",
+      "runtime": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/memory_sampling_revision1/templates/runtime_waypoints.json"
+    },
+    {
+      "name": "combined_native_waypoints",
+      "mode": "waypoints",
+      "runtime": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/memory_sampling_revision1/templates/runtime_combined_native_waypoints.json"
+    },
+    {
+      "name": "noise200_hover_hold",
+      "mode": "hover_hold",
+      "runtime": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/memory_sampling_revision1/templates/runtime_noise200_hover_hold.json"
+    },
+    {
+      "name": "low_x_050_goal100",
+      "mode": "low_speed_diagnostic",
+      "runtime": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/memory_sampling_revision1/templates/runtime_low_x_050_goal100.json"
+    },
+    {
+      "name": "low_y_025_goal100",
+      "mode": "low_speed_diagnostic",
+      "runtime": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/memory_sampling_revision1/templates/runtime_low_y_025_goal100.json"
+    },
+    {
+      "name": "lateral_plus_goal100",
+      "mode": "low_speed_diagnostic",
+      "runtime": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/memory_sampling_revision1/templates/runtime_lateral_plus_goal100.json"
+    },
+    {
+      "name": "lateral_minus_goal100",
+      "mode": "low_speed_diagnostic",
+      "runtime": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/memory_sampling_revision1/templates/runtime_lateral_minus_goal100.json"
+    }
+  ],
+  "full_path": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_roll_smooth_v44/initial_full_actor.bin",
+  "second_path": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_pid_entry_diag_v43/models/trained.bin",
+  "head_path": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_pid_entry_diag_v43/models/incumbent.bin",
+  "head_model_id": 2428576135,
+  "post_v39": 0,
+  "exploration_std": 0.001,
+  "native_episode_tick_cap": 47000,
+  "injection_offset": 0.0,
+  "actor_libraries": {
+    "baseline": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_pid_entry_diag_v43/full_actor.so",
+    "candidate": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_pid_entry_diag_v43/full_actor.so"
+  },
+  "job": {
+    "index": 45,
+    "seed": 16602,
+    "case": "low_x_050_goal100",
+    "label": "candidate",
+    "profile": "candidate",
+    "model_id": 4064630326
+  },
+  "sha256": {},
+  "v46_job_id": "train_04",
+  "v46_native_cap": 47000,
+  "v46_training_entry_profile": {
+    "id": "negative_forward_negative_lateral",
+    "case": "hover_transition",
+    "seed": 460104,
+    "entry_jump_body_m": [
+      -0.04,
+      -0.09,
+      0.015
+    ],
+    "velocity_goal_ned_m_s": [
+      0.08,
+      0.06,
+      -0.025
+    ],
+    "history_pulse_body_m": [
+      -0.03,
+      -0.05,
+      0
+    ]
+  }
+}

@@ -69,6 +69,9 @@ def main():
         source_command = job.get('command', [])
         if '--runtime' in source_command:
             command += ['--runtime', source_command[source_command.index('--runtime') + 1]]
+        sys.path.insert(0, str(PROJECT))
+        from rate_rl.startup_entry import require_standard_training
+        require_standard_training('legacy exploration continuation')
         with (source / 'exploration_extension_training.log').open('a') as log:
             child = subprocess.Popen(command, cwd=PROJECT, stdout=log, stderr=subprocess.STDOUT)
         save(status='continuing', starting_steps=start, additional_steps=remaining,

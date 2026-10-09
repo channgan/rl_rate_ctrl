@@ -1,0 +1,115 @@
+{
+  "approved": true,
+  "version": "backtracking_revision3",
+  "resume_global_update": 17,
+  "batch_anchor_global_update": 10,
+  "source_resume": {
+    "approved": true,
+    "source": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/memory_gate_revision2/training/training/batch_1/pre_update_recovery.pt",
+    "sha256": "8123ba431516a03a3d877acd311b7ee2930aa8cd902ca7d1b60e73d04bd7e9a9",
+    "source_protocol": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/memory_gate_revision2/training/protocol.json",
+    "source_protocol_sha256": "25e3a8edfb2af5d942f1c6da0f83185c0923a6fb01f98752cceb442c871da752",
+    "source_last_accepted": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/memory_gate_revision2/training/training/batch_1/recovery.pt",
+    "source_last_accepted_sha256": "ab847dd203bd38d7154627b0e3255f1bf196c6dc08fb649bdd81867b0735d415",
+    "local_updates": 7,
+    "global_updates": 17,
+    "batch_anchor_global_update": 10,
+    "keep_perms_positions": true
+  },
+  "effective_rules": {
+    "schema": 1,
+    "version": "v48-effective-rules-backtracking3",
+    "learning_rate": 3e-05,
+    "trainable_RP_parameters": 154,
+    "smoothness": {
+      "mode": "global_nonincreasing_adaptive_every_update",
+      "initial_alpha": 1.0,
+      "target_ratio": 0.099,
+      "hard_ratio": 0.1,
+      "zero_tracking": "disable_global_smoothness",
+      "nonfinite": "stop",
+      "rebuild": "reward_returns_group_baseline_common_normalization"
+    },
+    "memory_coverage": {
+      "mode": "diagnostic_all_batches",
+      "historical_q05_q95_never_eligibility": true,
+      "record_original_gate_would_fail": true,
+      "finite_and_abs_le_one_hard": true,
+      "recurrence_and_128history_and_10ms_lookback_hard": true
+    },
+    "velocity_coverage": "unchanged_hard_q05_q95",
+    "phases": {
+      "first3_seconds": 3,
+      "first3_sampling_mass": 0.5,
+      "later_sampling_mass": 0.5
+    },
+    "batching": {
+      "batches": 4,
+      "captures_per_batch": 7,
+      "updates_per_batch": 10,
+      "minibatch": 2000,
+      "carry_actor_Adam_RNG_between_batches": true,
+      "new_permutations_for_each_new_behavior_dataset": true
+    },
+    "total_updates": 40,
+    "only_candidate": "final_update40",
+    "training_native_limit": 2000000,
+    "development_native_limit": 3000000,
+    "development": {
+      "episodes": 54,
+      "seeds": [
+        480301,
+        480302
+      ],
+      "holdout_sealed": [
+        12701,
+        12702
+      ],
+      "original_metrics_and_gates_unchanged": true
+    },
+    "native_and_PID_unchanged": true,
+    "physical_scoring_unchanged": true,
+    "failure_penalty_raw_per_second": 4000,
+    "backtracking": {
+      "scales": [
+        1.0,
+        0.5,
+        0.25,
+        0.125,
+        0.0625,
+        0.03125,
+        0.015625,
+        0.0078125,
+        0.00390625,
+        0.001953125,
+        0.0009765625,
+        0.00048828125,
+        0.000244140625
+      ],
+      "minimum_scale": 0.000244140625,
+      "bias_original_limit": 0.0001,
+      "bias_float64_acceptance": 9.999990000000001e-05,
+      "minimum_parameter_change": 1e-10,
+      "nonzero_action_required": true,
+      "all_original_guards": true,
+      "exhaustion": "stop_and_restore_batch_start",
+      "success_count": "accepted_nonzero_only"
+    }
+  },
+  "strict_LR_single_variable": false,
+  "protocol_revisions": [
+    "smooth_start_revision1: adaptive smooth every update",
+    "memory_gate_revision2: historical memory quantiles diagnostic all batches",
+    "backtracking_revision3: fixed13 backtracking scales and strict float64 bias"
+  ],
+  "original_guards_unchanged": true,
+  "remaining_captures": 14,
+  "total_captures": 28,
+  "total_updates": 40,
+  "final40_only_54_development": true,
+  "training_limit": 2000000,
+  "development_limit": 3000000,
+  "charge_preserved": 608641,
+  "max_training_charge": 1266641,
+  "no_automatic_retry": true
+}

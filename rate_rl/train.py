@@ -26,6 +26,8 @@ from .training.metrics import RewardMetrics, CompactMetrics, CONTINUOUS_COMPONEN
 
 def main(argv=None):
     args = parse_args(argv)
+    from .startup_entry import require_standard_training
+    require_standard_training('rate_rl.train')
     rollout_steps, epochs = args.n_steps, args.n_epochs
     if args.native_torque:
         from . import torque_contract

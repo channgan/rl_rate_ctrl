@@ -1,0 +1,11 @@
+{
+  "command": "OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 python -B -m pytest -q -p no:cacheprovider",
+  "scope": "main project tests in isolated rendered checkout; no native simulation",
+  "passed": 286,
+  "failed": 0,
+  "seconds": 62.66,
+  "path_materializer_tests_included": true,
+  "native_calls": 0,
+  "formal_updates": 0,
+  "not_a_claim_of_final_policy_acceptance": true
+}

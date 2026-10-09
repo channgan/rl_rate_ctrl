@@ -13,3 +13,13 @@ runtime*.json
 *.zip
 .env
 .env.*
+
+# Local artifacts and private materialization settings
+paths.private.json
+*.pt
+*.npz
+*.bin
+*.log
+# Reviewed portable configuration templates, not live runtime files
+!snapshots/v48/backtracking_revision3/training/templates/runtime*.json
+!snapshots/v48/backtracking_revision3/development/templates/runtime*.json

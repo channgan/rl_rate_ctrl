@@ -37,6 +37,7 @@ def main():
     model = PPO.load(source, device='cpu')
     assert model.waypoint_gate_metadata == waypoint_gate_metadata(), 'Evaluation gate differs from checkpoint'
     config = TaskConfig(**json.loads((run / 'config.json').read_text())['task'])
+    gain = config.reward_gain
     from rate_rl.reward_contract import mse_reward_interface_metadata, require_reward_interface
     require_reward_interface(model, mse_reward_interface_metadata(config))
     if config.native_torque:
@@ -90,17 +91,18 @@ def main():
                           saturation_source=info.get('saturation_source', 'allocated_motor'),
                           motor_saturation_fraction=info.get('episode_motor_saturation_fraction',
                                                              info['episode_saturation_fraction']),
-                          scaled_return=total, raw_return=total / 7e-5, wall_seconds=time.time()-started,
+                          scaled_return=total, raw_return=total / gain, wall_seconds=time.time()-started,
                           final_distance_m=float(a[-1, 11]), max_height_m=float(a[:, 12].max()))
             if config.native_torque:
                 result['torque_saturation_fraction'] = info['episode_saturation_fraction']
                 result['torque_delta_rms'] = float(np.sqrt(np.mean(np.diff(a[:, 13:16], axis=0)**2)))
-            components = np.asarray(info['episode_reward_components']) / 7e-5
+            components = np.asarray(info['episode_reward_components']) / gain
             result['raw_reward_components'] = dict(rate=float(components[0]), slew=float(components[1]),
                 headroom=float(components[2]), tracking=float(components[3]),
-                saturation=-info['episode_saturation_penalty']/7e-5,
-                failure=-info['episode_failure_penalty']/7e-5,
-                success=info['episode_success_bonus']/7e-5)
+                saturation=-info['episode_saturation_penalty']/gain,
+                failure=-info['episode_failure_penalty']/gain,
+                success=info['episode_success_bonus']/gain)
+            result['raw_reward_components']['error_progress'] = info.get('episode_error_progress_reward', 0.) / gain
             assert np.isclose(sum(result['raw_reward_components'].values()), result['raw_return'])
             with (out / f'seed_{seed}.csv').open('w') as f:
                 writer = csv.writer(f)

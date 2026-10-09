@@ -59,6 +59,10 @@ class RewardMetrics(BaseCallback):
                 self.logger.record_mean("reward/torque_rate_abs_mean_per_s", float(sum(abs(x) for x in torque_rates) / 3))
                 self.logger.record_mean("reward/torque_rate_max_abs_per_s", float(max(abs(x) for x in torque_rates)))
             components = info["continuous_reward_components"]
+            if 'error_progress_reward' in info:
+                self.logger.record_mean('reward/error_progress', info['error_progress_reward'])
+            if 'episode_error_progress_reward' in info:
+                self.logger.record_mean('episode_reward/error_progress', info['episode_error_progress_reward'])
             if len(components) != len(CONTINUOUS_COMPONENT_NAMES):
                 raise ValueError("Expected all four continuous reward components")
             for name, value in zip(CONTINUOUS_COMPONENT_NAMES, components):

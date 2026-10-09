@@ -9,6 +9,7 @@ from .action_contract import esc_to_simulator_speed
 from .backend import SimulatorError
 from .defaults import CURRENT
 from .rewards import evaluate_outcome, evaluate_step_reward
+from .reward_candidates import ErrorProgressReward
 
 
 @dataclass(frozen=True)
@@ -50,6 +51,12 @@ class TaskConfig:
     squared_error_reward: bool = False
     px4_native_outer: bool = False
     native_torque: bool = False
+    # Zero preserves tasks loaded from historical run configs. The public
+    # native launcher explicitly selects CURRENT.error_progress_weight.
+    error_progress_weight: float = 0.
+    error_progress_delta_cap: float | None = None
+    reward_gain: float = 7e-5  # Historical saved tasks; public recipe selects CURRENT.
+    failure_rate_per_s: float = 3500.  # Preserve historical configs; public recipe is explicit.
 
     def __post_init__(self):
         if self.slew_weight is None:
@@ -80,6 +87,14 @@ class RateControlEnv(gym.Env):
         self.backend = backend
         self.config = config or TaskConfig()
         c = self.config
+        self.error_progress = ErrorProgressReward(c.error_progress_weight, reward_gain=c.reward_gain)
+        if c.error_progress_delta_cap is not None and (
+                not np.isfinite(c.error_progress_delta_cap) or c.error_progress_delta_cap < 0):
+            raise ValueError('Error progress delta cap must be finite and non-negative')
+        if c.reward_gain != 7e-5 and not (c.native_torque and c.squared_error_reward):
+            raise ValueError('Configurable reward gain requires native torque SSE rewards')
+        if c.error_progress_weight and not (c.native_torque and c.squared_error_reward):
+            raise ValueError('Error progress reward requires native torque SSE rewards')
         if c.dt <= 0 or c.episode_seconds < c.dt or c.command_hold_seconds < c.dt:
             raise ValueError("Invalid task timing")
         if c.failure_cost <= 0 or c.rate_scale_rad_s <= 0:
@@ -228,6 +243,7 @@ class RateControlEnv(gym.Env):
         self.episode_settled_steps = 0
         self.episode_settled_good_steps = 0
         self.episode_reward_components = np.zeros(4)
+        self.episode_error_progress_reward = 0.
         self.episode_observed_error_squared = 0.0
         self.episode_saturation_penalty = 0.0
         self.episode_failure_penalty = 0.0
@@ -246,6 +262,7 @@ class RateControlEnv(gym.Env):
         self.thrust_delta = 0.0
         self.needs_reset = False
         self.current_state = state
+        self.error_progress.reset(np.rad2deg(self.target - np.asarray(state['rates_true'])))
         return self._obs(state), {"sim_us": state["sim_us"], "simulator_seed": simulator_seed,
                                  "target_rad_s": self.target.copy(),
                                  "thrust_demand": self.thrust,
@@ -312,6 +329,15 @@ class RateControlEnv(gym.Env):
             accepted_torque=accepted if native_torque else None,
             previous_torque=self.last_torque, failure=outcome.failure)
         reward = step_reward.value
+        # Compare consecutive reward errors under their respective references,
+        # before advancing this transition's reference. Reset seeds e_0.
+        progress_limit = (None if c.error_progress_delta_cap is None else
+                          c.error_progress_weight * c.error_progress_delta_cap)
+        progress = (self.error_progress.step(error_deg_s, max_abs_raw_reward=progress_limit)
+                    if c.error_progress_weight else None)
+        if progress is not None:
+            reward += progress.ppo_reward
+            self.episode_error_progress_reward += progress.ppo_reward
         self.episode_reward_components += step_reward.components
         self.episode_axis_error_squared += error ** 2
         command_hold = self.outer_loop.config.attitude_hold_seconds if self.uses_outer_loop else c.command_hold_seconds
@@ -348,6 +374,13 @@ class RateControlEnv(gym.Env):
                     **step_reward.diagnostics)
         if native_torque:
             info['torque_command'] = action.copy()
+        if progress is not None:
+            info.update(error_progress_reward=progress.ppo_reward,
+                        error_progress_raw_reward=progress.raw_reward,
+                        error_progress_unclipped_raw_reward=progress.unclipped_raw_reward,
+                        error_progress_max_abs_raw_reward=progress.max_abs_raw_reward,
+                        error_progress_previous_sse=progress.previous_sse,
+                        error_progress_current_sse=progress.current_sse)
         for key in ("source_sample_us", "truth_us", "action_seq", "snapshot_valid"):
             if key in state:
                 info[key] = state[key]
@@ -378,6 +411,8 @@ class RateControlEnv(gym.Env):
                             / (4 * self.steps)))
             if native_torque:
                 info['episode_torque_saturation_fraction'] = info['episode_saturation_fraction']
+            if c.error_progress_weight:
+                info['episode_error_progress_reward'] = self.episode_error_progress_reward
         if self.uses_outer_loop:
             info.update(self.outer_loop.diagnostics())
             # These diagnostics describe the waypoint/reference used by this action.

@@ -9,7 +9,7 @@ from .defaults import CURRENT
 
 
 def early_failure_rate(config):
-    return CURRENT.failure_rate_per_s if getattr(config, "native_torque", False) else 2500.
+    return getattr(config, "failure_rate_per_s", 3500.) if getattr(config, "native_torque", False) else 2500.
 
 
 def rate_error_cap(config):
@@ -24,7 +24,7 @@ def mse_reward_interface_metadata(config):
         version="sse10000_headroom2_waypoint1000_noise5_v11",
         waypoint_switch_raw_bonus=1000.,
         rate_aggregation="sum of three squared degree/s errors, then cap",
-        common_reward_gain=CURRENT.reward_gain,
+        common_reward_gain=config.reward_gain,
         raw_settlement=dict(
             success=CURRENT.success_bonus, failure_base=-CURRENT.failure_base, early_failure_extra_max=-early_failure_rate(config)*config.episode_seconds,
             failure_formula=f"-30000-{early_failure_rate(config):g}*episode_seconds*(1-survival_fraction)"),
@@ -65,6 +65,26 @@ def mse_reward_interface_metadata(config):
         )
         metadata['continuous_weights']['mean_headroom'] = 0.
         metadata['horizon_success']['aggregation'] = 'each axis separately: sqrt(mean over all episode steps of squared degree/s error); all three strictly below threshold'
+    weight = getattr(config, 'error_progress_weight', 0.)
+    if weight:
+        if not getattr(config, 'native_torque', False):
+            raise ValueError('Error progress reward requires native torque')
+        metadata.update(
+            version='native_torque_sse_consecutive_error_progress_v16',
+            error_progress=dict(weight=weight,
+                raw_formula='weight * (previous_true_error_sse_deg_s2 - current_true_error_sse_deg_s2)',
+                history='reset true error seeds first action; each subsequent error uses its own action reference',
+                reference_changes='included literally; no rebase or gate at waypoint changes',
+                cap=None, dt_factor=False, terminal='included before independent outcome settlement',
+                ppo_gain=config.reward_gain,
+                accounting='separate error_progress_reward and episode_error_progress_reward; not in legacy four components'))
+        if config.error_progress_delta_cap is not None:
+            metadata['version'] = 'native_torque_sse_clipped_error_progress_v17'
+            metadata['error_progress'].update(
+                raw_formula='weight * clip(previous_true_error_sse_deg_s2 - current_true_error_sse_deg_s2, -delta_cap, delta_cap)',
+                cap=dict(delta_cap_deg_s_squared=config.error_progress_delta_cap,
+                         raw_reward_absolute_max=weight * config.error_progress_delta_cap,
+                         history='unclipped actual SSE; clipping does not alter history'))
     return metadata
 
 

@@ -1,0 +1,682 @@
+{
+  "version": "v48-backtracking-revision3",
+  "authorized": true,
+  "authority": "Explicit user-authorized timeless final-rule contract; historical memory quantiles diagnostic in all batches; preserve every other hard guard.",
+  "native_limit": 2000000,
+  "development_limit": 3000000,
+  "initial_actor": {
+    "npz": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_roll_smooth_v44/initial_actor.npz",
+    "binary": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_roll_smooth_v44/initial_full_actor.bin",
+    "model_id": 2428576135
+  },
+  "entry_profiles": [
+    {
+      "id": "quiet",
+      "case": "noise200_hover_hold",
+      "seed": 460101,
+      "entry_jump_body_m": [
+        0,
+        0,
+        0
+      ],
+      "velocity_goal_ned_m_s": [
+        0,
+        0,
+        0
+      ],
+      "history_pulse_body_m": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "negative_forward_positive_lateral",
+      "case": "low_x_050_goal100",
+      "seed": 460102,
+      "entry_jump_body_m": [
+        -0.04,
+        0.09,
+        -0.045
+      ],
+      "velocity_goal_ned_m_s": [
+        0.08,
+        -0.06,
+        0.025
+      ],
+      "history_pulse_body_m": [
+        0.03,
+        -0.05,
+        0
+      ]
+    },
+    {
+      "id": "positive_forward_negative_lateral",
+      "case": "low_y_025_goal100",
+      "seed": 460103,
+      "entry_jump_body_m": [
+        0.04,
+        -0.09,
+        0.045
+      ],
+      "velocity_goal_ned_m_s": [
+        -0.08,
+        0.06,
+        -0.025
+      ],
+      "history_pulse_body_m": [
+        -0.03,
+        0.05,
+        0
+      ]
+    },
+    {
+      "id": "negative_forward_negative_lateral",
+      "case": "hover_transition",
+      "seed": 460104,
+      "entry_jump_body_m": [
+        -0.04,
+        -0.09,
+        0.015
+      ],
+      "velocity_goal_ned_m_s": [
+        0.08,
+        0.06,
+        -0.025
+      ],
+      "history_pulse_body_m": [
+        -0.03,
+        -0.05,
+        0
+      ]
+    },
+    {
+      "id": "positive_forward_positive_lateral",
+      "case": "lateral_plus_goal100",
+      "seed": 460105,
+      "entry_jump_body_m": [
+        0.04,
+        0.09,
+        -0.015
+      ],
+      "velocity_goal_ned_m_s": [
+        -0.08,
+        -0.06,
+        0.025
+      ],
+      "history_pulse_body_m": [
+        0.03,
+        0.05,
+        0
+      ]
+    },
+    {
+      "id": "vertical_up",
+      "case": "noise200_hover_hold",
+      "seed": 470501,
+      "entry_jump_body_m": [
+        0,
+        0,
+        0
+      ],
+      "velocity_goal_ned_m_s": [
+        0,
+        0,
+        -0.1
+      ],
+      "history_pulse_body_m": [
+        0,
+        0,
+        0
+      ],
+      "vertical_extension": true,
+      "simulation_height_guard_m": [
+        3.5,
+        6.5
+      ]
+    },
+    {
+      "id": "vertical_down",
+      "case": "noise200_hover_hold",
+      "seed": 470502,
+      "entry_jump_body_m": [
+        0,
+        0,
+        0
+      ],
+      "velocity_goal_ned_m_s": [
+        0,
+        0,
+        0.1
+      ],
+      "history_pulse_body_m": [
+        0,
+        0,
+        0
+      ],
+      "vertical_extension": true,
+      "simulation_height_guard_m": [
+        3.5,
+        6.5
+      ]
+    }
+  ],
+  "coverage_gate": {
+    "before_any_optimization": true,
+    "each_commanded_entry_jump_error_m_max": 2e-06,
+    "entry_velocity_minmax_must_cover_development_q05_q95": {
+      "min": [
+        -0.04776839128,
+        -0.03175075216,
+        -0.01502268762
+      ],
+      "max": [
+        0.05833636188,
+        0.04020964983,
+        0.02855563099
+      ],
+      "q05": [
+        -0.0327995465305,
+        -0.029807572301,
+        -0.012510112529149998
+      ],
+      "q95": [
+        0.040645060803000004,
+        0.0320419951335,
+        0.016965352266999998
+      ]
+    },
+    "RP_memory_minmax_must_cover_development_q05_q95": {
+      "min": [
+        -4.189938772e-05,
+        5.916707596e-05
+      ],
+      "max": [
+        0.0001876527822,
+        0.000194234075
+      ],
+      "q05": [
+        -1.34716764495e-05,
+        6.99082876955e-05
+      ],
+      "q95": [
+        0.00015775010467499996,
+        0.00017411883743999998
+      ]
+    },
+    "verify_all_128_history_timestamps_and_10ms_lookback": true,
+    "on_missing_coverage": "Stop v46, preserve captures, retain A. No seed replacement, extra rollout, memory injection or same-version redesign.",
+    "native_transitions_per_capture_min": 20000,
+    "native_transitions_per_capture_max": 20480,
+    "all_five_max": 102400,
+    "native_max_gap_us": 4000,
+    "native_p99_gap_us": 1000,
+    "consumed_reference_age_max_us": 50000,
+    "native_cost_latency_max_us": 1000
+  },
+  "guard_corpus": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_entry_coverage_v46/protocol_revision2/guard_corpus.npz",
+  "jobs": [
+    {
+      "id": "train_b0_p0",
+      "phase": "training",
+      "batch": 0,
+      "profile_index": 0,
+      "case": "noise200_hover_hold",
+      "seed": 480101,
+      "cap": 47000,
+      "label": "A"
+    },
+    {
+      "id": "train_b0_p1",
+      "phase": "training",
+      "batch": 0,
+      "profile_index": 1,
+      "case": "low_x_050_goal100",
+      "seed": 480102,
+      "cap": 47000,
+      "label": "A"
+    },
+    {
+      "id": "train_b0_p2",
+      "phase": "training",
+      "batch": 0,
+      "profile_index": 2,
+      "case": "low_y_025_goal100",
+      "seed": 480103,
+      "cap": 47000,
+      "label": "A"
+    },
+    {
+      "id": "train_b0_p3",
+      "phase": "training",
+      "batch": 0,
+      "profile_index": 3,
+      "case": "hover_transition",
+      "seed": 480104,
+      "cap": 47000,
+      "label": "A"
+    },
+    {
+      "id": "train_b0_p4",
+      "phase": "training",
+      "batch": 0,
+      "profile_index": 4,
+      "case": "lateral_plus_goal100",
+      "seed": 480105,
+      "cap": 47000,
+      "label": "A"
+    },
+    {
+      "id": "train_b0_p5",
+      "phase": "training",
+      "batch": 0,
+      "profile_index": 5,
+      "case": "noise200_hover_hold",
+      "seed": 480106,
+      "cap": 47000,
+      "label": "A"
+    },
+    {
+      "id": "train_b0_p6",
+      "phase": "training",
+      "batch": 0,
+      "profile_index": 6,
+      "case": "noise200_hover_hold",
+      "seed": 480107,
+      "cap": 47000,
+      "label": "A"
+    },
+    {
+      "id": "train_b1_p0",
+      "phase": "training",
+      "batch": 1,
+      "profile_index": 0,
+      "case": "noise200_hover_hold",
+      "seed": 481101,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b1_p1",
+      "phase": "training",
+      "batch": 1,
+      "profile_index": 1,
+      "case": "low_x_050_goal100",
+      "seed": 481102,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b1_p2",
+      "phase": "training",
+      "batch": 1,
+      "profile_index": 2,
+      "case": "low_y_025_goal100",
+      "seed": 481103,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b1_p3",
+      "phase": "training",
+      "batch": 1,
+      "profile_index": 3,
+      "case": "hover_transition",
+      "seed": 481104,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b1_p4",
+      "phase": "training",
+      "batch": 1,
+      "profile_index": 4,
+      "case": "lateral_plus_goal100",
+      "seed": 481105,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b1_p5",
+      "phase": "training",
+      "batch": 1,
+      "profile_index": 5,
+      "case": "noise200_hover_hold",
+      "seed": 481106,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b1_p6",
+      "phase": "training",
+      "batch": 1,
+      "profile_index": 6,
+      "case": "noise200_hover_hold",
+      "seed": 481107,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b2_p0",
+      "phase": "training",
+      "batch": 2,
+      "profile_index": 0,
+      "case": "noise200_hover_hold",
+      "seed": 482101,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b2_p1",
+      "phase": "training",
+      "batch": 2,
+      "profile_index": 1,
+      "case": "low_x_050_goal100",
+      "seed": 482102,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b2_p2",
+      "phase": "training",
+      "batch": 2,
+      "profile_index": 2,
+      "case": "low_y_025_goal100",
+      "seed": 482103,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b2_p3",
+      "phase": "training",
+      "batch": 2,
+      "profile_index": 3,
+      "case": "hover_transition",
+      "seed": 482104,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b2_p4",
+      "phase": "training",
+      "batch": 2,
+      "profile_index": 4,
+      "case": "lateral_plus_goal100",
+      "seed": 482105,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b2_p5",
+      "phase": "training",
+      "batch": 2,
+      "profile_index": 5,
+      "case": "noise200_hover_hold",
+      "seed": 482106,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b2_p6",
+      "phase": "training",
+      "batch": 2,
+      "profile_index": 6,
+      "case": "noise200_hover_hold",
+      "seed": 482107,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b3_p0",
+      "phase": "training",
+      "batch": 3,
+      "profile_index": 0,
+      "case": "noise200_hover_hold",
+      "seed": 483101,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b3_p1",
+      "phase": "training",
+      "batch": 3,
+      "profile_index": 1,
+      "case": "low_x_050_goal100",
+      "seed": 483102,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b3_p2",
+      "phase": "training",
+      "batch": 3,
+      "profile_index": 2,
+      "case": "low_y_025_goal100",
+      "seed": 483103,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b3_p3",
+      "phase": "training",
+      "batch": 3,
+      "profile_index": 3,
+      "case": "hover_transition",
+      "seed": 483104,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b3_p4",
+      "phase": "training",
+      "batch": 3,
+      "profile_index": 4,
+      "case": "lateral_plus_goal100",
+      "seed": 483105,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b3_p5",
+      "phase": "training",
+      "batch": 3,
+      "profile_index": 5,
+      "case": "noise200_hover_hold",
+      "seed": 483106,
+      "cap": 47000,
+      "label": "candidate"
+    },
+    {
+      "id": "train_b3_p6",
+      "phase": "training",
+      "batch": 3,
+      "profile_index": 6,
+      "case": "noise200_hover_hold",
+      "seed": 483107,
+      "cap": 47000,
+      "label": "candidate"
+    }
+  ],
+  "learning": {
+    "classification": "batch-online collection; fixed-data constrained likelihood-ratio updates within each batch; not per-step online PPO",
+    "batches": 4,
+    "episodes_per_batch": 7,
+    "updates_per_batch": 10,
+    "total_updates_max": 40,
+    "trainable_parameters": 154,
+    "frozen": [
+      "trunk",
+      "yaw output",
+      "gate",
+      "history/memory dynamics"
+    ],
+    "actor_lr": 3e-05,
+    "optimizer": "Adam; initialize for new experiment then preserve moments across batches",
+    "minibatch": 2000,
+    "strata": "five groups, seven trajectories, first3/later; 2000 total transitions, 200 per group-phase split across members",
+    "critic_updates": 0,
+    "exploration_std": 0.001,
+    "AR_seconds": 0.02,
+    "discount_seconds": 30,
+    "clip": 0.05,
+    "KL_total": 0.002,
+    "KL_each_RP": 0.001,
+    "KL_each_stratum": 0.004,
+    "ESS_min": 0.98,
+    "ratio_range": [
+      0.5,
+      2.0
+    ],
+    "gradient_norm": 0.5,
+    "projection_passes": 64,
+    "backtracking": [
+      1,
+      0.5,
+      0.25,
+      0.125
+    ],
+    "cumulative_RP_weight_relative_to_A": 0.01,
+    "cumulative_bias_to_A": 0.0001,
+    "max_guard_action_change_from_A": 0.002,
+    "cost_reference": "batch behavior and previous accepted update, not a fabricated cross-batch A cost comparison",
+    "checkpoint": "atomic full actor/optimizer/RNG/permutations/batch/data-hash journal after every accepted update; immutable batch snapshots; final update40 only candidate"
+  },
+  "reward": {
+    "formula_source": "v46_core.py integrate_arrays",
+    "reference": "Actual RREF consumed reference at each native right endpoint minus simultaneous physics truth; never latest reference or preceding-action held reference as replacement",
+    "integration": "Native dt-weighted quadrature; split intervals at phase boundaries; closed interval outcome is credited to preceding native action. Motor cost uses all1ms executed actuator samples.",
+    "scoring_horizon_seconds": 20.48,
+    "rate_error_units": "degree/second",
+    "bounded_function": "B(x)=x^2/(1+x^2)",
+    "tracking_first3": {
+      "weights_RPY": [
+        0.7,
+        0.7,
+        0.2
+      ],
+      "scales_deg_s": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "tracking_after3": {
+      "weights_RPY": [
+        0.5,
+        0.5,
+        0.2
+      ],
+      "scales_deg_s": [
+        0.2,
+        0.2,
+        0.5
+      ]
+    },
+    "smoothness": {
+      "legacy_actual_three_axis_torque_coefficient": 0.02857142857142857,
+      "additional_actual_RP_torque_coefficient": 0.05,
+      "additional_actual_four_motor_coefficient": 0.05,
+      "additional_total_coefficient": 0.1,
+      "scale_per_s": 10.0,
+      "actual_torque": "RREF published torque equals NN accepted clip(raw,-1,1), checked byte-exact; not mean",
+      "actual_motor": "Physics-captured applied PWM transformed to normalized ESC with original150..1000 mapping; all1ms samples and preceding warmup sample retained",
+      "policy_gradient": "Fixed collected reward with AR raw-action likelihood; no false pathwise derivative through frozen motor traces",
+      "mean_only_slew": "Diagnostic only, never the training objective",
+      "gradient_balance_gate": "Every update: global nonincreasing alpha targets0.099 across all28 case-phase-RP gradients; rebuild full training reward/returns/group baselines/common normalization; remeasure original0.1 hard gate. No activation step."
+    },
+    "saturation_cost_rate": 0.2,
+    "tracking_bonus_rate": 0.084,
+    "maximum_negative_continuous_rate": 1.9285714285714286,
+    "settlement": {
+      "success": 35.0,
+      "failure": "-(30000+4000*remaining_seconds)*0.0007",
+      "early_failure_raw_rate": 4000,
+      "scaled_early_failure_rate": 2.8,
+      "success_gate": "Physical full2048 AND each original100Hz and native-consumed whole-window axis RMSE strictly<5deg/s",
+      "survival_guard": "Continuous negative-rate bound<2.8/s; all physical failure captures stop version and are not used for actor updates."
+    },
+    "normalization": "No second common gain on shaped costs; no per-axis or per-component advantage normalization",
+    "learning_signal_limits": "Score-function credit uses reward-to-go; motor/torque samples are constants, not differentiable simulator outputs. AR likelihood includes preceding policy mean. This local fixed-state surrogate is not an unbiased long-horizon off-policy estimator; real improvement must be independently evaluated."
+  },
+  "development": {
+    "cases": [
+      "hover_hold",
+      "hover_transition",
+      "waypoints",
+      "combined_native_waypoints",
+      "noise200_hover_hold",
+      "low_x_050_goal100",
+      "low_y_025_goal100",
+      "lateral_plus_goal100",
+      "lateral_minus_goal100"
+    ],
+    "seeds": [
+      480301,
+      480302
+    ],
+    "controllers": [
+      "locked_PID",
+      "A",
+      "final_update40"
+    ],
+    "episodes": 54,
+    "total_reserved": 2700000,
+    "unused_reserve": 300000,
+    "no_extra_screen": true,
+    "heldout": [
+      12701,
+      12702
+    ],
+    "same_runtime_locked_PID": true
+  },
+  "selection": "final update40 only; no evaluation-picked checkpoints",
+  "no_automatic_retry": true,
+  "canonical_ledger": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/training/ledger.json",
+  "sync_runtime_id": "v48-backtracking3-same-sync2",
+  "validation_jobs": [],
+  "runtime_sha256": {
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/runtime_package/px4_root/build/px4_sitl_default/bin/px4": "6bf92a950c87f04668e5d313100876a83be1b57236df2ee4c007f53313dd025e",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/runtime_package/plugins/libimu_random_walk_system.so": "64a7aa61c62e748bfb58dced10d339c48cdf3932f8d60cad1bb13855887f56e1",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/runtime_package/plugins/librate_training_system.so": "16faecad2cbe2d587f4a0b663a656a715db0ffd7b91eceb9007eb2801d672ed1"
+  },
+  "native_runtime_id": "v47-event-sync2",
+  "scenario_groups": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    0,
+    0
+  ],
+  "group_weight": 0.2,
+  "phase_weight": 0.5,
+  "additional_native_cap": 658000,
+  "historical_charge": 608641,
+  "maximum_new_captures": 14,
+  "group_weighting": "Five original mission groups each0.2; quiet group has original,+vertical,-vertical each1/3; first3/later each1/2. Leave-one-group-out baseline averages trajectories within each other group, then four groups equally. Keep2000 minibatch transitions; equal group-phase total weights with deterministic66/67 allocation among quiet variants.",
+  "learning_rate": 3e-05,
+  "prepared_python_sha256": {
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/runtime/adaptive_smooth.py": "7a5fc3f3512f437a2df42f5e2fb06d4a22ecff8905f141205a1a9d3614b35f94",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/runtime/audit_capture.py": "b6c64f1aa6af78df525284fa5fe4c168b0e2c6de6c0a48b10fddebd155be3c89",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/runtime/batch_driver.py": "169374382732db63d6117c00fc09f8cbdaabfc6452c60577b11df63a84bc7eb2",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/runtime/effective_rules.py": "448bb1ab613bd5e556717d08db568d1f59fc15ccdd8cdfc1687c880e9793f9c5",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/runtime/finalize_and_bind.py": "96b54e1d1bb6f77022f312a3ed4a9320c733cd4e9f312082676b2ca4edb670c3",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/runtime/local_guards.py": "a31eebe09c26bf3f56fa8f06df7fe5e3d966c34b36b491f9a3c07894220abb4b",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/runtime/native_case.py": "395e16d7537123bc051a1767e38ec47340b34ad0647c52fb8ec5c4c8c29fc2a6",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/runtime/runtime_support.py": "1910279c51a9506c7b7f3cc37ad4b6c34d654172ca3f4612cae07d715db5c46f",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/runtime/sync_trace_audit.py": "e8a36474f62504770cfa25feb3312dc98d3c7f6b7b04e221577fb7cc10a66d2b",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/runtime/update_batch.py": "b78ab4e5d7e4d2931ad92232f39d9a03722f094f8788e96bdaf30d9253b4e2cd",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/runtime/v46_core.py": "c360564f2236bebecadacd3f00f7457394ed2a630af9a4fecd6ba48ba703de13",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/runtime/v46_offline_scheduler.py": "2483c6e59c52cb741a22623fcd44f3a3bd50eef7caa2c674717d21b123e0883c",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/runtime/v46_training_entry.py": "8f28a31285b392159a66427afa7c41bb84872726614ac8ab210f4062051c0859",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/runtime/v48_configuration.py": "407b9d7df8b686faebf1cedc579d54f1a0dbb1a707bd2ae9c2920ab62b6ecb5e",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/runtime/windows_holder.py": "599a8dae962c1036fdf9dea5361233d6e647d427f94f251fe46c0af4e8812674"
+  },
+  "development_design_sha256": "999c49adff1deee28bf6598f728e2127a61d84c3354697ddb7db79adfa7578a5",
+  "effective_rules_file": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/effective_rules.json",
+  "effective_rules_sha256": "90d77a77db1c05bab0e41f3a1ad85e4c6d31fd1a69bee0dc77d0bab70201b99b",
+  "remaining_native_captures": 14,
+  "resume_global_update": 17,
+  "resume_step17": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v48_fixed_lr3e5/backtracking_revision3/training/resume_step17.json"
+}

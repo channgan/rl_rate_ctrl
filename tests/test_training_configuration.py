@@ -132,8 +132,9 @@ def test_native_metadata_describes_executed_formula_and_separates_owned_thrust()
     text = metadata["reward_convention"]
     assert "<5 deg/s" in text and "<2 deg/s" not in text
     assert "min(sum(error_deg_s**2),5000)" in text
-    assert "raw failure=-30000-3500*(20.48-T)" in text
-    assert "success=50000" in text and "multiplied by 7e-05" in text
+    assert "raw failure=-30000-4000*(20.48-T)" in text
+    assert "success=50000" in text and "multiplied by 0.0007 for PPO" in text
+    assert "+0.003*(clip(previous_error_sse-current_error_sse,-3333.33,3333.33))" in text
     assert "torque_rate/10" in text
     assert "no headroom or waypoint bonus" in text
     assert model.reward_interface_metadata == metadata["reward_interface"]
@@ -150,7 +151,7 @@ def test_native_metadata_derives_overrides_instead_of_stale_literals():
     _, metadata = native_metadata(config)
     text = metadata["reward_convention"]
     assert "<2 deg/s" in text and "<5 deg/s" not in text
-    assert "3500*(10-T)" in text
+    assert "4000*(10-T)" in text
     assert "torque_rate/15" in text and "abs(tau)>=0.998" in text
 
 

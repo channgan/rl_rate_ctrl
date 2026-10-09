@@ -26,7 +26,7 @@ def test_reapplying_late_stage_keeps_adapted_lr_and_low_kl_streak():
         assert model.kl_low_kl_count == 2
         assert model.active_stage_settings["learning_rate"] == pytest.approx(1e-4)
         assert model.batch_size == 2048
-        assert model.ent_coef == .01
+        assert model.ent_coef == .005
         assert model.clip_range(1.) == .2
     finally:
         model.get_env().close()

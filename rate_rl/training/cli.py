@@ -55,7 +55,7 @@ def parse_args(argv=None):
                    help="Explicitly acknowledge a changed waypoint switching rule on resume")
     p.add_argument("--slew-weight", type=float, default=None)
     p.add_argument("--squared-error-reward", action="store_true",
-                   help="Clipped raw degree MSE plus positive mean PWM headroom; common reward gain 7e-5")
+                   help="Squared degree/s error reward; native reward gain follows the public recipe")
     p.add_argument("--air-error-scale-deg-s", type=float, default=None,
                    help="Override free-flight error scale and tracking bonus threshold in deg/s")
     p.add_argument("--pwm-slew-scale", "--torque-slew-scale", dest="pwm_slew_scale", type=float, default=None,
