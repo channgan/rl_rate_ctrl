@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "unique_phase_rows": 540,
+  "episodes": 54,
+  "direct_after3_original_and_native_checks": 108,
+  "native_after3_duration_s": 17.48,
+  "no_native_calls": true
+}

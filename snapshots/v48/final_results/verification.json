@@ -1,0 +1,511 @@
+{
+  "passed": true,
+  "episodes": 54,
+  "exact_matrix": true,
+  "all_export_capture_sync_audits": true,
+  "all_full2048": true,
+  "failed_attempts": 0,
+  "training_charge": 1213571,
+  "development_charge": 2397578,
+  "no_reservations": true,
+  "final_model_id": 251305383,
+  "final_model_sha256": "46484f17d3cd42dd3326034d8d4ddf1484f2128fb726a01e52fdcdcfdbd18235",
+  "contiguous_updates": 40,
+  "Adam_steps": 40,
+  "baseline_commit": "ff7aa38f21ffa8e888ce69fe6f3137f644410cb4",
+  "baseline_manifest_sources_matched": 64,
+  "normalized_snapshot_hashes_checked_separately": true,
+  "frozen_review_exact_replay": true,
+  "performance_conditions_pass": false,
+  "promoted": false,
+  "heldout_used": false,
+  "native_calls_from_audit": 0,
+  "checks": [
+    {
+      "id": "dev_01",
+      "label": "pid",
+      "case": "hover_hold",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "24e61b8ba26e9f4e98aed82e50790763da91940a79fe84a6c2a42e4178afe891"
+    },
+    {
+      "id": "dev_02",
+      "label": "A",
+      "case": "hover_hold",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "0965ae02f4006f58b029dd6ad74c6659478a70052d3b1c8e2a525dfcb8721a89"
+    },
+    {
+      "id": "dev_03",
+      "label": "candidate",
+      "case": "hover_hold",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "002dbefd384cf528602ebd5a34db2af26d028045a4d6289310ba268bb563baf8"
+    },
+    {
+      "id": "dev_04",
+      "label": "pid",
+      "case": "hover_hold",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "5a69be27df125b14249130766d8dc5e829a7a49df95ae23f61df8359b21f5a7b"
+    },
+    {
+      "id": "dev_05",
+      "label": "A",
+      "case": "hover_hold",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "f5c65d67343398fbb692133f9cd7ccf538d558ca8165492d47992c51fb8b2c86"
+    },
+    {
+      "id": "dev_06",
+      "label": "candidate",
+      "case": "hover_hold",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "2e9fef3220388ed602f85db000367a8021ee98ebc6697bec4f184e5f46ee6caf"
+    },
+    {
+      "id": "dev_07",
+      "label": "pid",
+      "case": "hover_transition",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "71d1e58bca8ae551b4e2faae48f726be92c9e4472350d05deb0c2c16523f6df9"
+    },
+    {
+      "id": "dev_08",
+      "label": "A",
+      "case": "hover_transition",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "674c32141ede0e39c228bae7db3e608adafc52ae84512eec669800caf6082ebe"
+    },
+    {
+      "id": "dev_09",
+      "label": "candidate",
+      "case": "hover_transition",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "d14e2285d0756f51cb4611728fe7745cc0d7efd89fead60eb8ff3700fa1bdc25"
+    },
+    {
+      "id": "dev_10",
+      "label": "pid",
+      "case": "hover_transition",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "fdf3b3fb9a9c212629a57d91581cf7260b22d33614021d38303b9b2b7fa69aa4"
+    },
+    {
+      "id": "dev_11",
+      "label": "A",
+      "case": "hover_transition",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "7c5320951b7c3279cbf2c72d9ebe137bd5f584e7367459097833600e23e88fc4"
+    },
+    {
+      "id": "dev_12",
+      "label": "candidate",
+      "case": "hover_transition",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "3817a90a8f2132827a0c54e7df478a58adb1cc72c865508ef711dc77842ee108"
+    },
+    {
+      "id": "dev_13",
+      "label": "pid",
+      "case": "waypoints",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "36fc567182d2a768fc140b5bfe2415771100f8020a3f11e191ab4456aad9150e"
+    },
+    {
+      "id": "dev_14",
+      "label": "A",
+      "case": "waypoints",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "fe1531c139a1c62fe0534db45ae6ba3e0f2db0fb657b834a54f92b666d7b748c"
+    },
+    {
+      "id": "dev_15",
+      "label": "candidate",
+      "case": "waypoints",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "9c246fffae5cc9e1be200296210bfbfba89c676c662b2fa6cd5cabc715ad2739"
+    },
+    {
+      "id": "dev_16",
+      "label": "pid",
+      "case": "waypoints",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "08a754fa66d022e2f0e6da2a8c960d3189f95b63f09f2342de75078d2f19f806"
+    },
+    {
+      "id": "dev_17",
+      "label": "A",
+      "case": "waypoints",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "1fbefbc4d1769dc6c575a49357e364a876971dea9953761a5d5029343ea3583f"
+    },
+    {
+      "id": "dev_18",
+      "label": "candidate",
+      "case": "waypoints",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "e7ea4ae69de32da9f50ccb7fbe0aa364c7eb791c174cb9f6080d015b7ad0eb3f"
+    },
+    {
+      "id": "dev_19",
+      "label": "pid",
+      "case": "combined_native_waypoints",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "cb43acd09a778f60e41017ee160784547cdd870c4dd7692931ddcd4ae9d5d0ad"
+    },
+    {
+      "id": "dev_20",
+      "label": "A",
+      "case": "combined_native_waypoints",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "9f3ad3a3b2691e9dd4676439255db143db1948fdbccf9d4d4f976fb7bd9836f2"
+    },
+    {
+      "id": "dev_21",
+      "label": "candidate",
+      "case": "combined_native_waypoints",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "59d229620298d88641dee284c48d1decc93a66d133a69eaad07f16bd5c82aa53"
+    },
+    {
+      "id": "dev_22",
+      "label": "pid",
+      "case": "combined_native_waypoints",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "941c1a09b0a554677fdbb11dfdf9cb56d5bd4f28cf7838d312897438c10099d5"
+    },
+    {
+      "id": "dev_23",
+      "label": "A",
+      "case": "combined_native_waypoints",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "d516df5522e4546ae8b789aa7605969ca6442f4559b64c95987d29a393152668"
+    },
+    {
+      "id": "dev_24",
+      "label": "candidate",
+      "case": "combined_native_waypoints",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "0c4667492c53e92ad0be84bc06dc6ce4ec47972d4096961848296ba039f166fd"
+    },
+    {
+      "id": "dev_25",
+      "label": "pid",
+      "case": "noise200_hover_hold",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "0d24b76ecc3243dcc6c4b6711c66c8fce0c9959b8314d5a54dd6e5f23e4034c7"
+    },
+    {
+      "id": "dev_26",
+      "label": "A",
+      "case": "noise200_hover_hold",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "690ef37c6858608761ced7584447676c0c810c2efaa329269620c683d31f35e3"
+    },
+    {
+      "id": "dev_27",
+      "label": "candidate",
+      "case": "noise200_hover_hold",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "8aa5d02fc8a3a090b7d932e5c3c7f4e108e17dc7255c003727abbfadd12a6f8e"
+    },
+    {
+      "id": "dev_28",
+      "label": "pid",
+      "case": "noise200_hover_hold",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "a08204880b8791ac0b35aeb62a1cf5b3624e31900c817ed9173f056cdeda1dc3"
+    },
+    {
+      "id": "dev_29",
+      "label": "A",
+      "case": "noise200_hover_hold",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "80a1e11702cd182198b02e095f4c74a86b8abae892cd56dcdd10390c177d3135"
+    },
+    {
+      "id": "dev_30",
+      "label": "candidate",
+      "case": "noise200_hover_hold",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "eb20ac3a9c0b617bc9272dd59c3455facb7ab95ac87e786519c4cfd010bf43df"
+    },
+    {
+      "id": "dev_31",
+      "label": "pid",
+      "case": "low_x_050_goal100",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "f33622bfd276788587204bddeb85e40063db39f8b4dd1e1d6ae189f045976ac9"
+    },
+    {
+      "id": "dev_32",
+      "label": "A",
+      "case": "low_x_050_goal100",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "9ab016d091a41ca19f56abbb26a1b0136a1a644d6562304a71556657332f0219"
+    },
+    {
+      "id": "dev_33",
+      "label": "candidate",
+      "case": "low_x_050_goal100",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "cebfa53fa3c770778985d8e3fa3743f896b21b990974cf0e99b8d0829465d741"
+    },
+    {
+      "id": "dev_34",
+      "label": "pid",
+      "case": "low_x_050_goal100",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "1f8de071947761399cbbff8bd5028fd41b19ca8bdb4dc4e6580d5310c110a061"
+    },
+    {
+      "id": "dev_35",
+      "label": "A",
+      "case": "low_x_050_goal100",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "b75ff9a635091305acfd2a55c86de8a5fda9bf0df83ac589a121ae64de151d04"
+    },
+    {
+      "id": "dev_36",
+      "label": "candidate",
+      "case": "low_x_050_goal100",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "d3db6f851a2443b8399a22204a05d927637301316667fdda9aba091d02b3826e"
+    },
+    {
+      "id": "dev_37",
+      "label": "pid",
+      "case": "low_y_025_goal100",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "ad6543b8e100668439a55c2f785f2cb32262b02b53a8881029e9cb5a7e17a25b"
+    },
+    {
+      "id": "dev_38",
+      "label": "A",
+      "case": "low_y_025_goal100",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "6276f013dbfdd95138f0b87d972f01b05572223e1738c2178e0cec625c820fff"
+    },
+    {
+      "id": "dev_39",
+      "label": "candidate",
+      "case": "low_y_025_goal100",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "80eb27d5e21ee1631b4523a389f25d8f6dafea843a01389b0857e18ac7114884"
+    },
+    {
+      "id": "dev_40",
+      "label": "pid",
+      "case": "low_y_025_goal100",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "af01956e523863482cbc7398e4614d0a1e4f4f9fa6e1d7ff63df0f9b441c74ca"
+    },
+    {
+      "id": "dev_41",
+      "label": "A",
+      "case": "low_y_025_goal100",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "bc4417da9ee3e638d4cd4d8433a5df24d1a4cd76e7ea0b2498930cfc9e81bb31"
+    },
+    {
+      "id": "dev_42",
+      "label": "candidate",
+      "case": "low_y_025_goal100",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "721f3f5efefe9596d8deb280f489a047ad3e418b181f7ec0455fc301ef73d504"
+    },
+    {
+      "id": "dev_43",
+      "label": "pid",
+      "case": "lateral_plus_goal100",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "f43ed5c28332f94cf1a290df024e709ac4cccc1c197502c4dba6de436c8b23f2"
+    },
+    {
+      "id": "dev_44",
+      "label": "A",
+      "case": "lateral_plus_goal100",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "bc27da7669174c41b86abdb3a52e17f96f0f3eb11b337a13c877262a3f52ced7"
+    },
+    {
+      "id": "dev_45",
+      "label": "candidate",
+      "case": "lateral_plus_goal100",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "907e218cecb6816abdd9cf09d67719ada8e2cd89e38b65c467da70080e8d3a2d"
+    },
+    {
+      "id": "dev_46",
+      "label": "pid",
+      "case": "lateral_plus_goal100",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "5394cf7f5dc34d8f4ad6e860c42bc0da325ae7986c6987f1afdcd4b52f97c5e1"
+    },
+    {
+      "id": "dev_47",
+      "label": "A",
+      "case": "lateral_plus_goal100",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "6f51cae0343141cd6fdee5fa7557ba4d75f9b94e123a533e8219484035666b38"
+    },
+    {
+      "id": "dev_48",
+      "label": "candidate",
+      "case": "lateral_plus_goal100",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "dd0d7f44e4561c34f351939b4acb4615dca5c760c68777d96b99d6b844a47848"
+    },
+    {
+      "id": "dev_49",
+      "label": "pid",
+      "case": "lateral_minus_goal100",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "e42737ac51d7d75aba9bea9e527d799650a73bfb646e750c5be8e5b5e82e58aa"
+    },
+    {
+      "id": "dev_50",
+      "label": "A",
+      "case": "lateral_minus_goal100",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "187501354fd2665fc855d783fa91d6a22f448bee135c70a29a55703ff68e9303"
+    },
+    {
+      "id": "dev_51",
+      "label": "candidate",
+      "case": "lateral_minus_goal100",
+      "seed": 480301,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "c0c7b81214d30d9fa9be201c22f39c636565aa2546012eeae688affee3d70428"
+    },
+    {
+      "id": "dev_52",
+      "label": "pid",
+      "case": "lateral_minus_goal100",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "9ee89a24bd55c145da3a50cb6ee971204667398e70039dd67ef56a745eae33ac"
+    },
+    {
+      "id": "dev_53",
+      "label": "A",
+      "case": "lateral_minus_goal100",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "c59819ea833b9212fbfbcba55852fbaf44fcae5232b5c5c7d9f02ccb20681a94"
+    },
+    {
+      "id": "dev_54",
+      "label": "candidate",
+      "case": "lateral_minus_goal100",
+      "seed": 480302,
+      "steps": 2048,
+      "all_audits": true,
+      "result_sha256": "42865ae2ed17e19a16c35cf988cf1d3e91f74399f0858f1ccdd8a7a3a5b600e7"
+    }
+  ]
+}
