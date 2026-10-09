@@ -1,0 +1,15 @@
+{
+  "offline_fixed_point_admission_passed": true,
+  "native_admitted": false,
+  "native_calls": 0,
+  "formal_updates": 0,
+  "new_disposable_optimizer_attempts": 22,
+  "prior_admission_disposable_attempts_preserved": 20,
+  "cumulative_disposable_attempts": 42,
+  "unit_tests": 11,
+  "process_replay_exact": true,
+  "original_control_exact_previous_version": true,
+  "original_512_failure_preserved": true,
+  "protected_unchanged": true,
+  "baseline_commit": "aad4c9900aca6f027c4145444eed7252302c654b"
+}

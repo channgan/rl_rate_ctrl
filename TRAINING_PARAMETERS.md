@@ -277,3 +277,5 @@ Run root: @DRL_ROOT_WINDOWS@\experiments\robustness_v1_20261002\v48_fixed_lr3e5.
 
 
 2026-10-09 authorized zero-native bias-intersection proposal admission only: fixed pre18/pre40, unchanged strict bias1e-4-1e-10 and all original guards/scales/objective; fixed Dykstra512. pre18 PASS, pre40 FAIL (nonconvergence), exact rollback and deterministic replay. Total20 disposable offline optimizer attempts,0 formal updates,0 native. No native launch admission; V48 artifacts unchanged. See docs/V48_BIAS_PROJECTION_ADMISSION_20261009.md.
+
+2026-10-09 zero-native pre40 solver diagnosis: zero increment proves feasibility; Dykstra512 slow convergence reproduced independently, original failure retained. Fixed feasible active-set/SVD replacement, same512 cap/tolerances/bias/nonlinear guards, pre18/pre40 both PASS with nonzero updates,11 tests and exact process replay. New22 disposable attempts (2 diagnostic+20 admission), prior20 retained;0 native/0 formal. Native remains NOT admitted. See docs/V48_PRE40_SOLVER_DIAGNOSIS_ACTIVE_SET_20261009.md.

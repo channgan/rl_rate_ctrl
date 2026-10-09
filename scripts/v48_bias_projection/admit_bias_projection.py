@@ -54,6 +54,7 @@ def main():
     protected=[V/'training/ledger.json',V/'development/ledger.json']+[q[2] for q in points]+list((T/'runtime').glob('*.py'))+list((T/'training').glob('batch_*/recovery.pt'))
     hashes={str(p.relative_to(V)):core.digest(p) for p in protected}
     plan=dict(fixed_points=[dict(name=n,batch=b,checkpoint=str(cp.relative_to(V)),sha256=core.digest(cp),accepted_global=g) for n,b,cp,pr,g in points],
+              solver_module=project.__module__,solver_source_sha256=core.digest(sys.modules[project.__module__].__file__),
               modes=['original','bias_intersection'],primary_disposable_steps=4,replay_disposable_steps=4,rejection_disposable_steps=2,
               limit=LIMIT,max_cycles=MAX_CYCLES,solver_tolerance=SOLVER_TOL,cast_normalized_tolerance=CAST_TOL,
               scales=[2.**-i for i in range(13)],native_calls=0,formal_updates=0,
