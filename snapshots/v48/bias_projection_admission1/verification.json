@@ -1,0 +1,12 @@
+{
+  "native_calls": 0,
+  "formal_updates": 0,
+  "disposable_optimizer_attempts_total": 20,
+  "unit_tests_passed": 7,
+  "passed": false,
+  "all_declared_points_reported": true,
+  "process_replay": {
+    "pre18": true,
+    "pre40": true
+  }
+}
