@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "training_captures": 28,
+  "development_trajectories": 54,
+  "terminal_baseline_cancellation": true,
+  "curvature_finite_difference": true,
+  "reference_identity_v47_v48": true,
+  "native_calls": 0,
+  "optimizer_steps": 0
+}
