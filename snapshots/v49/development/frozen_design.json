@@ -1,0 +1,466 @@
+{
+  "status": "prepared_not_executed",
+  "jobs": [
+    {
+      "index": 1,
+      "case": "hover_hold",
+      "seed": 490301,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 2,
+      "case": "hover_hold",
+      "seed": 490301,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 3,
+      "case": "hover_hold",
+      "seed": 490301,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 4,
+      "case": "hover_hold",
+      "seed": 490302,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 5,
+      "case": "hover_hold",
+      "seed": 490302,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 6,
+      "case": "hover_hold",
+      "seed": 490302,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 7,
+      "case": "hover_transition",
+      "seed": 490301,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 8,
+      "case": "hover_transition",
+      "seed": 490301,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 9,
+      "case": "hover_transition",
+      "seed": 490301,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 10,
+      "case": "hover_transition",
+      "seed": 490302,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 11,
+      "case": "hover_transition",
+      "seed": 490302,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 12,
+      "case": "hover_transition",
+      "seed": 490302,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 13,
+      "case": "waypoints",
+      "seed": 490301,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 14,
+      "case": "waypoints",
+      "seed": 490301,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 15,
+      "case": "waypoints",
+      "seed": 490301,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 16,
+      "case": "waypoints",
+      "seed": 490302,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 17,
+      "case": "waypoints",
+      "seed": 490302,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 18,
+      "case": "waypoints",
+      "seed": 490302,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 19,
+      "case": "combined_native_waypoints",
+      "seed": 490301,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 20,
+      "case": "combined_native_waypoints",
+      "seed": 490301,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 21,
+      "case": "combined_native_waypoints",
+      "seed": 490301,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 22,
+      "case": "combined_native_waypoints",
+      "seed": 490302,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 23,
+      "case": "combined_native_waypoints",
+      "seed": 490302,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 24,
+      "case": "combined_native_waypoints",
+      "seed": 490302,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 25,
+      "case": "noise200_hover_hold",
+      "seed": 490301,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 26,
+      "case": "noise200_hover_hold",
+      "seed": 490301,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 27,
+      "case": "noise200_hover_hold",
+      "seed": 490301,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 28,
+      "case": "noise200_hover_hold",
+      "seed": 490302,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 29,
+      "case": "noise200_hover_hold",
+      "seed": 490302,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 30,
+      "case": "noise200_hover_hold",
+      "seed": 490302,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 31,
+      "case": "low_x_050_goal100",
+      "seed": 490301,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 32,
+      "case": "low_x_050_goal100",
+      "seed": 490301,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 33,
+      "case": "low_x_050_goal100",
+      "seed": 490301,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 34,
+      "case": "low_x_050_goal100",
+      "seed": 490302,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 35,
+      "case": "low_x_050_goal100",
+      "seed": 490302,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 36,
+      "case": "low_x_050_goal100",
+      "seed": 490302,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 37,
+      "case": "low_y_025_goal100",
+      "seed": 490301,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 38,
+      "case": "low_y_025_goal100",
+      "seed": 490301,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 39,
+      "case": "low_y_025_goal100",
+      "seed": 490301,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 40,
+      "case": "low_y_025_goal100",
+      "seed": 490302,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 41,
+      "case": "low_y_025_goal100",
+      "seed": 490302,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 42,
+      "case": "low_y_025_goal100",
+      "seed": 490302,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 43,
+      "case": "lateral_plus_goal100",
+      "seed": 490301,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 44,
+      "case": "lateral_plus_goal100",
+      "seed": 490301,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 45,
+      "case": "lateral_plus_goal100",
+      "seed": 490301,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 46,
+      "case": "lateral_plus_goal100",
+      "seed": 490302,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 47,
+      "case": "lateral_plus_goal100",
+      "seed": 490302,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 48,
+      "case": "lateral_plus_goal100",
+      "seed": 490302,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 49,
+      "case": "lateral_minus_goal100",
+      "seed": 490301,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 50,
+      "case": "lateral_minus_goal100",
+      "seed": 490301,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 51,
+      "case": "lateral_minus_goal100",
+      "seed": 490301,
+      "label": "candidate",
+      "profile": "candidate"
+    },
+    {
+      "index": 52,
+      "case": "lateral_minus_goal100",
+      "seed": 490302,
+      "label": "pid",
+      "profile": "baseline"
+    },
+    {
+      "index": 53,
+      "case": "lateral_minus_goal100",
+      "seed": 490302,
+      "label": "A",
+      "profile": "candidate"
+    },
+    {
+      "index": 54,
+      "case": "lateral_minus_goal100",
+      "seed": 490302,
+      "label": "candidate",
+      "profile": "candidate"
+    }
+  ],
+  "NN_cap": 1692000,
+  "NN_per_episode": 47000,
+  "PID_separate_cap": 4718592,
+  "post_v39": 0,
+  "independent_whole_startup": true,
+  "runtime": "@LINUX_HOME@/rl_rate/PX4-head-switch-v42",
+  "old_original7_gates": {
+    "frozen_before_collection": true,
+    "original_cases": [
+      "hover_hold",
+      "hover_transition",
+      "waypoints",
+      "combined_native_waypoints",
+      "noise200_hover_hold"
+    ],
+    "new_cases": [
+      "low_x_050_goal100",
+      "low_y_025_goal100"
+    ],
+    "development_seeds": [
+      16001,
+      16002
+    ],
+    "controllers": [
+      "locked_PID",
+      "pretraining_A",
+      "posttraining_candidate"
+    ],
+    "planned_episodes": 42,
+    "training_seed_roles": {
+      "policy_training": [
+        15901,
+        15902
+      ],
+      "critic_validation": [
+        15905
+      ],
+      "development_evaluation": [
+        16001,
+        16002
+      ],
+      "reserved_final_heldout": [
+        12701,
+        12702
+      ]
+    },
+    "all2048retained": true,
+    "original_gates": "Original5: eachseed survival2048,hoveraxisRMSE<=PID*1.15+.02deg/s;waypointaxisP99<=PID*1.10+.5;mean100HzESCdelta<=PID*1.15+.0001. All3axesreported unchanged.",
+    "new_low_speed_gates": "Eachseed survival2048,roll/pitch fullandcruiseRMSE<=PID*1.15+.02deg/s;motor<=PID*1.15+.0001;cruise4..19s actualspeed within80..120percentcommand for>=80percent samples. Allaxisold-styleguard reported separately, no yawwaiver.",
+    "priority_report": "FullandcruiseR/P RMSE,signedbias,p99/peak,motorslew/saturation,height/position/speed; yawbias/RMSE/tail/peak/last5s plus originals. Meancomparisons do not eraseindividualfailures.",
+    "heldout_entry": "All42complete;frozenhash/time/native/staticreload/CPPchecks;original10PIDpairsandlow4RP/motor/coverage allpass;completefullreview. Noautomaticheldout.",
+    "no_numeric_yaw_tolerance_approved": true,
+    "old10Hzstress_evidence": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/low_speed_goal_cadence_diagnostic_v3/complete_cadence_comparison.json",
+    "cadence_attribution": "BothPID/incumbent/trained low-speedtasks use100Hz. No10vs100difference creditedtolearning.",
+    "budget": "Separate evaluationNN<=28*47000=1316000 andPIDexactcounters; failedPIDmissingcounterconservative262144. TrainingNN<=1000000separate. Historicalv36/v37=578344,v38evaluation=1917192retained.",
+    "historical_diagnostic_native_calls": {
+      "low_speed_v1": 1429930,
+      "long_cruise_v2": 1072184,
+      "cadence_v3": 1070256,
+      "offline_response": 0
+    },
+    "change_from_v25": "Historical: numerical acceptance gates unchanged.",
+    "change_from_v26": "Historical: numerical acceptance gates unchanged.",
+    "version": "v39-head-PPO-full42-development",
+    "metadata_correction": "Only seeds/version/provenance updated; original numericalmetrics/gates unchanged.",
+    "training_updates": "Recorded actual accepted PPO updates, not fixed-policysearch",
+    "repeat_rule": "One episode per controller/task/seed;2freshseeds,42total,no withinseedretry",
+    "historical_v36_v37_calls": 578344,
+    "change_from_v38": "Comparators nowPID/pretrainingA/postPPOcandidate, allsamefixedruntime/tasks/gates; no candidate selection by development scores."
+  },
+  "additional_protected_cases": [
+    "low_x_050_goal100",
+    "lateral_plus_goal100",
+    "lateral_minus_goal100"
+  ],
+  "additional_rule": "Retain original7 PIDguards. For protectedcases report candidate/A eachseed andall4crossrepeat comparisons inoriginal100Hz first3/full/cruise/tail allaxes; any mean tracking regression blocks progression. Require lower mean100Hz4motorvariation ineachprotectedcase andequal7group aggregate; overlapping repeat ranges are inconclusive, not proven smoothing. NativeweightedRMSE/ISE parallel only; no score replacement.",
+  "all54_before_decision": true,
+  "no_heldout": true,
+  "no_automatic_promotion": true,
+  "no_initial_state_filter": true,
+  "no_retry": true,
+  "native_limit": 3000000,
+  "PID_per_episode": 56000
+}

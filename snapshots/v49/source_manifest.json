@@ -1,0 +1,766 @@
+{
+  "baseline_commit": "0d299fc56d38f96c6ab4856ac0a8446c4c3dd59b",
+  "files": [
+    {
+      "path": "snapshots/v49/training/runtime/adaptive_smooth.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/adaptive_smooth.py",
+      "source_sha256": "7a5fc3f3512f437a2df42f5e2fb06d4a22ecff8905f141205a1a9d3614b35f94",
+      "snapshot_sha256": "7a5fc3f3512f437a2df42f5e2fb06d4a22ecff8905f141205a1a9d3614b35f94"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/audit_capture.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/audit_capture.py",
+      "source_sha256": "b6c64f1aa6af78df525284fa5fe4c168b0e2c6de6c0a48b10fddebd155be3c89",
+      "snapshot_sha256": "3e057f504e55ea88b7bb77ed2257fda2dbeaa69e3d8eeb028c2665a50ee300a8"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/batch_driver.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/batch_driver.py",
+      "source_sha256": "6a3c189489f5b6514876870f3fcb7f9ac35e5a7d8086ea8e235ba9ab26f56689",
+      "snapshot_sha256": "6a3c189489f5b6514876870f3fcb7f9ac35e5a7d8086ea8e235ba9ab26f56689"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/bias_projection.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/bias_projection.py",
+      "source_sha256": "e79297972b3acc67c209f6c24ff2a56ed551f9134650b1db44d862e209a317e3",
+      "snapshot_sha256": "e79297972b3acc67c209f6c24ff2a56ed551f9134650b1db44d862e209a317e3"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/bias_projection_active.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/bias_projection_active.py",
+      "source_sha256": "debd9a7a604ac124fcbf2657412b95857527306102402e4535e9cd9d899009fc",
+      "snapshot_sha256": "debd9a7a604ac124fcbf2657412b95857527306102402e4535e9cd9d899009fc"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/effective_rules.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/effective_rules.py",
+      "source_sha256": "448bb1ab613bd5e556717d08db568d1f59fc15ccdd8cdfc1687c880e9793f9c5",
+      "snapshot_sha256": "448bb1ab613bd5e556717d08db568d1f59fc15ccdd8cdfc1687c880e9793f9c5"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/finalize_and_bind.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/finalize_and_bind.py",
+      "source_sha256": "b281d40afdb17d82da6ee3d31af8a27e969bc92bdedfd7c04090e69c46b6565c",
+      "snapshot_sha256": "b281d40afdb17d82da6ee3d31af8a27e969bc92bdedfd7c04090e69c46b6565c"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/local_guards.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/local_guards.py",
+      "source_sha256": "a31eebe09c26bf3f56fa8f06df7fe5e3d966c34b36b491f9a3c07894220abb4b",
+      "snapshot_sha256": "8a2806f64d0b8571b62ff2aa8064ff6e681c21b50e95bea7475f4ef6e03af2dd"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/native_case.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/native_case.py",
+      "source_sha256": "395e16d7537123bc051a1767e38ec47340b34ad0647c52fb8ec5c4c8c29fc2a6",
+      "snapshot_sha256": "965a16588b10316470d85db0ab1a8897a9ed08900a46a1f1e90dbb0148e4af2c"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/runtime_support.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/runtime_support.py",
+      "source_sha256": "f438587bca915c00f9bcf6651e25274a5b13e815f05e413603398873be63f425",
+      "snapshot_sha256": "f438587bca915c00f9bcf6651e25274a5b13e815f05e413603398873be63f425"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/sync_trace_audit.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/sync_trace_audit.py",
+      "source_sha256": "e8a36474f62504770cfa25feb3312dc98d3c7f6b7b04e221577fb7cc10a66d2b",
+      "snapshot_sha256": "e8a36474f62504770cfa25feb3312dc98d3c7f6b7b04e221577fb7cc10a66d2b"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/update_batch.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/update_batch.py",
+      "source_sha256": "b8359379bc26cd756d1d1399b84a3e7127fe72304afa5071aea0cdc6211216a8",
+      "snapshot_sha256": "b8359379bc26cd756d1d1399b84a3e7127fe72304afa5071aea0cdc6211216a8"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/v46_core.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/v46_core.py",
+      "source_sha256": "c360564f2236bebecadacd3f00f7457394ed2a630af9a4fecd6ba48ba703de13",
+      "snapshot_sha256": "c360564f2236bebecadacd3f00f7457394ed2a630af9a4fecd6ba48ba703de13"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/v46_offline_scheduler.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/v46_offline_scheduler.py",
+      "source_sha256": "44224310c72a4d65fe5bae50dba4e359cd60db7c9de52ece7a04f9ca8dd7c2df",
+      "snapshot_sha256": "44224310c72a4d65fe5bae50dba4e359cd60db7c9de52ece7a04f9ca8dd7c2df"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/v46_training_entry.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/v46_training_entry.py",
+      "source_sha256": "8f28a31285b392159a66427afa7c41bb84872726614ac8ab210f4062051c0859",
+      "snapshot_sha256": "601994b44d2546f4be01cc7923333377a3c3129e9819ba88aabd5f4d359105b5"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/v48_configuration.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/v48_configuration.py",
+      "source_sha256": "6c127e29dfd9ebe0bac6c1eb8f1bf83addb6f77a93026571851d863cbeba9332",
+      "snapshot_sha256": "6c127e29dfd9ebe0bac6c1eb8f1bf83addb6f77a93026571851d863cbeba9332"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/v49_scheduler.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/v49_scheduler.py",
+      "source_sha256": "e0847c202b2c8cf0a540500c0fa2b21a6a3e5c5144033f820dab3f5d5adaaaa6",
+      "snapshot_sha256": "e0847c202b2c8cf0a540500c0fa2b21a6a3e5c5144033f820dab3f5d5adaaaa6"
+    },
+    {
+      "path": "snapshots/v49/training/runtime/windows_holder.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/runtime/windows_holder.py",
+      "source_sha256": "599a8dae962c1036fdf9dea5361233d6e647d427f94f251fe46c0af4e8812674",
+      "snapshot_sha256": "bd0a70f55b3d18cea2220ad16cc7d40e2c2e83e27e1f6e6ca94395bd454d74c5"
+    },
+    {
+      "path": "snapshots/v49/training/templates/profile_0.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/profile_0.json",
+      "source_sha256": "a7aa2f41abd315e7885e1eeb2ff73c7987678749ac780ba1253f457a5aed9901",
+      "snapshot_sha256": "7a1838cfa817a475d2d8cc66d1a3daef05a9b57bedcf6fcc4dae3cdb8ae5a458"
+    },
+    {
+      "path": "snapshots/v49/training/templates/profile_1.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/profile_1.json",
+      "source_sha256": "6f3d984047277d1bc59aa0880aee53ead8fb8a2db918244ae8c536c7a1edc064",
+      "snapshot_sha256": "a44b748217bc816ed54dba4fe24b9e4e74411958dc371ebe5e965f3331659fb2"
+    },
+    {
+      "path": "snapshots/v49/training/templates/profile_2.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/profile_2.json",
+      "source_sha256": "9761d13c4758d8fdbd7e6ac92e70fb3fae43483ae8a65f7611830eb37002daca",
+      "snapshot_sha256": "a00cbea92fff71ae963b73fed4f272b922d24b95bcf37bbc77877228f9960f84"
+    },
+    {
+      "path": "snapshots/v49/training/templates/profile_3.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/profile_3.json",
+      "source_sha256": "34d8095258dea71f87563782187e3c059740bbcafb196b5af0033583aaabe74b",
+      "snapshot_sha256": "c82b66842be5c2c70045beae26310969aa472f29cca9b08c207f46dc55a5a830"
+    },
+    {
+      "path": "snapshots/v49/training/templates/profile_4.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/profile_4.json",
+      "source_sha256": "38ec7dfb9d7c97359036468c0dfe1a71b1cc8a0ec530bc629e59369d82e7f4de",
+      "snapshot_sha256": "e78bef144c046f77dd13b90c6071dc0fe512fbbab0a4b6ddfe27a62fd58373be"
+    },
+    {
+      "path": "snapshots/v49/training/templates/profile_5.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/profile_5.json",
+      "source_sha256": "70a308c288c647f0fe9a6007d5a0d142d059fca1278cd648dbff4b3d34fd2e4c",
+      "snapshot_sha256": "89c019793d643a3980f10b26d50ea5cae4fcc518a555f5c4e555b283397a4b75"
+    },
+    {
+      "path": "snapshots/v49/training/templates/profile_6.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/profile_6.json",
+      "source_sha256": "07df36a120a7452e1addd5e813252c2ff0ff42ba7bef83cc5457d1ff8223705c",
+      "snapshot_sha256": "3b1f5d68334d36acf4badb3c227ab4f137c6fb4848bdcbee88c155e27dbb77cd"
+    },
+    {
+      "path": "snapshots/v49/training/templates/runtime_combined_native_waypoints.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/runtime_combined_native_waypoints.json",
+      "source_sha256": "a0147c21eef8a65935397e5e3f15c5c69cec2dbaa8cc99c5623adf2fb9404b1b",
+      "snapshot_sha256": "e240580da37e0e9aa3328ad3ce0a54b72d6413bc49c46342a2d54a6010f86574"
+    },
+    {
+      "path": "snapshots/v49/training/templates/runtime_hover_hold.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/runtime_hover_hold.json",
+      "source_sha256": "2fe5a3a7736fa25a7263b13ef7f10e128182ba4799adcb193766aa670e67daac",
+      "snapshot_sha256": "f1e79ff52069246601f86b3808df18d66497fad5271d4c747f9f2e701aab8249"
+    },
+    {
+      "path": "snapshots/v49/training/templates/runtime_hover_transition.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/runtime_hover_transition.json",
+      "source_sha256": "2fe5a3a7736fa25a7263b13ef7f10e128182ba4799adcb193766aa670e67daac",
+      "snapshot_sha256": "f1e79ff52069246601f86b3808df18d66497fad5271d4c747f9f2e701aab8249"
+    },
+    {
+      "path": "snapshots/v49/training/templates/runtime_lateral_minus_goal100.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/runtime_lateral_minus_goal100.json",
+      "source_sha256": "2fe5a3a7736fa25a7263b13ef7f10e128182ba4799adcb193766aa670e67daac",
+      "snapshot_sha256": "f1e79ff52069246601f86b3808df18d66497fad5271d4c747f9f2e701aab8249"
+    },
+    {
+      "path": "snapshots/v49/training/templates/runtime_lateral_plus_goal100.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/runtime_lateral_plus_goal100.json",
+      "source_sha256": "2fe5a3a7736fa25a7263b13ef7f10e128182ba4799adcb193766aa670e67daac",
+      "snapshot_sha256": "f1e79ff52069246601f86b3808df18d66497fad5271d4c747f9f2e701aab8249"
+    },
+    {
+      "path": "snapshots/v49/training/templates/runtime_low_x_050_goal100.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/runtime_low_x_050_goal100.json",
+      "source_sha256": "2fe5a3a7736fa25a7263b13ef7f10e128182ba4799adcb193766aa670e67daac",
+      "snapshot_sha256": "f1e79ff52069246601f86b3808df18d66497fad5271d4c747f9f2e701aab8249"
+    },
+    {
+      "path": "snapshots/v49/training/templates/runtime_low_y_025_goal100.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/runtime_low_y_025_goal100.json",
+      "source_sha256": "2fe5a3a7736fa25a7263b13ef7f10e128182ba4799adcb193766aa670e67daac",
+      "snapshot_sha256": "f1e79ff52069246601f86b3808df18d66497fad5271d4c747f9f2e701aab8249"
+    },
+    {
+      "path": "snapshots/v49/training/templates/runtime_noise200_hover_hold.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/runtime_noise200_hover_hold.json",
+      "source_sha256": "2a89dd5fb84c4dec58be22e5620cafc07ba41d6c669de741c30c0d89b376c215",
+      "snapshot_sha256": "a9a9870548626083370fbb4c0d348237fe21012d5a5960b4bbcdeb048c2dda47"
+    },
+    {
+      "path": "snapshots/v49/training/templates/runtime_waypoints.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/templates/runtime_waypoints.json",
+      "source_sha256": "2fe5a3a7736fa25a7263b13ef7f10e128182ba4799adcb193766aa670e67daac",
+      "snapshot_sha256": "f1e79ff52069246601f86b3808df18d66497fad5271d4c747f9f2e701aab8249"
+    },
+    {
+      "path": "snapshots/v49/development/runtime/audit_development.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/audit_development.py",
+      "source_sha256": "1c267b11ae45a89ad049701ece8a03cdf93686edf10d5b49d8232f01eeaee831",
+      "snapshot_sha256": "1fb31cfeed3152647db71d61abc6be3d1e1582d90fd829f20ff4ac4c8b682d26"
+    },
+    {
+      "path": "snapshots/v49/development/runtime/batch_driver.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/batch_driver.py",
+      "source_sha256": "4dbae6974b8365ddff797acb2e10f1edf69b1208e743dc3e317ae0b306e208d0",
+      "snapshot_sha256": "4dbae6974b8365ddff797acb2e10f1edf69b1208e743dc3e317ae0b306e208d0"
+    },
+    {
+      "path": "snapshots/v49/development/runtime/local_guards.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/local_guards.py",
+      "source_sha256": "a31eebe09c26bf3f56fa8f06df7fe5e3d966c34b36b491f9a3c07894220abb4b",
+      "snapshot_sha256": "8a2806f64d0b8571b62ff2aa8064ff6e681c21b50e95bea7475f4ef6e03af2dd"
+    },
+    {
+      "path": "snapshots/v49/development/runtime/native_case.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/native_case.py",
+      "source_sha256": "e7dc9bfcee3afc46cd9b8e614a7407b32fe76c59e9590b4594eefa40aa3b4257",
+      "snapshot_sha256": "a99f7ba030e9bd77a8f28759ddaa09479d9f245b1e70fba8ea762798587e557f"
+    },
+    {
+      "path": "snapshots/v49/development/runtime/review54.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/review54.py",
+      "source_sha256": "44de721dc17186ddd70a8ad15309558290dc09d00003562e2de611781d8fba92",
+      "snapshot_sha256": "44de721dc17186ddd70a8ad15309558290dc09d00003562e2de611781d8fba92"
+    },
+    {
+      "path": "snapshots/v49/development/runtime/runtime_support.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/runtime_support.py",
+      "source_sha256": "2fa917676dc3222640a707d2351f12234fb91c998a203ab3f4f917c735a7d045",
+      "snapshot_sha256": "2fa917676dc3222640a707d2351f12234fb91c998a203ab3f4f917c735a7d045"
+    },
+    {
+      "path": "snapshots/v49/development/runtime/sync_trace_audit.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/sync_trace_audit.py",
+      "source_sha256": "e8a36474f62504770cfa25feb3312dc98d3c7f6b7b04e221577fb7cc10a66d2b",
+      "snapshot_sha256": "e8a36474f62504770cfa25feb3312dc98d3c7f6b7b04e221577fb7cc10a66d2b"
+    },
+    {
+      "path": "snapshots/v49/development/runtime/v46_training_entry.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/v46_training_entry.py",
+      "source_sha256": "8f28a31285b392159a66427afa7c41bb84872726614ac8ab210f4062051c0859",
+      "snapshot_sha256": "601994b44d2546f4be01cc7923333377a3c3129e9819ba88aabd5f4d359105b5"
+    },
+    {
+      "path": "snapshots/v49/development/runtime/windows_holder.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/windows_holder.py",
+      "source_sha256": "599a8dae962c1036fdf9dea5361233d6e647d427f94f251fe46c0af4e8812674",
+      "snapshot_sha256": "bd0a70f55b3d18cea2220ad16cc7d40e2c2e83e27e1f6e6ca94395bd454d74c5"
+    },
+    {
+      "path": "snapshots/v49/development/templates/profile_combined_native_waypoints.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/profile_combined_native_waypoints.json",
+      "source_sha256": "47addb705910f179ba294993f30533e8a7ce45f8f86c349ab36e6aa0225ffcad",
+      "snapshot_sha256": "1b0ed8ffbef35eb6493fab6ef21dddbff4e1135ca57a9c356e327b6f741ba4bd"
+    },
+    {
+      "path": "snapshots/v49/development/templates/profile_hover_hold.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/profile_hover_hold.json",
+      "source_sha256": "00b81efed93e53ce89a08763985b4381335de44f4e6881a33ae38e3fd41d2881",
+      "snapshot_sha256": "7655122a831075fc2745ad3287496900ff68d032cfb418b96fa4272e6574ff2a"
+    },
+    {
+      "path": "snapshots/v49/development/templates/profile_hover_transition.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/profile_hover_transition.json",
+      "source_sha256": "645503abe48617090110a15400d09cd6d45168430b4e1de7c6e940504d7e3b48",
+      "snapshot_sha256": "03088a96820f44e7ae159b3169947c86bc2c84b1042f98b06195090862a0866c"
+    },
+    {
+      "path": "snapshots/v49/development/templates/profile_lateral_minus_goal100.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/profile_lateral_minus_goal100.json",
+      "source_sha256": "221f8c2a3eada1badd08fb055382fc00a03c43dadc4fe63673b6c5ee4793643b",
+      "snapshot_sha256": "ba1c282339d6095c599d5cec55b2992ff910c31402c463613c7f714f31b35dea"
+    },
+    {
+      "path": "snapshots/v49/development/templates/profile_lateral_plus_goal100.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/profile_lateral_plus_goal100.json",
+      "source_sha256": "f71125145b0d3c870c633566fd7464be1ff161a21874b9d3967c1dde7d99e3ff",
+      "snapshot_sha256": "729d644ac0ceb64f01ce720f9ca67f442193d3ff3d8620f2a2d8afc6cc955faf"
+    },
+    {
+      "path": "snapshots/v49/development/templates/profile_low_x_050_goal100.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/profile_low_x_050_goal100.json",
+      "source_sha256": "83f7c8c5d8783562dd418562096e22b39cd2701022249ce1add06b5cce7102b2",
+      "snapshot_sha256": "f1f2d9b644f5d3231964227a21cedaab193d1330fa09b0d3b63fb6e91ecacd3d"
+    },
+    {
+      "path": "snapshots/v49/development/templates/profile_low_y_025_goal100.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/profile_low_y_025_goal100.json",
+      "source_sha256": "6bef24761e7a8b40eb78d6fe3e45f87dee035b3d485407b769cfdac5c016fb73",
+      "snapshot_sha256": "9af86411b7c8b32316cf97b168a3e8b7dd9084d9ed4638ec44192ca1d22944a5"
+    },
+    {
+      "path": "snapshots/v49/development/templates/profile_noise200_hover_hold.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/profile_noise200_hover_hold.json",
+      "source_sha256": "a28f26bbd7ef3f6ba69daed59db084c6c78d3add059087dced33f8b09506d22f",
+      "snapshot_sha256": "1db0aaf36cbfbe6307b38f262f84aef03ea6bb76df3aec474066c7c31e9b706f"
+    },
+    {
+      "path": "snapshots/v49/development/templates/profile_waypoints.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/profile_waypoints.json",
+      "source_sha256": "9ae8bfa2b3dd0683308071fca7c8397087896adc36a26a348df9d1c95c7a9389",
+      "snapshot_sha256": "4613a5b08cf29d81d75b5189711e333297bd7f0131fbf8c2d6d71774ec314222"
+    },
+    {
+      "path": "snapshots/v49/development/templates/runtime_combined_native_waypoints.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/runtime_combined_native_waypoints.json",
+      "source_sha256": "cdffea2a3f392c3afdccdc0dd9402c888dd812389c2384f68735068bc4d1c4cc",
+      "snapshot_sha256": "e240580da37e0e9aa3328ad3ce0a54b72d6413bc49c46342a2d54a6010f86574"
+    },
+    {
+      "path": "snapshots/v49/development/templates/runtime_hover_hold.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/runtime_hover_hold.json",
+      "source_sha256": "4a30a6807fd0c06e610549fbd7590660a88fa3206a0082dd46c618ac4d3f107f",
+      "snapshot_sha256": "f1e79ff52069246601f86b3808df18d66497fad5271d4c747f9f2e701aab8249"
+    },
+    {
+      "path": "snapshots/v49/development/templates/runtime_hover_transition.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/runtime_hover_transition.json",
+      "source_sha256": "4a30a6807fd0c06e610549fbd7590660a88fa3206a0082dd46c618ac4d3f107f",
+      "snapshot_sha256": "f1e79ff52069246601f86b3808df18d66497fad5271d4c747f9f2e701aab8249"
+    },
+    {
+      "path": "snapshots/v49/development/templates/runtime_lateral_minus_goal100.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/runtime_lateral_minus_goal100.json",
+      "source_sha256": "4a30a6807fd0c06e610549fbd7590660a88fa3206a0082dd46c618ac4d3f107f",
+      "snapshot_sha256": "f1e79ff52069246601f86b3808df18d66497fad5271d4c747f9f2e701aab8249"
+    },
+    {
+      "path": "snapshots/v49/development/templates/runtime_lateral_plus_goal100.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/runtime_lateral_plus_goal100.json",
+      "source_sha256": "4a30a6807fd0c06e610549fbd7590660a88fa3206a0082dd46c618ac4d3f107f",
+      "snapshot_sha256": "f1e79ff52069246601f86b3808df18d66497fad5271d4c747f9f2e701aab8249"
+    },
+    {
+      "path": "snapshots/v49/development/templates/runtime_low_x_050_goal100.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/runtime_low_x_050_goal100.json",
+      "source_sha256": "4a30a6807fd0c06e610549fbd7590660a88fa3206a0082dd46c618ac4d3f107f",
+      "snapshot_sha256": "f1e79ff52069246601f86b3808df18d66497fad5271d4c747f9f2e701aab8249"
+    },
+    {
+      "path": "snapshots/v49/development/templates/runtime_low_y_025_goal100.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/runtime_low_y_025_goal100.json",
+      "source_sha256": "4a30a6807fd0c06e610549fbd7590660a88fa3206a0082dd46c618ac4d3f107f",
+      "snapshot_sha256": "f1e79ff52069246601f86b3808df18d66497fad5271d4c747f9f2e701aab8249"
+    },
+    {
+      "path": "snapshots/v49/development/templates/runtime_noise200_hover_hold.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/runtime_noise200_hover_hold.json",
+      "source_sha256": "778d2d1026302dca4f78d4bc89ffc2e7488a30d13502c7a87fe2ad8cead01265",
+      "snapshot_sha256": "a9a9870548626083370fbb4c0d348237fe21012d5a5960b4bbcdeb048c2dda47"
+    },
+    {
+      "path": "snapshots/v49/development/templates/runtime_waypoints.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/templates/runtime_waypoints.json",
+      "source_sha256": "4a30a6807fd0c06e610549fbd7590660a88fa3206a0082dd46c618ac4d3f107f",
+      "snapshot_sha256": "f1e79ff52069246601f86b3808df18d66497fad5271d4c747f9f2e701aab8249"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/action_contract.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/action_contract.py",
+      "source_sha256": "01b1d818c2cfcdc136d102f63b5c1970bda14190858bc33eea8c3bcd3865c26a",
+      "snapshot_sha256": "5e902857bcebae7dc547339db38d5b4c71cd496eef2eb559aec2b1a3047ce346"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/adaptive_ppo.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/adaptive_ppo.py",
+      "source_sha256": "e70d3f93c99611c70a1a87e215e1546d4cf1849795ab727e4717d0b12efcff99",
+      "snapshot_sha256": "e70d3f93c99611c70a1a87e215e1546d4cf1849795ab727e4717d0b12efcff99"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/asymmetric_policy.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/asymmetric_policy.py",
+      "source_sha256": "22c1e84703be468b3cdb3b153ecf97dd35bd054fbbe3eb3e12e7039a714a61b6",
+      "snapshot_sha256": "41fccbeb01e1160462c917aa351b787011ab568a0b7be6757624cb59befb9da3"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/backend.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/backend.py",
+      "source_sha256": "782679ed7b9bd6349cc36cfe0826e73026cdc1216b8cfa5c51783215c93be18b",
+      "snapshot_sha256": "86e55d6b47136374eaf616531b5ab82646376787fc5541da7dcca56e3357715a"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/curriculum.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/curriculum.py",
+      "source_sha256": "a315b30a6d58f26f581c1991b7080a65d0c0196e72d9aace021e058a58a6ebe3",
+      "snapshot_sha256": "b49b505c66bcc26567f5d88e42a4556e22532d04ecf026f30714fbd859abdb50"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/defaults.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/defaults.py",
+      "source_sha256": "389a7675a28969f85a724367dfc006fc4546213f905405fb5913c0dbacd6dedd",
+      "snapshot_sha256": "389a7675a28969f85a724367dfc006fc4546213f905405fb5913c0dbacd6dedd"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/env.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/env.py",
+      "source_sha256": "7da3f7c86d6d052535c0883a7e8a21de275b120e775a0ae28d9f70a383ebb475",
+      "snapshot_sha256": "7da3f7c86d6d052535c0883a7e8a21de275b120e775a0ae28d9f70a383ebb475"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/environment_contract.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/environment_contract.py",
+      "source_sha256": "9873056ce2d1e0c1b646ac96b3829f287ec6ce40e4c8ff3ad5f65c6f2cd013d7",
+      "snapshot_sha256": "88ac688323c3299fb6b206f7db73d6e5c3ce08a731a359e5d0d5675117255588"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/episode_horizon.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/episode_horizon.py",
+      "source_sha256": "b23ce34227241d9109990443dec9e25835c0c1d24467ef53f2a9bc51437fd24c",
+      "snapshot_sha256": "b23ce34227241d9109990443dec9e25835c0c1d24467ef53f2a9bc51437fd24c"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/evaluation.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/evaluation.py",
+      "source_sha256": "8460134183256b4559f3b3220b602d657c9d173fe8b8dabf1453ef554e55f5d9",
+      "snapshot_sha256": "4f27efc9bfd0035be45cdc93de18605ebafc84ab2f3dab6b047db324f8e8a882"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/independent_batch.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/independent_batch.py",
+      "source_sha256": "b438e14e927aa85fba1bf5a5cc2627622c2bb5b92a66330bfa6316b95e4b278d",
+      "snapshot_sha256": "b438e14e927aa85fba1bf5a5cc2627622c2bb5b92a66330bfa6316b95e4b278d"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/launcher.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/launcher.py",
+      "source_sha256": "95beb89fab133d11c9f0bf89a49f0dfdc78275849dfa9e1812400e49d4367bc4",
+      "snapshot_sha256": "f149e7c4c37fdcbfb64d6234579213adcbf991a488e1a5985eba533edbf39625"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/native_outer.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/native_outer.py",
+      "source_sha256": "7563478d8bd4db846a37c2580880b38fe92c9fc19b2012492aa466cdc155e827",
+      "snapshot_sha256": "7ee204d33d8ce243cdc9adc4bae34e1eae52cbad37e6e7c58a2dbd50478034d3"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/outer_loop.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/outer_loop.py",
+      "source_sha256": "df5231235a68f24147c4685df0af000b67a5aa5223c24af8f49208bc9fb26a36",
+      "snapshot_sha256": "e73542174ac7608743b1ad39c5929fe09e62feda21e8a2c5a7b5ca4cdc6b5cd1"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/parallel_training.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/parallel_training.py",
+      "source_sha256": "f2ba1eda01507d16fceac600650ec990107fe114003760e48ac52abc584cfabd",
+      "snapshot_sha256": "fef12653a6bb8cc26ca9c945e3413f5cbb93e5c7ad1409c552072e4a4c4cbf79"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/ppo_schedule.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/ppo_schedule.py",
+      "source_sha256": "30b5b138ced0d4c7e5e80a31230585835a673e8409080f6541c3e47519ab4bbb",
+      "snapshot_sha256": "30b5b138ced0d4c7e5e80a31230585835a673e8409080f6541c3e47519ab4bbb"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/privileged.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/privileged.py",
+      "source_sha256": "b9e5a1f7edc1ff41c8fa408ea921ba39f37c730ce177057e63869ffcb0e13689",
+      "snapshot_sha256": "8b43a70c64018eeb3e71b6b98ebb4af6bffb8c5e3542d45ced068549226b5785"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/promotion_training.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/promotion_training.py",
+      "source_sha256": "2a908a715cd0444fb1215e4c85971aef851620caaeed33c4d7f789f1bab31d9c",
+      "snapshot_sha256": "719ad07a89f45023c95737192602575db19bba2c0cddcee9c2c56cfa929f7bd6"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/rewards.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/rewards.py",
+      "source_sha256": "f17d7d4d77c5ac4f906705ec7584359f669d6b4f5095748419dcf90b388ba9e2",
+      "snapshot_sha256": "f17d7d4d77c5ac4f906705ec7584359f669d6b4f5095748419dcf90b388ba9e2"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/reward_candidates.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/reward_candidates.py",
+      "source_sha256": "b7d69b9dcb6a0fd208bd61303710bae6f066524f43039ae9240c79126a97359e",
+      "snapshot_sha256": "b7d69b9dcb6a0fd208bd61303710bae6f066524f43039ae9240c79126a97359e"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/reward_contract.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/reward_contract.py",
+      "source_sha256": "faa2717c76eb00b60373c74ebdf4a2a282db943eef6efce905c784861d7d1381",
+      "snapshot_sha256": "faa2717c76eb00b60373c74ebdf4a2a282db943eef6efce905c784861d7d1381"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/run_manager.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/run_manager.py",
+      "source_sha256": "d54ff3d50097277f2123a83100f60dbbbff69f5b534a801d126240da81338af1",
+      "snapshot_sha256": "d54ff3d50097277f2123a83100f60dbbbff69f5b534a801d126240da81338af1"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/startup_entry.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/startup_entry.py",
+      "source_sha256": "71bafb772ce77f60fb7a641d26a68e878b23caabb2aab584c6615fbf215f5af8",
+      "snapshot_sha256": "35a68c334d6800b1a3e74e61e525580a1bf37c64d2896800fef972fe28ca7bbb"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/startup_selfcheck.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/startup_selfcheck.py",
+      "source_sha256": "671ea26d7b07c458a12aef2b19fcc284e9432388de9f462822739f43bc1c88b6",
+      "snapshot_sha256": "4ba57fe3b2b19fd996f222a81c8319ac8b5abbbefb799cc000a556cbffcd556a"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/survival_gate.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/survival_gate.py",
+      "source_sha256": "f7806fd5fb770b965026bc756c192f9d48fd226ab40b2ea8c58635e0684ec704",
+      "snapshot_sha256": "5e92cbed026d4ca9b3609aa6fe84cfe539461054a06dec163a54a24a5351fdab"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/torque_contract.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/torque_contract.py",
+      "source_sha256": "2cf364721bc9ed11d05e9f0256ee7393f318f6e100f70fec730820b833f98988",
+      "snapshot_sha256": "d3540cbb58abf62f8eada09c115ba2082cdbc046e704b818fc2eda40b1e71da9"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/train.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/train.py",
+      "source_sha256": "3b1e7f66493a79fe80c9ab6e009571268c64a6449d034b93b8a0565df4543c60",
+      "snapshot_sha256": "d9c8b6810ea53759e546e7261ff48469c945bf49e7c16d3816a49f70c6834c89"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/trajectory.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/trajectory.py",
+      "source_sha256": "7bbcb784694aab0a1dc19669712daa8b6733fee265f142ff3e94b60a545aab4e",
+      "snapshot_sha256": "f4a42f6e3964da3500c271aa21bbe58c1039c8a7198e9e72f91d71e5d4aa8526"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/trajectory_plot.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/trajectory_plot.py",
+      "source_sha256": "142989680c1ac0b67778b8b5b2acf6e5419d716aa5adbc4197e75c49922aaf34",
+      "snapshot_sha256": "18605782bd0654e08cfa9f131b84b120498859daf0bec50a45a2aa0329430cd7"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/waypoint.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/waypoint.py",
+      "source_sha256": "5149c979aa4b52414b65ce5a0d3db6c1cefb7958290959894143e043465a9408",
+      "snapshot_sha256": "0b2f35b961f1a12bcc27720438e44613ff0e3ff002659d65415bf7111effcb47"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/_holder_gateway.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/_holder_gateway.py",
+      "source_sha256": "98cdf6da6e6dbfd4129222775be3bb6d7f6204aa4964a48e6e2343bfa2c23b94",
+      "snapshot_sha256": "ba53e88662d7cbdf2640e9c828c19c14c97a11d1d4f02c8cde626c07ee8c2557"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/__init__.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/__init__.py",
+      "source_sha256": "57b2be2668b4cfe665ba33b713ab0526eb08c45eb16af6a2f7abd027e86b487e",
+      "snapshot_sha256": "4bc39a75169bdafebfa0fc180582b1bea3c7fdaed4273bc5a44d12f0c51b4c6c"
+    },
+    {
+      "path": "snapshots/v49/launcher/scripts/supervise_training.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/scripts/supervise_training.py",
+      "source_sha256": "6c4b51541bcee4d7fe9c47cea5c9ad8734d69342f8f098ed3e81de37f2778f1c",
+      "snapshot_sha256": "6c4b51541bcee4d7fe9c47cea5c9ad8734d69342f8f098ed3e81de37f2778f1c"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/training/cli.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/training/cli.py",
+      "source_sha256": "e96abf04e6ea54c7d974e7f25ed141ffdea26b28e3cd1a0c22728c208c62c051",
+      "snapshot_sha256": "e96abf04e6ea54c7d974e7f25ed141ffdea26b28e3cd1a0c22728c208c62c051"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/training/configuration.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/training/configuration.py",
+      "source_sha256": "cd6c9b23b6e920ecbb5be05fac6c0f95d1a955f88d9b3b1cf421bcaecaafe3c2",
+      "snapshot_sha256": "cd6c9b23b6e920ecbb5be05fac6c0f95d1a955f88d9b3b1cf421bcaecaafe3c2"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/training/environments.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/training/environments.py",
+      "source_sha256": "56cb36545dd9f529ad49ce8683de58d52b7dd172d32e638073f64684d17083d9",
+      "snapshot_sha256": "56cb36545dd9f529ad49ce8683de58d52b7dd172d32e638073f64684d17083d9"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/training/metadata.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/training/metadata.py",
+      "source_sha256": "5811bda639a820d11194ab884fe3a52befb35bcd7059651b908108aab84ad67d",
+      "snapshot_sha256": "5811bda639a820d11194ab884fe3a52befb35bcd7059651b908108aab84ad67d"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/training/metrics.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/training/metrics.py",
+      "source_sha256": "18326559edac80c63245c1749b89d78e308ffc2fbf298354ac2efb02380e0a75",
+      "snapshot_sha256": "18326559edac80c63245c1749b89d78e308ffc2fbf298354ac2efb02380e0a75"
+    },
+    {
+      "path": "snapshots/v49/launcher/rate_rl/training/__init__.py",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/launcher/rate_rl/training/__init__.py",
+      "source_sha256": "6a7aef7c4d40ed7a210d471145215698e4e974d6fdd2868665d494db72740953",
+      "snapshot_sha256": "6a7aef7c4d40ed7a210d471145215698e4e974d6fdd2868665d494db72740953"
+    },
+    {
+      "path": "snapshots/v49/execution_contract.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/execution_contract.json",
+      "source_sha256": "5e148d03ba7ac10a202fc4816e50b35e152d3b501e5b7cf9cfd5aa91e7420a33",
+      "snapshot_sha256": "5e148d03ba7ac10a202fc4816e50b35e152d3b501e5b7cf9cfd5aa91e7420a33"
+    },
+    {
+      "path": "snapshots/v49/preparation.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/preparation.json",
+      "source_sha256": "f37e4c8e967b6a2324efda85b881aa67f66a18b7d80c208ab6e59fcb2eb58f27",
+      "snapshot_sha256": "705f6099594fad6c26655498378c93a6604ce48045f8dd7da3a3ed7fa3da31b0"
+    },
+    {
+      "path": "snapshots/v49/training/protocol.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/protocol.json",
+      "source_sha256": "7a9d0caae68ecd72386f67e1f1c6d08791b64178e1ac385314d02c26e6261788",
+      "snapshot_sha256": "ef663ef7d751e61e89456703add1d3bfb497d8ef8d73e22583efd77eb02abf92"
+    },
+    {
+      "path": "snapshots/v49/training/effective_rules.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/effective_rules.json",
+      "source_sha256": "552120843e8560c2ffd00486422f2ce703a1b229e2e91c7693e5f1ee39d6bdcd",
+      "snapshot_sha256": "552120843e8560c2ffd00486422f2ce703a1b229e2e91c7693e5f1ee39d6bdcd"
+    },
+    {
+      "path": "snapshots/v49/training/development_design.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/training/development_design.json",
+      "source_sha256": "7a70759ca80220f335c98dd0e320ba241d23af4026dc42cdd0a92489e2d78413",
+      "snapshot_sha256": "d36c6088dc8f2f88f8128d42b0d67bc6e8155cd5c3959c495f96a373748b777d"
+    },
+    {
+      "path": "snapshots/v49/development/protocol_frozen.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/protocol_frozen.json",
+      "source_sha256": "709823d04aa45d9a4cec908a65abd50e9d1ce24ca167f26393f4ccc8b05745cf",
+      "snapshot_sha256": "6875d7bea9626cfa699b6a074e738a6e7e71d691946d88fce72eec09fb8f2349"
+    },
+    {
+      "path": "snapshots/v49/development/frozen_design.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/frozen_design.json",
+      "source_sha256": "7a70759ca80220f335c98dd0e320ba241d23af4026dc42cdd0a92489e2d78413",
+      "snapshot_sha256": "d36c6088dc8f2f88f8128d42b0d67bc6e8155cd5c3959c495f96a373748b777d"
+    },
+    {
+      "path": "snapshots/v49/development/amendment.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/development/amendment.json",
+      "source_sha256": "bb74e252d6a043d48fb786cf2bd21697a4dcd04f7469aed17f75adfa93ef895d",
+      "snapshot_sha256": "bb74e252d6a043d48fb786cf2bd21697a4dcd04f7469aed17f75adfa93ef895d"
+    },
+    {
+      "path": "snapshots/v49/offline/admission.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/offline/admission.json",
+      "source_sha256": "fbc788472a5f7b188b6652ea2ce13a6f3d4bacb8bbf7a04fd5a5e739c9a4430e",
+      "snapshot_sha256": "fbc788472a5f7b188b6652ea2ce13a6f3d4bacb8bbf7a04fd5a5e739c9a4430e"
+    },
+    {
+      "path": "snapshots/v49/offline/environment.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/offline/environment.json",
+      "source_sha256": "da025867a9fecb1d6620b8a2b5bedaa560035f90e30d106c12ed47146ed48dba",
+      "snapshot_sha256": "da025867a9fecb1d6620b8a2b5bedaa560035f90e30d106c12ed47146ed48dba"
+    },
+    {
+      "path": "snapshots/v49/offline/windows_admission_tests.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/offline/windows_admission_tests.json",
+      "source_sha256": "f100cb05c2d6882d540eb32f96e688867d212c1077797011f07da0c0a1148fe7",
+      "snapshot_sha256": "1f15c4179ba5b82213bf413d228a0b0ac77edaa8fd57207ba747fb931f7e646c"
+    },
+    {
+      "path": "snapshots/v49/offline/integration/admission.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/offline/integration/admission.json",
+      "source_sha256": "d399ac5de16b4325edc653971fd3ce21fc925cd3660365a1c6a2efec977db86e",
+      "snapshot_sha256": "544e88eac2dabf326e1da4be0d0ccde114bf64653fce6c0f0ab4eb662acf13a8"
+    },
+    {
+      "path": "snapshots/v49/offline/fixedpoints/admission.json",
+      "source": "@DRL_ROOT_WINDOWS@/experiments/robustness_v1_20261002/v49_active_projection/offline/fixedpoints/admission.json",
+      "source_sha256": "315e9c9cf3b1f120ea64d99bb18def63be6f9ed8999161c8a538a62a162e7f74",
+      "snapshot_sha256": "315e9c9cf3b1f120ea64d99bb18def63be6f9ed8999161c8a538a62a162e7f74"
+    },
+    {
+      "path": "scripts/v49/prepare_v49.py",
+      "source": "@WORK_SCRIPTS_WINDOWS@/prepare_v49.py",
+      "source_sha256": "4bb5400190b7dfe76a97fe75fa79d7b09f8c52fe3b590338b243754e28eefb98",
+      "snapshot_sha256": "4bb5400190b7dfe76a97fe75fa79d7b09f8c52fe3b590338b243754e28eefb98"
+    },
+    {
+      "path": "scripts/v49/freeze_v49.py",
+      "source": "@WORK_SCRIPTS_WINDOWS@/freeze_v49.py",
+      "source_sha256": "c332dd6ada5e0abc888950f914d64426160187a2cdf1600fa33528c8b2e8678c",
+      "snapshot_sha256": "c332dd6ada5e0abc888950f914d64426160187a2cdf1600fa33528c8b2e8678c"
+    },
+    {
+      "path": "scripts/v49/test_v49_integration.py",
+      "source": "@WORK_SCRIPTS_WINDOWS@/test_v49_integration.py",
+      "source_sha256": "02385e8e189c75c09af14adee394f036a39152a43d8e084e9c911578bf10c197",
+      "snapshot_sha256": "02385e8e189c75c09af14adee394f036a39152a43d8e084e9c911578bf10c197"
+    },
+    {
+      "path": "scripts/v49/test_v49_fixedpoints.py",
+      "source": "@WORK_SCRIPTS_WINDOWS@/test_v49_fixedpoints.py",
+      "source_sha256": "4e0fbdfd770d59997f140f92ef18c359ff38ddda5b36a97e4ea307ed1cbf1e1e",
+      "snapshot_sha256": "4e0fbdfd770d59997f140f92ef18c359ff38ddda5b36a97e4ea307ed1cbf1e1e"
+    },
+    {
+      "path": "scripts/v49/test_v49_contract.py",
+      "source": "@WORK_SCRIPTS_WINDOWS@/test_v49_contract.py",
+      "source_sha256": "d75a487535c354d4ee603d7637b379366d4de03b09df66e52a2f359f2f444037",
+      "snapshot_sha256": "d75a487535c354d4ee603d7637b379366d4de03b09df66e52a2f359f2f444037"
+    },
+    {
+      "path": "scripts/v49/test_v49_windows_admission.py",
+      "source": "@WORK_SCRIPTS_WINDOWS@/test_v49_windows_admission.py",
+      "source_sha256": "f0f6195d4a5c6d713b9c400d71085c66fd60b71cf10da2d562e369a4066dc06d",
+      "snapshot_sha256": "f0f6195d4a5c6d713b9c400d71085c66fd60b71cf10da2d562e369a4066dc06d"
+    },
+    {
+      "path": "scripts/v49/v49_scheduler.py",
+      "source": "@WORK_SCRIPTS_WINDOWS@/v49_scheduler.py",
+      "source_sha256": "e0847c202b2c8cf0a540500c0fa2b21a6a3e5c5144033f820dab3f5d5adaaaa6",
+      "snapshot_sha256": "e0847c202b2c8cf0a540500c0fa2b21a6a3e5c5144033f820dab3f5d5adaaaa6"
+    },
+    {
+      "path": "scripts/v49/admit_bias_projection.py",
+      "source": "@WORK_SCRIPTS_WINDOWS@/admit_bias_projection.py",
+      "source_sha256": "001afa3e5db48454fbf022140ec2725e6125cdd4d3191a094ff9417ad9d42558",
+      "snapshot_sha256": "001afa3e5db48454fbf022140ec2725e6125cdd4d3191a094ff9417ad9d42558"
+    },
+    {
+      "path": "scripts/v49/bias_projection.py",
+      "source": "@WORK_SCRIPTS_WINDOWS@/bias_projection.py",
+      "source_sha256": "e79297972b3acc67c209f6c24ff2a56ed551f9134650b1db44d862e209a317e3",
+      "snapshot_sha256": "e79297972b3acc67c209f6c24ff2a56ed551f9134650b1db44d862e209a317e3"
+    },
+    {
+      "path": "scripts/v49/bias_projection_active.py",
+      "source": "@WORK_SCRIPTS_WINDOWS@/bias_projection_active.py",
+      "source_sha256": "debd9a7a604ac124fcbf2657412b95857527306102402e4535e9cd9d899009fc",
+      "snapshot_sha256": "debd9a7a604ac124fcbf2657412b95857527306102402e4535e9cd9d899009fc"
+    },
+    {
+      "path": "scripts/v49/test_bias_projection.py",
+      "source": "@WORK_SCRIPTS_WINDOWS@/test_bias_projection.py",
+      "source_sha256": "3bcd348b0abcb250ed6fbc137edb0215f232770704dfa8e884a2bbee510850ba",
+      "snapshot_sha256": "3bcd348b0abcb250ed6fbc137edb0215f232770704dfa8e884a2bbee510850ba"
+    },
+    {
+      "path": "scripts/v49/test_bias_projection_active.py",
+      "source": "@WORK_SCRIPTS_WINDOWS@/test_bias_projection_active.py",
+      "source_sha256": "41aee0a67cd52690bcba50c2655208ce91af2c67dae9b390b2583bd5578abd4f",
+      "snapshot_sha256": "41aee0a67cd52690bcba50c2655208ce91af2c67dae9b390b2583bd5578abd4f"
+    }
+  ],
+  "source_stable": true,
+  "path_tokens_and_LF_only": true,
+  "native_sync2_unchanged": true,
+  "external_native_source_mapping": "snapshots/v48/native_sync2/source_object_binary_mapping.json",
+  "excluded": [
+    "models",
+    "checkpoints",
+    "raw captures",
+    "canonical ledgers",
+    "credentials"
+  ]
+}

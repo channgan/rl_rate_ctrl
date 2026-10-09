@@ -23,3 +23,6 @@ paths.private.json
 # Reviewed portable configuration templates, not live runtime files
 !snapshots/v48/backtracking_revision3/training/templates/runtime*.json
 !snapshots/v48/backtracking_revision3/development/templates/runtime*.json
+
+!snapshots/v49/training/templates/runtime*.json
+!snapshots/v49/development/templates/runtime*.json

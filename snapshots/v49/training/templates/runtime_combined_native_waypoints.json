@@ -1,0 +1,26 @@
+{
+  "px4": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/runtime_package/px4_root",
+  "runtime": "@LINUX_HOME@/rl_rate",
+  "px4_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+  "mode": "free_flight",
+  "world": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/expanded_suite_v3/combined_mass_lag/worlds/rate_training.sdf",
+  "models": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/expanded_suite_v3/combined_mass_lag/models",
+  "plugin_dir": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/runtime_package/plugins",
+  "max_rotor_rad_s": 1000.0,
+  "mass_kg": 2.0643076923076915,
+  "thrust_coefficient": 8.54858e-06,
+  "gravity_m_s2": 9.8,
+  "snapshot_version": 2,
+  "rotor_slowdown": 10.0,
+  "control_dt_s": 0.001,
+  "physics_dt_s": 0.001,
+  "hover_speed_fraction": 0.7691716478284414,
+  "hover_thrust_fraction": 0.5916250238231199,
+  "gyro_noise": {
+    "location": "Gazebo IMU before PX4",
+    "white_stddev_rad_s": 0.0017453292,
+    "bias_walk_rad_s_per_sqrt_s": 0.0002,
+    "initial_bias_rad_s": 0,
+    "note": "Engineering defaults, not measured board calibration; walk runs during simulator warmup too"
+  }
+}

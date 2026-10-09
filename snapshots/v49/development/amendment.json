@@ -1,0 +1,11 @@
+{
+  "version": "V49",
+  "only_algorithm_change": "cost and original bias intersection active-set SVD",
+  "same_sync2_native_and_locked_PID": true,
+  "development_seeds": [
+    490301,
+    490302
+  ],
+  "frozen_before_training": true,
+  "original_metrics_and_first3_unchanged": true
+}

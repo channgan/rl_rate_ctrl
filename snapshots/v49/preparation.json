@@ -1,0 +1,9 @@
+{
+  "prepared": true,
+  "native_calls": 0,
+  "formal_updates": 0,
+  "root": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v49_active_projection",
+  "source_baseline_commit": "0d299fc56d38f96c6ab4856ac0a8446c4c3dd59b",
+  "offline_admission_pending": true,
+  "remote_commit_required_before_launch": true
+}

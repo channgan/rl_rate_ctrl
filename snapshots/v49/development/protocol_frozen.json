@@ -1,0 +1,485 @@
+{
+  "authorized": true,
+  "phase": "development",
+  "native_limit": 2700000,
+  "canonical_ledger": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v49_active_projection/development/ledger.json",
+  "training_ledger": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v49_active_projection/training/ledger.json",
+  "training_complete": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v49_active_projection/training/training_complete.json",
+  "validation_complete": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/sync_execution/validation_complete.json",
+  "jobs": [
+    {
+      "id": "dev_01",
+      "phase": "development",
+      "case": "hover_hold",
+      "seed": 490301,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_02",
+      "phase": "development",
+      "case": "hover_hold",
+      "seed": 490301,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_03",
+      "phase": "development",
+      "case": "hover_hold",
+      "seed": 490301,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_04",
+      "phase": "development",
+      "case": "hover_hold",
+      "seed": 490302,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_05",
+      "phase": "development",
+      "case": "hover_hold",
+      "seed": 490302,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_06",
+      "phase": "development",
+      "case": "hover_hold",
+      "seed": 490302,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_07",
+      "phase": "development",
+      "case": "hover_transition",
+      "seed": 490301,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_08",
+      "phase": "development",
+      "case": "hover_transition",
+      "seed": 490301,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_09",
+      "phase": "development",
+      "case": "hover_transition",
+      "seed": 490301,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_10",
+      "phase": "development",
+      "case": "hover_transition",
+      "seed": 490302,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_11",
+      "phase": "development",
+      "case": "hover_transition",
+      "seed": 490302,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_12",
+      "phase": "development",
+      "case": "hover_transition",
+      "seed": 490302,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_13",
+      "phase": "development",
+      "case": "waypoints",
+      "seed": 490301,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_14",
+      "phase": "development",
+      "case": "waypoints",
+      "seed": 490301,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_15",
+      "phase": "development",
+      "case": "waypoints",
+      "seed": 490301,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_16",
+      "phase": "development",
+      "case": "waypoints",
+      "seed": 490302,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_17",
+      "phase": "development",
+      "case": "waypoints",
+      "seed": 490302,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_18",
+      "phase": "development",
+      "case": "waypoints",
+      "seed": 490302,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_19",
+      "phase": "development",
+      "case": "combined_native_waypoints",
+      "seed": 490301,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_20",
+      "phase": "development",
+      "case": "combined_native_waypoints",
+      "seed": 490301,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_21",
+      "phase": "development",
+      "case": "combined_native_waypoints",
+      "seed": 490301,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_22",
+      "phase": "development",
+      "case": "combined_native_waypoints",
+      "seed": 490302,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_23",
+      "phase": "development",
+      "case": "combined_native_waypoints",
+      "seed": 490302,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_24",
+      "phase": "development",
+      "case": "combined_native_waypoints",
+      "seed": 490302,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_25",
+      "phase": "development",
+      "case": "noise200_hover_hold",
+      "seed": 490301,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_26",
+      "phase": "development",
+      "case": "noise200_hover_hold",
+      "seed": 490301,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_27",
+      "phase": "development",
+      "case": "noise200_hover_hold",
+      "seed": 490301,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_28",
+      "phase": "development",
+      "case": "noise200_hover_hold",
+      "seed": 490302,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_29",
+      "phase": "development",
+      "case": "noise200_hover_hold",
+      "seed": 490302,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_30",
+      "phase": "development",
+      "case": "noise200_hover_hold",
+      "seed": 490302,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_31",
+      "phase": "development",
+      "case": "low_x_050_goal100",
+      "seed": 490301,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_32",
+      "phase": "development",
+      "case": "low_x_050_goal100",
+      "seed": 490301,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_33",
+      "phase": "development",
+      "case": "low_x_050_goal100",
+      "seed": 490301,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_34",
+      "phase": "development",
+      "case": "low_x_050_goal100",
+      "seed": 490302,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_35",
+      "phase": "development",
+      "case": "low_x_050_goal100",
+      "seed": 490302,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_36",
+      "phase": "development",
+      "case": "low_x_050_goal100",
+      "seed": 490302,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_37",
+      "phase": "development",
+      "case": "low_y_025_goal100",
+      "seed": 490301,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_38",
+      "phase": "development",
+      "case": "low_y_025_goal100",
+      "seed": 490301,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_39",
+      "phase": "development",
+      "case": "low_y_025_goal100",
+      "seed": 490301,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_40",
+      "phase": "development",
+      "case": "low_y_025_goal100",
+      "seed": 490302,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_41",
+      "phase": "development",
+      "case": "low_y_025_goal100",
+      "seed": 490302,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_42",
+      "phase": "development",
+      "case": "low_y_025_goal100",
+      "seed": 490302,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_43",
+      "phase": "development",
+      "case": "lateral_plus_goal100",
+      "seed": 490301,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_44",
+      "phase": "development",
+      "case": "lateral_plus_goal100",
+      "seed": 490301,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_45",
+      "phase": "development",
+      "case": "lateral_plus_goal100",
+      "seed": 490301,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_46",
+      "phase": "development",
+      "case": "lateral_plus_goal100",
+      "seed": 490302,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_47",
+      "phase": "development",
+      "case": "lateral_plus_goal100",
+      "seed": 490302,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_48",
+      "phase": "development",
+      "case": "lateral_plus_goal100",
+      "seed": 490302,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_49",
+      "phase": "development",
+      "case": "lateral_minus_goal100",
+      "seed": 490301,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_50",
+      "phase": "development",
+      "case": "lateral_minus_goal100",
+      "seed": 490301,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_51",
+      "phase": "development",
+      "case": "lateral_minus_goal100",
+      "seed": 490301,
+      "label": "candidate",
+      "cap": 47000
+    },
+    {
+      "id": "dev_52",
+      "phase": "development",
+      "case": "lateral_minus_goal100",
+      "seed": 490302,
+      "label": "pid",
+      "cap": 56000
+    },
+    {
+      "id": "dev_53",
+      "phase": "development",
+      "case": "lateral_minus_goal100",
+      "seed": 490302,
+      "label": "A",
+      "cap": 47000
+    },
+    {
+      "id": "dev_54",
+      "phase": "development",
+      "case": "lateral_minus_goal100",
+      "seed": 490302,
+      "label": "candidate",
+      "cap": 47000
+    }
+  ],
+  "actors": {
+    "pid": {
+      "npz": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_roll_smooth_v44/initial_actor.npz",
+      "binary": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_roll_smooth_v44/initial_full_actor.bin",
+      "model_id": 2428576135
+    },
+    "A": {
+      "npz": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_roll_smooth_v44/initial_actor.npz",
+      "binary": "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_roll_smooth_v44/initial_full_actor.bin",
+      "model_id": 2428576135
+    }
+  },
+  "actor_sha256": {
+    "pid": "0bdfed33c8a2ab7ae5901d522f8c493184924c633c25e4ad129d5da4f8c24f1e",
+    "A": "0bdfed33c8a2ab7ae5901d522f8c493184924c633c25e4ad129d5da4f8c24f1e"
+  },
+  "sync_runtime_id": "v49-active-projection-same-sync2",
+  "runtime_sha256": {
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/runtime_package/px4_root/build/px4_sitl_default/bin/px4": "6bf92a950c87f04668e5d313100876a83be1b57236df2ee4c007f53313dd025e",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/runtime_package/plugins/libimu_random_walk_system.so": "64a7aa61c62e748bfb58dced10d339c48cdf3932f8d60cad1bb13855887f56e1",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/native_fresh_batch_rp_v47/synchronization_offline_revision2/runtime_package/plugins/librate_training_system.so": "16faecad2cbe2d587f4a0b663a656a715db0ffd7b91eceb9007eb2801d672ed1"
+  },
+  "promotion_allowed": false,
+  "exploration_std": 0,
+  "heldout_unused": [
+    12701,
+    12702
+  ],
+  "final_update40_only": true,
+  "no_automatic_retry": true,
+  "candidate_binding": "only verified final40 pending",
+  "prepared_python_sha256": {
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/audit_development.py": "1c267b11ae45a89ad049701ece8a03cdf93686edf10d5b49d8232f01eeaee831",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/batch_driver.py": "4dbae6974b8365ddff797acb2e10f1edf69b1208e743dc3e317ae0b306e208d0",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/local_guards.py": "a31eebe09c26bf3f56fa8f06df7fe5e3d966c34b36b491f9a3c07894220abb4b",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/native_case.py": "e7dc9bfcee3afc46cd9b8e614a7407b32fe76c59e9590b4594eefa40aa3b4257",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/review54.py": "44de721dc17186ddd70a8ad15309558290dc09d00003562e2de611781d8fba92",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/runtime_support.py": "2fa917676dc3222640a707d2351f12234fb91c998a203ab3f4f917c735a7d045",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/sync_trace_audit.py": "e8a36474f62504770cfa25feb3312dc98d3c7f6b7b04e221577fb7cc10a66d2b",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/v46_training_entry.py": "8f28a31285b392159a66427afa7c41bb84872726614ac8ab210f4062051c0859",
+    "@DRL_ROOT_LINUX@/experiments/robustness_v1_20261002/v49_active_projection/development/runtime/windows_holder.py": "599a8dae962c1036fdf9dea5361233d6e647d427f94f251fe46c0af4e8812674"
+  }
+}
